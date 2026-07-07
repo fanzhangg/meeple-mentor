@@ -1,0 +1,12 @@
+{
+  "name": "board-game-rule-instructor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "extract:huang": "python scripts/extract_pdf.py \"C:\\Users\\fzhan\\workspace\\board-game-rule-instructor\\GameRulesPDF\\Huang-Rules.pdf\" content/games/huang",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js"
+  }
+}

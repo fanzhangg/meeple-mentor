@@ -1,0 +1,283 @@
+{
+    "metadata":  {
+                     "slug":  "huang",
+                     "title":  "HUANG",
+                     "subtitle":  "Unite China under your banner, quash your enemies, and claim the Emperor\u0027s throne!",
+                     "description":  "Lead an ancient China kingdom dreaming of imperial power, establish new states, build pagodas, strive for influence, and battle to unite the country under your glorious dynasty.",
+                     "players":  "2-4",
+                     "minPlayers":  2,
+                     "maxPlayers":  4,
+                     "bestPlayers":  [
+                                         "4"
+                                     ],
+                     "recommendedPlayers":  [
+                                                "2-4"
+                                            ],
+                     "playTime":  "90 min",
+                     "minPlayTime":  90,
+                     "maxPlayTime":  90,
+                     "age":  "14+",
+                     "communityAge":  "12+",
+                     "complexity":  "Medium-heavy",
+                     "yearPublished":  2024,
+                     "designers":  [
+                                       "Reiner Knizia"
+                                   ],
+                     "artists":  [
+                                     "Bartek Jedrzejewski"
+                                 ],
+                     "publishers":  [
+                                        "PHALANX"
+                                    ],
+                     "categories":  [
+                                        "Ancient",
+                                        "Civilization",
+                                        "Territory Building"
+                                    ],
+                     "mechanisms":  [
+                                        "Area Majority / Influence",
+                                        "Hand Management",
+                                        "Hexagon Grid",
+                                        "Hidden Victory Points",
+                                        "Highest-Lowest Scoring"
+                                    ],
+                     "families":  [
+                                      "Animals: Goats",
+                                      "Animals: Rabbits / Hares",
+                                      "Animals: Rats",
+                                      "Animals: Tigers",
+                                      "Components: Map (Regional scale)",
+                                      "Country: China"
+                                  ],
+                     "reimplements":  [
+                                          "Tigris \u0026 Euphrates",
+                                          "Yellow \u0026 Yangtze"
+                                      ],
+                     "languageDependence":  "No necessary in-game text",
+                     "thumbnail":  "game-assets/huang/cover-art.png",
+                     "bgg":  {
+                                 "id":  371688,
+                                 "url":  "https://boardgamegeek.com/boardgame/371688/huang",
+                                 "rank":  1851,
+                                 "strategyRank":  890,
+                                 "averageRating":  7.9,
+                                 "ratingsLabel":  "1.2K Ratings \u0026 313 Comments",
+                                 "weight":  3.02,
+                                 "weightScale":  5,
+                                 "itemId":  371688
+                             },
+                     "sourceNote":  "Rule text is generated from the provided HUANG rules PDF and should be reviewed before being treated as canonical. Board game metadata is from the saved BoardGameGeek page PDF/HTML in GameRulesPDF/huang.",
+                     "canonicalRuleFile":  "clean.md"
+                 },
+    "lesson":  {
+                   "title":  "Learn HUANG",
+                   "audience":  "Casual players learning before game night",
+                   "overview":  "HUANG is a tile-placement and conflict game about building states, placing dynasty leaders, earning colored victory points, and managing conflicts when same-colored leaders meet.",
+                   "goal":  "Win by building a balanced dynasty. Your final score depends on your weakest victory point color, so do not over-focus on only one color.",
+                   "steps":  [
+                                 {
+                                     "id":  "big-picture",
+                                     "title":  "The Big Picture",
+                                     "summary":  "Players use leaders and tiles to create states on the map. Leaders earn victory points when matching tiles are placed in their state.",
+                                     "check":  {
+                                                   "prompt":  "What is a state in HUANG?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "One or more linked tiles with at least one linked leader",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "Any three tiles of the same color",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "A group of leaders with no tiles",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Only the marked capital spaces",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "A state is one or more linked tiles plus at least one linked leader."
+                                               }
+                                 },
+                                 {
+                                     "id":  "setup",
+                                     "title":  "Set Up the Board",
+                                     "summary":  "Prepare the board, starting Governor tiles, pagodas, victory points, unification marker, player screens, leaders, tile bag, player hands, and market.",
+                                     "check":  {
+                                                   "prompt":  "How many tiles does each player draw behind their screen during setup?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "4 tiles",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "5 tiles",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "6 tiles",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "7 tiles",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "Each player draws 6 tiles and keeps them hidden behind their screen."
+                                               }
+                                 },
+                                 {
+                                     "id":  "turns",
+                                     "title":  "Take Two Actions",
+                                     "summary":  "On your turn, resolve two actions. You may choose two different actions or repeat the same action.",
+                                     "check":  {
+                                                   "prompt":  "On your turn, how many actions do you resolve?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "One action",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Two actions",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "Three actions",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "As many actions as you can pay for",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "Each turn has exactly 2 actions, and you may repeat the same action."
+                                               }
+                                 },
+                                 {
+                                     "id":  "leaders",
+                                     "title":  "Use Leaders Carefully",
+                                     "summary":  "A leader can be placed, repositioned, or withdrawn. Leaders must be placed on empty non-river spaces adjacent to a yellow Governor tile.",
+                                     "check":  {
+                                                   "prompt":  "Where can you place or reposition a leader?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "On any river space",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "On an empty non-river space adjacent to a yellow Governor tile",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "On top of a matching tile",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Anywhere inside an opponent\u0027s state",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "A leader must go on an empty non-river space adjacent to a yellow Governor tile."
+                                               }
+                                 },
+                                 {
+                                     "id":  "tiles",
+                                     "title":  "Place Tiles for Points",
+                                     "summary":  "Tiles expand states and can score points for matching leaders. Some placements can unite states and trigger conflicts.",
+                                     "check":  {
+                                                   "prompt":  "When does placing a tile usually score a victory point?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "When it is placed in a state with a same-colored leader",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "Whenever it touches any empty space",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Only when it is placed in the market",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Only when it causes a conflict",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "A tile usually scores when it is placed in a state containing a leader of the same color."
+                                               }
+                                 },
+                                 {
+                                     "id":  "conflicts",
+                                     "title":  "Resolve Conflicts",
+                                     "summary":  "Conflicts happen when a state contains two leaders of the same color. The rules distinguish peaceful states from states with same-colored leader conflict.",
+                                     "check":  {
+                                                   "prompt":  "What causes a conflict?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "Two leaders of the same color are in one state",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "A state has no pagoda",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "A player has fewer than six tiles",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "A blue tile is placed on a river",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "A conflict happens when one state contains two like-colored leaders."
+                                               }
+                                 },
+                                 {
+                                     "id":  "endgame",
+                                     "title":  "Think in Five Colors",
+                                     "summary":  "HUANG rewards balanced scoring across colors. Watch your weakest color and use leader and tile choices to shore it up.",
+                                     "check":  {
+                                                   "prompt":  "How is your final score determined?",
+                                                   "options":  [
+                                                                   {
+                                                                       "text":  "Use your highest color score",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Add all colors together",
+                                                                       "correct":  false
+                                                                   },
+                                                                   {
+                                                                       "text":  "Use your lowest score among yellow, red, blue, and green after assigning white points",
+                                                                       "correct":  true
+                                                                   },
+                                                                   {
+                                                                       "text":  "Count only white victory points",
+                                                                       "correct":  false
+                                                                   }
+                                                               ],
+                                                   "explanation":  "After assigning white points, your final score is your lowest total among yellow, red, blue, and green."
+                                               }
+                                 }
+                             ],
+                   "quiz":  [
+                                {
+                                    "question":  "How many actions must you resolve on your turn?",
+                                    "answer":  "Two actions."
+                                },
+                                {
+                                    "question":  "What are the five action families listed in the rules?",
+                                    "answer":  "Position a leader, place a tile, discard two blue Farmer tiles for a peasants\u0027 riot, discard two green Trader tiles to establish a pagoda, or replace up to six tiles."
+                                },
+                                {
+                                    "question":  "What should the tutor do if a question is not answered by the reviewed rules?",
+                                    "answer":  "Say that the provided rules do not specify the answer."
+                                }
+                            ]
+               }
+}

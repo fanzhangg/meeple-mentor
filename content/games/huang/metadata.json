@@ -1,0 +1,70 @@
+{
+  "slug": "huang",
+  "title": "HUANG",
+  "subtitle": "Unite China under your banner, quash your enemies, and claim the Emperor's throne!",
+  "description": "Lead an ancient China kingdom dreaming of imperial power, establish new states, build pagodas, strive for influence, and battle to unite the country under your glorious dynasty.",
+  "players": "2-4",
+  "minPlayers": 2,
+  "maxPlayers": 4,
+  "bestPlayers": [
+    "4"
+  ],
+  "recommendedPlayers": [
+    "2-4"
+  ],
+  "playTime": "90 min",
+  "minPlayTime": 90,
+  "maxPlayTime": 90,
+  "age": "14+",
+  "communityAge": "12+",
+  "complexity": "Medium-heavy",
+  "yearPublished": 2024,
+  "designers": [
+    "Reiner Knizia"
+  ],
+  "artists": [
+    "Bartek Jedrzejewski"
+  ],
+  "publishers": [
+    "PHALANX"
+  ],
+  "categories": [
+    "Ancient",
+    "Civilization",
+    "Territory Building"
+  ],
+  "mechanisms": [
+    "Area Majority / Influence",
+    "Hand Management",
+    "Hexagon Grid",
+    "Hidden Victory Points",
+    "Highest-Lowest Scoring"
+  ],
+  "families": [
+    "Animals: Goats",
+    "Animals: Rabbits / Hares",
+    "Animals: Rats",
+    "Animals: Tigers",
+    "Components: Map (Regional scale)",
+    "Country: China"
+  ],
+  "reimplements": [
+    "Tigris & Euphrates",
+    "Yellow & Yangtze"
+  ],
+  "languageDependence": "No necessary in-game text",
+  "thumbnail": "/game-assets/huang/cover-art.png",
+  "bgg": {
+    "id": 371688,
+    "url": "https://boardgamegeek.com/boardgame/371688/huang",
+    "rank": 1851,
+    "strategyRank": 890,
+    "averageRating": 7.9,
+    "ratingsLabel": "1.2K Ratings & 313 Comments",
+    "weight": 3.02,
+    "weightScale": 5,
+    "itemId": 371688
+  },
+  "sourceNote": "Rule text is generated from the provided HUANG rules PDF and should be reviewed before being treated as canonical. Board game metadata is from the saved BoardGameGeek page PDF/HTML in GameRulesPDF/huang.",
+  "canonicalRuleFile": "clean.md"
+}

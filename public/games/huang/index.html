@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HUANG | Meeple Mentor</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body class="game-page">
+    <main class="game-shell">
+      <div class="game-top-bar">
+        <a class="home-link" id="home-link" href="../../">&lt; All games</a>
+        <div id="language-menu"></div>
+      </div>
+
+      <header class="game-hero-compact">
+        <img id="game-cover" class="game-cover-compact" alt="HUANG board game cover" />
+        <div class="game-hero-body">
+          <div class="game-title-row">
+            <div>
+              <h1><span id="game-title">HUANG</span> <small id="game-year"></small></h1>
+              <p id="game-subtitle" class="game-tagline">Loading game...</p>
+            </div>
+          </div>
+          <div class="credit-lines" id="game-credits"></div>
+          <p class="mechanism-line"><strong id="mechanism-label">Mechanism:</strong> <span id="game-mechanism"></span></p>
+        </div>
+      </header>
+
+      <div class="mobile-tabs" role="tablist" aria-label="HUANG page views">
+        <button class="active" id="rules-tab" type="button" data-tab="summary">Rules</button>
+        <button id="ask-tab" type="button" data-tab="chat">Ask</button>
+      </div>
+
+      <section class="game-workspace">
+        <article class="rule-panel active" id="summary-panel" data-panel="summary">
+          <aside class="rule-menu" aria-label="Rule summary sections">
+            <p class="eyebrow" id="rule-summary-label">Rule summary</p>
+            <nav id="lesson-nav"></nav>
+          </aside>
+          <div class="rule-article">
+            <h2 id="rule-article-title">How HUANG Works</h2>
+            <p id="lesson-overview" class="article-lead"></p>
+            <div id="lesson-sections"></div>
+          </div>
+        </article>
+
+        <aside class="chat-panel game-chat" id="chat-panel" data-panel="chat">
+          <div class="chat-heading">
+            <p class="eyebrow" id="chat-eyebrow">Rules Q&amp;A</p>
+            <h2 id="chat-title">Ask while you play</h2>
+          </div>
+          <div id="chat-log" class="chat-log" aria-live="polite"></div>
+          <form id="chat-form" class="chat-form">
+            <input
+              id="question"
+              name="question"
+              autocomplete="off"
+              placeholder="Ask about setup, turns, leaders, scoring..."
+            />
+            <button id="ask-button" type="submit" title="Ask tutor">Ask</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>
