@@ -322,13 +322,12 @@ async function handleApi(req, res) {
     const directAnswer = directTutorAnswer(payload.question, game, language);
 
     try {
-      const answer = directAnswer ||
-        (await callOpenAI({ question: payload.question, game, context, language })) ||
-        localTutorFallback(payload.question, matchedSections, game, language);
+      const modelAnswer = directAnswer ? "" : await callOpenAI({ question: payload.question, game, context, language });
+      const answer = directAnswer || modelAnswer || localTutorFallback(payload.question, matchedSections, game, language);
       return json(res, 200, {
         answer,
         sections: matchedSections.map((section) => ({ id: section.id, title: section.title })),
-        usedModel: hasUsableOpenAiKey(process.env.OPENAI_API_KEY),
+        usedModel: Boolean(modelAnswer),
       });
     } catch (error) {
       return json(res, 502, { error: error.message });
