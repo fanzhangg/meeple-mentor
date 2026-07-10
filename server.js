@@ -124,8 +124,63 @@ function lessonContext(game) {
   ].join("\n");
 }
 
+function gameContext(game) {
+  const metadata = game.metadata;
+  return [
+    `Title: ${metadata.title}`,
+    `Players: ${metadata.players || [metadata.minPlayers, metadata.maxPlayers].filter(Boolean).join("-")}`,
+    `Play time: ${metadata.playTime || ""}`,
+    `Age: ${metadata.age || ""}`,
+    `Complexity: ${metadata.complexity || ""}`,
+    `Designer: ${metadata.designers?.join(", ") || ""}`,
+    `Artist: ${metadata.artists?.join(", ") || ""}`,
+    `Publisher: ${metadata.publishers?.join(", ") || ""}`,
+    `Description: ${metadata.description || metadata.subtitle || ""}`,
+  ].filter((line) => !line.endsWith(": ")).join("\n");
+}
+
 function hasUsableOpenAiKey(apiKey) {
   return typeof apiKey === "string" && apiKey.startsWith("sk-") && apiKey !== "sk-your-api-key-here";
+}
+
+function directTutorAnswer(question, game, language = "en") {
+  const lowerQuestion = question.toLowerCase();
+  const metadata = game.metadata;
+  const asksHowToPlay = /怎么玩|玩法|规则|教我|how.*play|learn|teach/.test(lowerQuestion);
+  const asksPlayers = /几个人|多少人|玩家人数|人数|players?|player count/.test(lowerQuestion);
+  const asksDesigner = /谁.*设计|设计师|designer|designed by|who designed/.test(lowerQuestion);
+  const asksPlayTime = /多久|时长|时间|play ?time|duration|how long/.test(lowerQuestion);
+  const asksPublisher = /出版|发行|publisher|published by/.test(lowerQuestion);
+
+  if (language === "zh") {
+    if (asksHowToPlay) {
+      return [
+        `${metadata.title} 的核心是用领袖和版块建立“国家”，通过放置版块和控制领袖获得不同颜色的胜利点。`,
+        "每回合你必须执行 2 个行动，可以选不同行动，也可以重复同一个行动。",
+        "常见行动包括调整领袖、放置版块、用蓝色农夫版块发动农民暴动、用绿色商人版块建立宝塔、或更换手牌。",
+        "如果一个国家里出现两个同色领袖，就会发生冲突。",
+        "获胜关键是均衡得分，因为最终看的是黄色、红色、蓝色、绿色中最低的那一项；白色胜利点可以当作任意颜色补足。",
+      ].join(" ");
+    }
+    if (asksPlayers && metadata.players) return `${metadata.title} 支持 ${metadata.players} 人游玩。`;
+    if (asksDesigner && metadata.designers?.length) return `${metadata.title} 的设计师是 ${metadata.designers.join(", ")}。`;
+    if (asksPlayTime && metadata.playTime) return `${metadata.title} 的游戏时长大约是 ${metadata.playTime}。`;
+    if (asksPublisher && metadata.publishers?.length) return `${metadata.title} 的出版商是 ${metadata.publishers.join(", ")}。`;
+    return "";
+  }
+
+  if (asksHowToPlay) {
+    return [
+      `${metadata.title} is about building states with leaders and tiles, scoring victory points in several colors, and staying balanced because your weakest color determines your final score.`,
+      "On your turn, take two actions: position a leader, place a tile, start a peasants' riot with blue Farmer tiles, establish a pagoda with green Trader tiles, or replace up to six tiles.",
+      "Leaders score when matching tiles are placed in their state, and conflicts happen when same-colored leaders end up in one state.",
+    ].join(" ");
+  }
+  if (asksPlayers && metadata.players) return `${metadata.title} plays ${metadata.players} players.`;
+  if (asksDesigner && metadata.designers?.length) return `${metadata.title} was designed by ${metadata.designers.join(", ")}.`;
+  if (asksPlayTime && metadata.playTime) return `${metadata.title} takes about ${metadata.playTime}.`;
+  if (asksPublisher && metadata.publishers?.length) return `${metadata.title} is published by ${metadata.publishers.join(", ")}.`;
+  return "";
 }
 
 async function callOpenAI({ question, game, context, language = "en" }) {
@@ -141,9 +196,13 @@ async function callOpenAI({ question, game, context, language = "en" }) {
     "Be concise, concrete, and friendly. Include relevant section names when useful.",
     `Answer in ${responseLanguage}.`,
     "",
-    "Reviewed rule context:",
+    "Game metadata:",
+    gameContext(game),
+    "",
+    "Curated teaching context from reviewed rules:",
     lessonContext(game),
     "",
+    "Reviewed rule excerpts:",
     context,
     "",
     `Learner question: ${question}`,
@@ -177,37 +236,23 @@ async function callOpenAI({ question, game, context, language = "en" }) {
 
 function localTutorFallback(question, matchedSections, game, language = "en") {
   const lowerQuestion = question.toLowerCase();
-  let directAnswer = "";
-  const asksHowToPlay = /怎么玩|玩法|规则|教我|how.*play|learn|teach/.test(lowerQuestion);
-  if (asksHowToPlay) {
-    directAnswer = [
-      `${game.metadata.title} is about building states with leaders and tiles, scoring victory points in several colors, and staying balanced because your weakest color determines your final score.`,
-      "On your turn, take two actions: position a leader, place a tile, start a peasants' riot with blue Farmer tiles, establish a pagoda with green Trader tiles, or replace up to six tiles.",
-      "Leaders score when matching tiles are placed in their state, and conflicts happen when same-colored leaders end up in one state.",
-    ].join(" ");
-  } else if (lowerQuestion.includes("how many") && lowerQuestion.includes("action")) {
+  let directAnswer = directTutorAnswer(question, game, language);
+  if (!directAnswer && lowerQuestion.includes("how many") && lowerQuestion.includes("action")) {
     directAnswer = "You resolve two actions on your turn. The rules say you may choose two different actions or take the same action twice.";
-  } else if (lowerQuestion.includes("same action") || lowerQuestion.includes("twice")) {
+  } else if (!directAnswer && (lowerQuestion.includes("same action") || lowerQuestion.includes("twice"))) {
     directAnswer = "Yes. On your turn, you may choose two different actions or the same action twice.";
-  } else if (lowerQuestion.includes("win") || lowerQuestion.includes("winner")) {
+  } else if (!directAnswer && (lowerQuestion.includes("win") || lowerQuestion.includes("winner"))) {
     directAnswer = game.lesson.goal;
-  } else if (lowerQuestion.includes("setup") || lowerQuestion.includes("start")) {
+  } else if (!directAnswer && (lowerQuestion.includes("setup") || lowerQuestion.includes("start"))) {
     directAnswer = "Set up the board, starting Governor tiles, pagodas, victory point markers, unification marker, player screens, leaders, tile bag, player hands, and market.";
   }
 
   if (language === "zh") {
-    if (asksHowToPlay) {
-      directAnswer = [
-        `${game.metadata.title} 的核心是用领袖和版块建立“国家”，通过放置版块和控制领袖获得不同颜色的胜利点。`,
-        "每回合你必须执行 2 个行动，可以选不同行动，也可以重复同一个行动。",
-        "常见行动包括调整领袖、放置版块、用蓝色农夫版块发动农民暴动、用绿色商人版块建立宝塔、或更换手牌。",
-        "获胜关键是均衡得分，因为最终看的是你黄色、红色、蓝色、绿色中最低的那一项，白色分数可以当作任意颜色补足。",
-      ].join(" ");
-    } else if (lowerQuestion.includes("action") || lowerQuestion.includes("行动")) {
+    if (!directAnswer && (lowerQuestion.includes("action") || lowerQuestion.includes("行动"))) {
       directAnswer = "你的回合要执行两个行动。可以选择两个不同的行动，也可以重复同一个行动。";
-    } else if (lowerQuestion.includes("win") || lowerQuestion.includes("winner") || lowerQuestion.includes("获胜") || lowerQuestion.includes("赢")) {
+    } else if (!directAnswer && (lowerQuestion.includes("win") || lowerQuestion.includes("winner") || lowerQuestion.includes("获胜") || lowerQuestion.includes("赢"))) {
       directAnswer = "最终分数取决于你最低的胜利点颜色，所以要让王朝在各颜色上保持均衡。";
-    } else if (lowerQuestion.includes("setup") || lowerQuestion.includes("start") || lowerQuestion.includes("设置") || lowerQuestion.includes("开始")) {
+    } else if (!directAnswer && (lowerQuestion.includes("setup") || lowerQuestion.includes("start") || lowerQuestion.includes("设置") || lowerQuestion.includes("开始"))) {
       directAnswer = "设置游戏版图、起始总督版块、宝塔、胜利点标记、统一标记、玩家屏风、领袖、版块袋、玩家手牌和市场。";
     }
   }
@@ -274,9 +319,11 @@ async function handleApi(req, res) {
       .map((section) => `## ${section.title}\n${section.content}`)
       .join("\n\n")
       .slice(0, 12000);
+    const directAnswer = directTutorAnswer(payload.question, game, language);
 
     try {
-      const answer = (await callOpenAI({ question: payload.question, game, context, language })) ||
+      const answer = directAnswer ||
+        (await callOpenAI({ question: payload.question, game, context, language })) ||
         localTutorFallback(payload.question, matchedSections, game, language);
       return json(res, 200, {
         answer,
