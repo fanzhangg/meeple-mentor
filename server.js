@@ -71,18 +71,33 @@ async function loadGame(slug) {
 }
 
 function keywords(text) {
-  return new Set(
-    text
+  const normalized = text
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, " ")
       .split(/\s+/)
-      .filter((word) => word.length > 3)
-  );
+      .filter((word) => word.length > 3);
+  const source = text.toLowerCase();
+  const aliases = [];
+  if (/怎么玩|玩法|规则|教我|play|learn|teach/.test(source)) {
+    aliases.push("play", "goal", "setup", "turn", "action", "leader", "tile", "state", "conflict", "winner");
+  }
+  if (/行动|动作|action/.test(source)) aliases.push("action", "turn");
+  if (/获胜|赢|胜利|winner|win|score/.test(source)) aliases.push("winner", "victory", "score", "goal");
+  if (/设置|准备|开局|setup|start/.test(source)) aliases.push("setup", "board", "draw");
+  if (/领袖|leader/.test(source)) aliases.push("leader", "positioning");
+  if (/版块|板块|tile/.test(source)) aliases.push("tile", "place");
+  if (/冲突|战争|叛乱|conflict|war|revolt/.test(source)) aliases.push("conflict", "war", "revolt");
+  return new Set([...normalized, ...aliases]);
 }
 
 function findRelevantSections(question, sections, limit = 4) {
   const terms = keywords(question);
-  const scored = sections.map((section) => {
+  const ruleSections = sections.filter((section) => {
+    const content = section.content.toLowerCase();
+    return !["introduction", "review-notes", "source"].includes(section.id) &&
+      !content.includes("no selectable text extracted");
+  });
+  const scored = ruleSections.map((section) => {
     const haystack = `${section.title} ${section.content}`.toLowerCase();
     let score = 0;
     for (const term of terms) {
@@ -91,12 +106,31 @@ function findRelevantSections(question, sections, limit = 4) {
     return { ...section, score };
   });
   const matches = scored.filter((section) => section.score > 0).sort((a, b) => b.score - a.score);
-  return (matches.length ? matches : sections.slice(0, limit)).slice(0, limit);
+  return (matches.length ? matches : ruleSections.slice(0, limit)).slice(0, limit);
+}
+
+function lessonContext(game) {
+  const steps = game.lesson.steps
+    .map((step) => `- ${step.title}: ${step.summary}`)
+    .join("\n");
+  return [
+    `# ${game.lesson.title}`,
+    game.lesson.overview,
+    "",
+    `Goal: ${game.lesson.goal}`,
+    "",
+    "Teaching outline from reviewed rules:",
+    steps,
+  ].join("\n");
+}
+
+function hasUsableOpenAiKey(apiKey) {
+  return typeof apiKey === "string" && apiKey.startsWith("sk-") && apiKey !== "sk-your-api-key-here";
 }
 
 async function callOpenAI({ question, game, context, language = "en" }) {
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) return null;
+  if (!hasUsableOpenAiKey(apiKey)) return null;
 
   const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
   const responseLanguage = language === "zh" ? "Simplified Chinese" : "English";
@@ -108,6 +142,8 @@ async function callOpenAI({ question, game, context, language = "en" }) {
     `Answer in ${responseLanguage}.`,
     "",
     "Reviewed rule context:",
+    lessonContext(game),
+    "",
     context,
     "",
     `Learner question: ${question}`,
@@ -142,7 +178,14 @@ async function callOpenAI({ question, game, context, language = "en" }) {
 function localTutorFallback(question, matchedSections, game, language = "en") {
   const lowerQuestion = question.toLowerCase();
   let directAnswer = "";
-  if (lowerQuestion.includes("how many") && lowerQuestion.includes("action")) {
+  const asksHowToPlay = /怎么玩|玩法|规则|教我|how.*play|learn|teach/.test(lowerQuestion);
+  if (asksHowToPlay) {
+    directAnswer = [
+      `${game.metadata.title} is about building states with leaders and tiles, scoring victory points in several colors, and staying balanced because your weakest color determines your final score.`,
+      "On your turn, take two actions: position a leader, place a tile, start a peasants' riot with blue Farmer tiles, establish a pagoda with green Trader tiles, or replace up to six tiles.",
+      "Leaders score when matching tiles are placed in their state, and conflicts happen when same-colored leaders end up in one state.",
+    ].join(" ");
+  } else if (lowerQuestion.includes("how many") && lowerQuestion.includes("action")) {
     directAnswer = "You resolve two actions on your turn. The rules say you may choose two different actions or take the same action twice.";
   } else if (lowerQuestion.includes("same action") || lowerQuestion.includes("twice")) {
     directAnswer = "Yes. On your turn, you may choose two different actions or the same action twice.";
@@ -153,7 +196,14 @@ function localTutorFallback(question, matchedSections, game, language = "en") {
   }
 
   if (language === "zh") {
-    if (lowerQuestion.includes("action") || lowerQuestion.includes("行动")) {
+    if (asksHowToPlay) {
+      directAnswer = [
+        `${game.metadata.title} 的核心是用领袖和版块建立“国家”，通过放置版块和控制领袖获得不同颜色的胜利点。`,
+        "每回合你必须执行 2 个行动，可以选不同行动，也可以重复同一个行动。",
+        "常见行动包括调整领袖、放置版块、用蓝色农夫版块发动农民暴动、用绿色商人版块建立宝塔、或更换手牌。",
+        "获胜关键是均衡得分，因为最终看的是你黄色、红色、蓝色、绿色中最低的那一项，白色分数可以当作任意颜色补足。",
+      ].join(" ");
+    } else if (lowerQuestion.includes("action") || lowerQuestion.includes("行动")) {
       directAnswer = "你的回合要执行两个行动。可以选择两个不同的行动，也可以重复同一个行动。";
     } else if (lowerQuestion.includes("win") || lowerQuestion.includes("winner") || lowerQuestion.includes("获胜") || lowerQuestion.includes("赢")) {
       directAnswer = "最终分数取决于你最低的胜利点颜色，所以要让王朝在各颜色上保持均衡。";
@@ -231,7 +281,7 @@ async function handleApi(req, res) {
       return json(res, 200, {
         answer,
         sections: matchedSections.map((section) => ({ id: section.id, title: section.title })),
-        usedModel: Boolean(process.env.OPENAI_API_KEY),
+        usedModel: hasUsableOpenAiKey(process.env.OPENAI_API_KEY),
       });
     } catch (error) {
       return json(res, 502, { error: error.message });
