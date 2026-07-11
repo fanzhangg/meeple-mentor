@@ -155,7 +155,6 @@ function renderCheckpoint(step) {
   return `
     <div class="rule-check checkpoint" data-check-id="${escapeHtml(step.id)}">
       <strong>${escapeHtml(t("game.checkpoint"))}</strong>
-      <p class="checkpoint-instruction">${escapeHtml(t("game.selectAll"))}</p>
       <p class="checkpoint-prompt">${escapeHtml(step.check.prompt)}</p>
       <div class="checkpoint-options">${options}</div>
       <button class="checkpoint-submit" type="button" data-check-id="${escapeHtml(step.id)}">${escapeHtml(t("game.checkAnswer"))}</button>
@@ -168,7 +167,9 @@ function renderScoreCard() {
   return `
     <section class="checkpoint-score" id="checkpoint-score" aria-live="polite">
       <h3>${escapeHtml(t("game.scoreTitle"))}</h3>
-      <p id="checkpoint-score-text"></p>
+      <div class="score-dial" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="score-dial-value" id="checkpoint-score-text"></span>
+      </div>
     </section>
   `;
 }
@@ -205,13 +206,17 @@ function handleCheckpointSubmit(button) {
 
 function updateCheckpointScore() {
   const scoreText = document.querySelector("#checkpoint-score-text");
+  const scoreDial = document.querySelector(".score-dial");
   if (!scoreText) return;
   const total = currentLessonSteps.filter((step) => step.check?.options).length;
-  const answered = checkpointResults.size;
   const correct = [...checkpointResults.values()].filter((result) => result.correct).length;
-  scoreText.textContent = answered === 0
-    ? t("game.scoreEmpty", { total })
-    : t("game.scoreValue", { correct, answered, total });
+  const percent = total ? Math.round((correct / total) * 100) : 0;
+  if (scoreDial) {
+    scoreDial.setAttribute("aria-valuenow", String(percent));
+    scoreDial.setAttribute("aria-label", `${correct}/${total}`);
+    scoreDial.style.setProperty("--score-percent", percent);
+  }
+  scoreText.textContent = `${correct}/${total}`;
 }
 
 function resolveAsset(path) {
@@ -221,7 +226,7 @@ function resolveAsset(path) {
 function addMessage(role, text) {
   const message = document.createElement("div");
   message.className = `message ${role}`;
-  message.textContent = text;
+  setMessageContent(message, role, text);
   elements.chatLog.append(message);
   elements.chatLog.scrollTop = elements.chatLog.scrollHeight;
   return message;
@@ -231,7 +236,7 @@ async function askTutor(question) {
   addMessage("user", question);
   const pending = document.createElement("div");
   pending.className = "message assistant";
-  pending.textContent = t("game.checking");
+  setMessageContent(pending, "assistant", t("game.checking"));
   elements.chatLog.append(pending);
 
   try {
@@ -242,9 +247,9 @@ async function askTutor(question) {
     });
     if (!response.ok) throw new Error("Chat backend unavailable");
     const data = await response.json();
-    pending.textContent = data.answer || data.error || t("game.noAnswer");
+    setMessageContent(pending, "assistant", data.answer || data.error || t("game.noAnswer"));
   } catch {
-    pending.textContent = t("game.chatUnavailable");
+    setMessageContent(pending, "assistant", t("game.chatUnavailable"));
   }
 }
 
@@ -260,6 +265,83 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function setMessageContent(message, role, text) {
+  if (role === "assistant") {
+    message.innerHTML = renderMarkdown(text);
+    return;
+  }
+  message.textContent = text;
+}
+
+function renderMarkdown(value) {
+  const lines = String(value ?? "").replace(/\r\n/g, "\n").split("\n");
+  const blocks = [];
+  let paragraph = [];
+  let list = [];
+  let listTag = "ul";
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    blocks.push(`<p>${renderInlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  };
+  const flushList = () => {
+    if (!list.length) return;
+    blocks.push(`<${listTag}>${list.map((item) => `<li>${renderInlineMarkdown(item)}</li>`).join("")}</${listTag}>`);
+    list = [];
+    listTag = "ul";
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      continue;
+    }
+
+    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      flushList();
+      const level = heading[1].length + 2;
+      blocks.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
+      continue;
+    }
+
+    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
+    if (bullet) {
+      flushParagraph();
+      if (list.length && listTag !== "ul") flushList();
+      listTag = "ul";
+      list.push(bullet[1]);
+      continue;
+    }
+
+    const numbered = trimmed.match(/^\d+[.)]\s+(.+)$/);
+    if (numbered) {
+      flushParagraph();
+      if (list.length && listTag !== "ol") flushList();
+      listTag = "ol";
+      list.push(numbered[1]);
+      continue;
+    }
+
+    flushList();
+    paragraph.push(trimmed);
+  }
+
+  flushParagraph();
+  flushList();
+  return blocks.join("");
+}
+
+function renderInlineMarkdown(value) {
+  return escapeHtml(value)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
 elements.tabs.forEach((tab) => tab.addEventListener("click", () => selectTab(tab.dataset.tab)));
