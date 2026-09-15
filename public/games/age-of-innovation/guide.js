@@ -153,7 +153,6 @@ const chat = createRuleChat({
   getLabels: () => ({
     intro: language === 'zh' ? `我会依据《${labels.title}》的规则回答问题。` : `I answer questions using the rules for ${labels.title}.`,
     checking: language === 'zh' ? '正在查阅游戏规则…' : 'Checking the game rules…',
-    placeholder: language === 'zh' ? '询问行动、费用、例外等规则…' : 'Ask about actions, costs, exceptions…',
   }),
 });
 
@@ -180,8 +179,6 @@ function renderAll() {
   $('.mobile-tabs').setAttribute('aria-label',labels.summary);
   $('#rules-tab').textContent = labels.rules;
   $('#ask-tab').textContent = t('game.askTab');
-  $('.chat-heading .eyebrow').textContent = t('game.chatEyebrow');
-  $('.chat-heading h2').textContent = t('game.chatTitle');
   chat.refresh();
   $('#lesson-nav').innerHTML = [...coreTopics, {id: 'checkpoint-score', title: labels.score}, ...appendixTopics]
   .map(topic => `<a href="#${topic.id}">${escape(topic.title)}</a>`).join('');

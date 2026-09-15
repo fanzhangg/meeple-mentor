@@ -37,14 +37,12 @@ const elements = {
   mobileTabs: document.querySelector(".mobile-tabs"),
   ruleSummaryLabel: document.querySelector("#rule-summary-label"),
   ruleArticleTitle: document.querySelector("#rule-article-title"),
-  chatEyebrow: document.querySelector("#chat-eyebrow"),
-  chatTitle: document.querySelector("#chat-title"),
 };
 
 const chat = createRuleChat({
   slug: 'huang', log: elements.chatLog, form: elements.chatForm,
   input: elements.question, button: elements.askButton,
-  getLabels: () => ({intro: t('game.assistantIntro'), checking: t('game.checking'), placeholder: t('game.chatPlaceholder')}),
+  getLabels: () => ({intro: t('game.assistantIntro'), checking: t('game.checking')}),
 });
 
 setLanguage(getLanguage());
@@ -86,9 +84,6 @@ function renderStaticText() {
   elements.askTab.textContent = t("game.askTab");
   elements.ruleSummaryLabel.textContent = t("game.ruleSummary");
   elements.ruleArticleTitle.textContent = t("game.articleTitle");
-  elements.chatEyebrow.textContent = t("game.chatEyebrow");
-  elements.chatTitle.textContent = t("game.chatTitle");
-  elements.question.placeholder = t("game.chatPlaceholder");
   elements.askButton.textContent = t("game.askButton");
   elements.askButton.title = t("game.askButtonTitle");
 }

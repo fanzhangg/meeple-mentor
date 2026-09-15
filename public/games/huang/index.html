@@ -48,18 +48,13 @@
         </article>
 
         <aside class="chat-panel game-chat" id="chat-panel" data-panel="chat">
-          <div class="chat-heading">
-            <p class="eyebrow" id="chat-eyebrow">Rules Q&amp;A</p>
-            <h2 id="chat-title">Ask while you play</h2>
-          </div>
           <div id="chat-log" class="chat-log" aria-live="polite"></div>
           <form id="chat-form" class="chat-form">
-            <input
-              id="question"
+            <textarea id="question" rows="1"
               name="question"
               autocomplete="off"
-              placeholder="Ask about setup, turns, leaders, scoring..."
-            />
+              placeholder="Ask me about game rules"
+            ></textarea>
             <button id="ask-button" type="submit" title="Ask tutor">Ask</button>
           </form>
         </aside>

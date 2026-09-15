@@ -25,6 +25,13 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
   const converse = createRuleConversation(slug);
   let busy = false;
   let intro = null;
+  const local = (en, zh) => getLanguage() === 'zh' ? zh : en;
+  log.setAttribute('role', 'log');
+  function resizeComposer() {
+    input.style.height = 'auto';
+    input.style.height = `${Math.min(input.scrollHeight, 140)}px`;
+    button.disabled = busy || !input.value.trim();
+  }
   function addMessage(role, text) {
     const message = document.createElement('div');
     message.className = `message ${role}`;
@@ -35,12 +42,15 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
   }
   function refresh() {
     const labels = getLabels();
-    input.placeholder = labels.placeholder;
-    input.setAttribute('aria-label', labels.placeholder);
-    button.textContent = t('game.askButton');
-    button.title = t('game.askButtonTitle');
+    input.placeholder = local('Ask me about game rules', '向我询问游戏规则');
+    input.setAttribute('aria-label', input.placeholder);
+    button.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    button.title = local('Send message', '发送消息');
+    button.setAttribute('aria-label', button.title);
+    log.setAttribute('aria-label', local('Rules conversation', '规则对话'));
     if (!intro) intro = addMessage('assistant', labels.intro);
     else setMessageContent(intro, 'assistant', labels.intro);
+    resizeComposer();
   }
   async function ask(question) {
     if (busy || !question.trim()) return;
@@ -50,16 +60,23 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     const language = getLanguage();
     const unavailable = t('game.chatUnavailable');
     addMessage('user', question);
-    const pending = addMessage('assistant', getLabels().checking);
+    const pending = addMessage('assistant', '');
+    pending.classList.add('is-typing');
+    let followReply = true;
     try {
-      setMessageContent(pending, 'assistant', await converse(question, language));
+      const answer = await converse(question, language);
+      followReply = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+      setMessageContent(pending, 'assistant', answer);
     } catch {
+      followReply = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
       setMessageContent(pending, 'assistant', unavailable);
     } finally {
       busy = false;
-      button.disabled = false;
+      pending.classList.remove('is-typing');
+      resizeComposer();
       log.removeAttribute('aria-busy');
-      log.scrollTop = log.scrollHeight;
+      // Keep the beginning of long replies visible rather than jumping to their end.
+      if (followReply) log.scrollTop = pending.offsetTop - 12;
     }
   }
   form.addEventListener('submit', event => {
@@ -67,7 +84,16 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     const question = input.value.trim();
     if (!question || busy) return;
     input.value = '';
+    resizeComposer();
+    input.focus();
     void ask(question);
+  });
+  input.addEventListener('input', resizeComposer);
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
   });
   return {addMessage, ask, refresh};
 }
