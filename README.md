@@ -2,6 +2,16 @@
 
 Local-first V1 for teaching board games from reviewed rule text. HUANG is included as the first hardcoded sample.
 
+## Age of Innovation player guide
+
+Open `/games/age-of-innovation/` from the game library for the Chinese / English reference and 14 recap questions. The shared language selector preserves quiz answers when switching languages and remembers the language preference. This page uses the reviewed rulebooks in `content/games/age-of-innovation/`, works with both the Node server and static hosting, and does not require an API key. Quiz progress lasts while the page remains open.
+
+The page uses HUANG's shared `public/styles.css` layout: continuous rule sections, inline checkpoints with immediate feedback, a score dial, and mobile Rules / Lookup views. Costs, examples, and appendix details expand within each section. The right panel searches the guide by keyword; it does not call the HUANG chat backend.
+
+The guide lives in `public/games/age-of-innovation/`. Core rules and questions are in `guide-data.js` and `guide-data.en.js`; interface text and overviews are in `guide-copy.js`. Both searchable appendices are generated from the rulebooks with `python scripts/build_aoi_appendix.py`. Cropped rule illustrations live in `public/guide-assets/age-of-innovation/`.
+
+Run `node --test scripts/aoi-guide.test.js` to check quiz state, search, content references, and assets.
+
 ## Run
 
 ```powershell

@@ -33,13 +33,14 @@ function renderPage() {
 }
 
 function renderGameCard(game) {
+  const gameTitle = game.titles?.[getLanguage()] || game.title;
   const href = new URL(`games/${game.slug}/`, appRoot).href;
   const thumbnail = resolveAsset(game.thumbnail || `game-assets/${game.slug}/cover-art.png`);
   return `
-    <a class="game-card" href="${href}" aria-label="${escapeHtml(t("home.openRules", { title: game.title }))}">
-      <img src="${thumbnail}" alt="${escapeHtml(t("home.coverAlt", { title: game.title }))}" loading="lazy" />
+    <a class="game-card" href="${href}" aria-label="${escapeHtml(t("home.openRules", { title: gameTitle }))}">
+      <img src="${thumbnail}" alt="${escapeHtml(t("home.coverAlt", { title: gameTitle }))}" loading="lazy" />
       <div class="game-card-body">
-        <h3>${escapeHtml(game.title)}</h3>
+        <h3>${escapeHtml(gameTitle)}</h3>
       </div>
     </a>
   `;

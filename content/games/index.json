@@ -19,5 +19,12 @@
       "weightScale": 5,
       "itemId": 371688
     }
+  },
+  {
+    "slug": "age-of-innovation",
+    "title": "Age of Innovation",
+    "titles": {"en": "Age of Innovation", "zh": "大创造时代"},
+    "subtitle": "游戏夜玩家手册：规则速查与讲解回顾",
+    "thumbnail": "guide-assets/age-of-innovation/coverart.webp"
   }
 ]
