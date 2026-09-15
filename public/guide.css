@@ -177,6 +177,10 @@ html:lang(zh-Hans) .game-page {
   text-decoration: none;
 }
 .rule-menu a:hover, .rule-menu a[aria-current] { color: var(--accent-hover); background: var(--accent-soft); }
+.rule-menu a[aria-current="location"] {
+  font-weight: var(--guide-weight-label);
+  box-shadow: inset 3px 0 var(--accent);
+}
 
 /* One reading rhythm for introductions, rules and expanded reference material. */
 .rule-article {
@@ -353,6 +357,123 @@ html:lang(zh-Hans) .game-page {
 .game-chat .message.is-typing::after { content: '•••'; display: block; letter-spacing: .25em; color: var(--accent); animation: chat-thinking 1.2s ease-in-out infinite; }
 @keyframes chat-thinking { 50% { opacity: .25; } }
 @media (prefers-reduced-motion: reduce) { .game-chat .message.is-typing::after { animation: none; } }
+
+/* Shared full-screen mobile panels preserve the reading position. */
+.guide-launcher { display: none; }
+.guide-popup-open { position: fixed; top: var(--guide-page-top); width: var(--guide-page-width, 100%); overflow: hidden; }
+.guide-dialog {
+  position: fixed;
+  inset: auto 0;
+  top: var(--guide-viewport-top, 0px);
+  width: 100%;
+  max-width: none;
+  height: var(--guide-viewport-height, 100dvh);
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: none;
+  overflow: hidden;
+}
+.guide-dialog[open] { display: flex; flex-direction: column; }
+.guide-dialog::backdrop { background: #162b45a6; }
+.guide-dialog-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--guide-space-3);
+  padding: var(--guide-space-3) var(--guide-space-4);
+  padding-top: max(var(--guide-space-3), env(safe-area-inset-top));
+  padding-left: max(var(--guide-space-4), env(safe-area-inset-left));
+  padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
+  border-bottom: 1px solid var(--line);
+}
+.guide-dialog-header h2 { font-size: var(--guide-text-section); }
+.guide-dialog-close {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--surface-soft);
+  cursor: pointer;
+}
+.guide-dialog-close:hover { background: var(--accent-soft); }
+.contents-dialog .rule-menu {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  position: static;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  padding: var(--guide-space-4);
+  padding-bottom: max(var(--guide-space-4), env(safe-area-inset-bottom));
+  padding-left: max(var(--guide-space-4), env(safe-area-inset-left));
+  padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
+}
+.contents-dialog .rule-menu > summary { display: none; }
+.contents-dialog .rule-menu nav { grid-template-columns: minmax(0, 1fr); gap: var(--guide-space-2); }
+.contents-dialog .rule-menu a {
+  min-height: 48px;
+  padding: var(--guide-space-3) var(--guide-space-4);
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  font-size: var(--guide-text-body);
+}
+.game-page .guide-dialog .game-chat {
+  display: flex;
+  flex: 1;
+  position: static;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  padding-bottom: max(var(--guide-space-4), env(safe-area-inset-bottom));
+  padding-left: max(var(--guide-space-4), env(safe-area-inset-left));
+  padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
+}
+@media (width < 60rem) {
+  .chat-popup-ready .mobile-tabs { display: none; }
+  .chat-popup-ready .rule-panel { display: block; }
+  .chat-popup-ready .game-workspace { margin-top: var(--guide-space-4); }
+  .chat-popup-ready .game-shell { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+  .chat-popup-ready .rule-section { scroll-margin-top: var(--guide-space-6); }
+  .game-page .guide-launcher {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: 1px solid var(--accent-hover);
+    border-radius: 50%;
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 4px 16px #20374b40;
+    cursor: pointer;
+  }
+  .game-page .guide-launcher:hover { background: var(--accent-hover); }
+  .game-page .contents-launcher {
+    bottom: calc(5.25rem + env(safe-area-inset-bottom));
+    color: var(--accent);
+    background: var(--panel);
+    border-color: var(--line);
+  }
+  .game-page .contents-launcher:hover { background: var(--accent-soft); }
+}
 
 @media (min-width: 40rem) {
   .game-page { --guide-gutter: 1.5rem; --guide-text-display: 2rem; --guide-text-title: 1.75rem; }
