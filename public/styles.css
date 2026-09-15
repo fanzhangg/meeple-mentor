@@ -1224,12 +1224,18 @@ body.game-page {
   color: #a64138;
 }
 
+.metadata-credits {
+  display: grid;
+  gap: inherit;
+}
+
 .mechanism-line {
   width: fit-content;
   max-width: 100%;
   border: 0;
   border-radius: 8px;
-  padding: 10px 14px;
+  margin: 0;
+  padding: 0;
   color: #303235;
   background: #fff;
 }
