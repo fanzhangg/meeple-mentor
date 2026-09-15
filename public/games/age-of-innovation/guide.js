@@ -1,9 +1,10 @@
+import {createRuleChat} from '../../rule-chat.js';
 import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
 import {copy} from './guide-copy.js';
 import {examplesFor} from './guide-examples.js';
-import {searchTopics, createQuizSession} from './guide-model.js';
-import {getLanguage, setLanguage, renderLanguageMenu} from '../../i18n.js';
+import {createQuizSession} from './guide-model.js';
+import {getLanguage, setLanguage, renderLanguageMenu, t} from '../../i18n.js';
 let language = getLanguage();
 let {topics, questions} = language === 'zh' ? zh : en;
 let labels = copy[language];
@@ -146,28 +147,15 @@ $('#lesson-nav').addEventListener('click', event => {
   const link = event.target.closest('a');
   if (link) openTopic(link.hash.slice(1));
 });
-$('#lookup-results').addEventListener('click', event => {
-  const link = event.target.closest('[data-topic]');
-  if (link) openTopic(link.dataset.topic, true);
+const chat = createRuleChat({
+  slug: 'age-of-innovation', log: $('#chat-log'), form: $('#chat-form'),
+  input: $('#question'), button: $('#ask-button'),
+  getLabels: () => ({
+    intro: language === 'zh' ? `我会依据《${labels.title}》的规则回答问题。` : `I answer questions using the rules for ${labels.title}.`,
+    checking: language === 'zh' ? '正在查阅游戏规则…' : 'Checking the game rules…',
+    placeholder: language === 'zh' ? '询问行动、费用、例外等规则…' : 'Ask about actions, costs, exceptions…',
+  }),
 });
-
-function renderLookup() {
-  const query = $('#rule-search').value.trim();
-  if (!query) {
-    $('#lookup-status').textContent = labels.emptyQuery;
-    $('#rule-search').focus();
-    return;
-  }
-  const matches = searchTopics(topics, query, 'turn');
-  $('#lookup-status').textContent = text('results', {count:matches.length});
-  $('#lookup-results').innerHTML = matches.length ? matches.map(topic => `<div class="message assistant">
-    <h3>${escape(topic.title)}</h3><p>${escape(topic.key)}</p>
-    ${topic.details?.length && topic.details.length < 4 ? topic.details.map(detail => `<p><strong>${escape(detail.title)}</strong>${language === 'zh' ? '：' : ': '}${escape(detail.text)}</p>`).join('') : ''}
-    <a class="lookup-link" href="#${topic.id}" data-topic="${topic.id}">${escape(labels.openRule)}</a>
-  </div>`).join('') : `<div class="message assistant"><p>${escape(labels.noResults)}</p></div>`;
-  $('#lookup-results').scrollTop = 0;
-}
-$('#lookup-form').addEventListener('submit', event => {event.preventDefault();renderLookup();});
 
 function renderAll() {
   const expanded = [...document.querySelectorAll('.rule-section details')].map(detail => detail.open);
@@ -191,13 +179,10 @@ function renderAll() {
   $('.rule-menu').setAttribute('aria-label',labels.summary);
   $('.mobile-tabs').setAttribute('aria-label',labels.summary);
   $('#rules-tab').textContent = labels.rules;
-  $('#ask-tab').textContent = labels.lookup;
-  $('.chat-heading .eyebrow').textContent = labels.lookupTitle;
-  $('.chat-heading h2').textContent = labels.lookupHeading;
-  $('#lookup-results').setAttribute('aria-label',labels.lookupRegion);
-  $('#rule-search').setAttribute('aria-label',labels.queryLabel);
-  $('#rule-search').placeholder = labels.placeholder;
-  $('#lookup-form button').textContent = labels.find;
+  $('#ask-tab').textContent = t('game.askTab');
+  $('.chat-heading .eyebrow').textContent = t('game.chatEyebrow');
+  $('.chat-heading h2').textContent = t('game.chatTitle');
+  chat.refresh();
   $('#lesson-nav').innerHTML = [...coreTopics, {id: 'checkpoint-score', title: labels.score}, ...appendixTopics]
   .map(topic => `<a href="#${topic.id}">${escape(topic.title)}</a>`).join('');
   $('#lesson-sections').innerHTML = coreTopics.map(renderSection).join('') + renderScoreCard() + appendixTopics.map(renderSection).join('');
@@ -208,11 +193,6 @@ function renderAll() {
     const input = document.querySelector(`[data-check-id="${id}"] input[value="${result.selected}"]`);
     input.checked = true;
     input.dispatchEvent(new Event('change', {bubbles:true}));
-  }
-  if ($('#rule-search').value.trim()) renderLookup();
-  else {
-    $('#lookup-status').textContent='';
-    $('#lookup-results').innerHTML=`<div class="message assistant"><p>${escape(labels.lookupIntro)}</p></div>`;
   }
   updateScore();
 }

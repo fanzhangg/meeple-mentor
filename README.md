@@ -4,9 +4,9 @@ Local-first V1 for teaching board games from reviewed rule text. HUANG is includ
 
 ## Age of Innovation player guide
 
-Open `/games/age-of-innovation/` from the game library for the Chinese / English reference and 14 recap questions. The shared language selector preserves quiz answers when switching languages and remembers the language preference. This page uses the reviewed rulebooks in `content/games/age-of-innovation/`, works with both the Node server and static hosting, and does not require an API key. Quiz progress lasts while the page remains open.
+Open `/games/age-of-innovation/` from the game library for the Chinese / English reference and 14 recap questions. The shared language selector preserves quiz answers when switching languages and remembers the language preference. Rules and quizzes work with both the Node server and static hosting without an API key. Live rules Q&A uses the Node backend and its configured OpenAI key. Quiz progress lasts while the page remains open.
 
-The page uses HUANG's shared `public/styles.css` layout: continuous rule sections, inline checkpoints with immediate feedback, a score dial, and mobile Rules / Lookup views. Costs, examples, and appendix details expand within each section. The right panel searches the guide by keyword; it does not call the HUANG chat backend.
+The page uses HUANG's shared `public/styles.css` layout: continuous rule sections, inline checkpoints with immediate feedback, a score dial, and mobile Rules / Ask views. Costs, examples, and appendix details expand within each section. All three games share `public/rule-chat.js` and `/api/chat` for natural-language rules Q&A. Requests carry the game slug and language; the server supplies that game's rules, teaching outline, and relevant excerpts to the model.
 
 The guide lives in `public/games/age-of-innovation/`. Core rules and questions are in `guide-data.js` and `guide-data.en.js`; interface text and overviews are in `guide-copy.js`. Both searchable appendices are generated from the rulebooks with `python scripts/build_aoi_appendix.py`. Cropped rule illustrations live in `public/guide-assets/age-of-innovation/`.
 
@@ -14,7 +14,7 @@ Run `node --test scripts/aoi-guide.test.js` to check quiz state, search, content
 
 ## Fate of the Fellowship player guide
 
-Open `/games/fate-of-the-fellowship/` for the Chinese / English player reference, 15 recap questions, and five rulebook image examples. It follows the shared guide layout with local keyword lookup, setup and solo references, and language switching that preserves quiz answers.
+Open `/games/fate-of-the-fellowship/` for the Chinese / English player reference, 15 recap questions, and five rulebook image examples. It follows the shared guide layout with the same rules chatbot as HUANG, setup and solo references, and language switching that preserves quiz answers. Its chatbot uses the supplied rules digests and must acknowledge when a card-specific rule is absent from that context.
 
 Reviewed rules digests and the source audit are in `content/games/fate-of-the-fellowship/`. The supplied English and Chinese PDFs remain in the original `content/games/fate-of-fellowshipe/` folder. The digests are summaries, not verbatim rulebook transcriptions. Website modules are in `public/games/fate-of-the-fellowship/` and image assets are in `public/guide-assets/fate-of-the-fellowship/`.
 
@@ -38,7 +38,9 @@ $env:OPENAI_MODEL="gpt-4.1-mini"
 & "C:\Users\fzhan\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" server.js
 ```
 
-Without `OPENAI_API_KEY`, the tutor runs in local fallback mode and shows the relevant HUANG rule sections it found.
+Without `OPENAI_API_KEY`, the tutor runs in local fallback mode and shows the selected game's relevant rule excerpts. The browser displays a backend-unavailable message on static-only hosting.
+
+Run `node --test scripts/rule-chat.test.js scripts/aoi-guide.test.js scripts/fellowship-guide.test.js` to verify game/language isolation, the model request path, safe answer formatting, and guide behavior. Model API responses are mocked in the automated chat tests.
 
 ## Deploy To Render
 

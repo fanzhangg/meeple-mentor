@@ -1,3 +1,4 @@
+import {createRuleChat} from './rule-chat.js';
 import {
   getHuangLesson,
   getHuangMetadata,
@@ -9,7 +10,6 @@ import {
 
 const appRoot = new URL("./", import.meta.url);
 let currentGame = null;
-let introMessage = null;
 let currentLessonSteps = [];
 const checkpointResults = new Map();
 
@@ -41,6 +41,12 @@ const elements = {
   chatTitle: document.querySelector("#chat-title"),
 };
 
+const chat = createRuleChat({
+  slug: 'huang', log: elements.chatLog, form: elements.chatForm,
+  input: elements.question, button: elements.askButton,
+  getLabels: () => ({intro: t('game.assistantIntro'), checking: t('game.checking'), placeholder: t('game.chatPlaceholder')}),
+});
+
 setLanguage(getLanguage());
 renderLanguageMenu(elements.languageMenu, () => {
   checkpointResults.clear();
@@ -50,7 +56,6 @@ renderLanguageMenu(elements.languageMenu, () => {
 async function loadGame() {
   currentGame = await fetchJson(["api/games/huang", "data/games/huang.json"]);
   renderAll();
-  introMessage = addMessage("assistant", t("game.assistantIntro"));
 }
 
 async function fetchJson(paths) {
@@ -70,7 +75,7 @@ function renderAll() {
   if (!currentGame) return;
   renderGame();
   renderArticle();
-  if (introMessage) introMessage.textContent = t("game.assistantIntro");
+  chat.refresh();
 }
 
 function renderStaticText() {
@@ -223,36 +228,6 @@ function resolveAsset(path) {
   return new URL(String(path).replace(/^\//, ""), appRoot).href;
 }
 
-function addMessage(role, text) {
-  const message = document.createElement("div");
-  message.className = `message ${role}`;
-  setMessageContent(message, role, text);
-  elements.chatLog.append(message);
-  elements.chatLog.scrollTop = elements.chatLog.scrollHeight;
-  return message;
-}
-
-async function askTutor(question) {
-  addMessage("user", question);
-  const pending = document.createElement("div");
-  pending.className = "message assistant";
-  setMessageContent(pending, "assistant", t("game.checking"));
-  elements.chatLog.append(pending);
-
-  try {
-    const response = await fetch(new URL("api/chat", appRoot), {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ slug: "huang", question, language: getLanguage() }),
-    });
-    if (!response.ok) throw new Error("Chat backend unavailable");
-    const data = await response.json();
-    setMessageContent(pending, "assistant", data.answer || data.error || t("game.noAnswer"));
-  } catch {
-    setMessageContent(pending, "assistant", t("game.chatUnavailable"));
-  }
-}
-
 function selectTab(name) {
   elements.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === name));
   elements.panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === name));
@@ -267,96 +242,11 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function setMessageContent(message, role, text) {
-  if (role === "assistant") {
-    message.innerHTML = renderMarkdown(text);
-    return;
-  }
-  message.textContent = text;
-}
-
-function renderMarkdown(value) {
-  const lines = String(value ?? "").replace(/\r\n/g, "\n").split("\n");
-  const blocks = [];
-  let paragraph = [];
-  let list = [];
-  let listTag = "ul";
-
-  const flushParagraph = () => {
-    if (!paragraph.length) return;
-    blocks.push(`<p>${renderInlineMarkdown(paragraph.join(" "))}</p>`);
-    paragraph = [];
-  };
-  const flushList = () => {
-    if (!list.length) return;
-    blocks.push(`<${listTag}>${list.map((item) => `<li>${renderInlineMarkdown(item)}</li>`).join("")}</${listTag}>`);
-    list = [];
-    listTag = "ul";
-  };
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      flushParagraph();
-      flushList();
-      continue;
-    }
-
-    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
-    if (heading) {
-      flushParagraph();
-      flushList();
-      const level = heading[1].length + 2;
-      blocks.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
-      continue;
-    }
-
-    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
-    if (bullet) {
-      flushParagraph();
-      if (list.length && listTag !== "ul") flushList();
-      listTag = "ul";
-      list.push(bullet[1]);
-      continue;
-    }
-
-    const numbered = trimmed.match(/^\d+[.)]\s+(.+)$/);
-    if (numbered) {
-      flushParagraph();
-      if (list.length && listTag !== "ol") flushList();
-      listTag = "ol";
-      list.push(numbered[1]);
-      continue;
-    }
-
-    flushList();
-    paragraph.push(trimmed);
-  }
-
-  flushParagraph();
-  flushList();
-  return blocks.join("");
-}
-
-function renderInlineMarkdown(value) {
-  return escapeHtml(value)
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/`([^`]+)`/g, "<code>$1</code>");
-}
-
 elements.tabs.forEach((tab) => tab.addEventListener("click", () => selectTab(tab.dataset.tab)));
 elements.sections.addEventListener("change", (event) => {
   const input = event.target.closest(".checkpoint input[type='radio']");
   if (input) handleCheckpointChange(input);
 });
-elements.chatForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const question = elements.question.value.trim();
-  if (!question) return;
-  elements.question.value = "";
-  await askTutor(question);
-});
-
 loadGame().catch((error) => {
-  addMessage("assistant", t("game.loadError", { message: error.message }));
+  chat.addMessage("assistant", t("game.loadError", { message: error.message }));
 });

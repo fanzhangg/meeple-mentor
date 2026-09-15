@@ -1,4 +1,4 @@
-﻿import { createServer } from "node:http";
+import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -59,12 +59,39 @@ function safeSlug(slug) {
   return /^[a-z0-9-]+$/.test(slug) ? slug : null;
 }
 
-async function loadGame(slug) {
+export async function loadGame(slug) {
   const safe = safeSlug(slug);
   if (!safe) return null;
   const gameDir = path.join(CONTENT_DIR, safe);
   const metadataPath = path.join(gameDir, "metadata.json");
-  if (!existsSync(metadataPath)) return null;
+  if (!existsSync(metadataPath)) {
+    // The bilingual guides keep their reviewed rules in Markdown and their
+    // teaching outline in public data modules, rather than HUANG's legacy JSON.
+    if (!["age-of-innovation", "fate-of-the-fellowship"].includes(safe)) return null;
+    const games = await readJson(path.join(CONTENT_DIR, "index.json"));
+    const metadata = games.find(game => game.slug === safe);
+    if (!metadata) return null;
+    const [en, zh, rulesEn, rulesZh] = await Promise.all([
+      import(`./public/games/${safe}/guide-data.en.js`),
+      import(`./public/games/${safe}/guide-data.js`),
+      readFile(path.join(gameDir, "rules.en.md"), "utf-8"),
+      readFile(path.join(gameDir, "rules.zh.md"), "utf-8"),
+    ]);
+    const sectionsFor = topics => topics.map(topic => ({
+      id: topic.id, title: topic.title,
+      content: [topic.key, ...topic.bullets,
+        ...(topic.table ? [topic.table.headers.join(" | "), ...topic.table.rows.map(row => row.join(" | "))] : []),
+        ...(topic.details || []).map(detail => `${detail.title}: ${detail.text}`),
+      ].join("\n"),
+    }));
+    return {
+      metadata, clean: rulesEn,
+      lesson: {title: metadata.title, overview: metadata.subtitle, goal: "", steps: en.topics.map(topic => ({id: topic.id, title: topic.title, summary: topic.key}))},
+      sections: sectionsFor(en.topics),
+      localizedSections: {en: sectionsFor(en.topics), zh: sectionsFor(zh.topics)},
+      rulebooks: {en: rulesEn, zh: rulesZh},
+    };
+  }
   const [metadata, lesson, sections, clean, rulesEn, rulesZh] = await Promise.all([
     readJson(metadataPath),
     readJson(path.join(gameDir, "lesson.json")),
@@ -164,6 +191,9 @@ const HUANG_ZH_TEACHING_CONTEXT = {
 };
 
 function lessonContext(game, language = "en") {
+  if (game.localizedSections) {
+    return game.localizedSections[language].map(section => `- ${section.title}: ${section.content.split("\n")[0]}`).join("\n");
+  }
   if (language === "zh" && game.metadata.slug === "huang") {
     const steps = HUANG_ZH_TEACHING_CONTEXT.steps
       .map(([title, summary]) => `- ${title}: ${summary}`)
@@ -194,7 +224,7 @@ function lessonContext(game, language = "en") {
 }
 
 function gameContext(game, language = "en") {
-  const metadata = game.metadata;
+  const metadata = {...game.metadata, title: game.metadata.titles?.[language] || game.metadata.title};
   if (language === "zh") {
     return [
       `标题: ${metadata.title}`,
@@ -228,7 +258,7 @@ function hasUsableOpenAiKey(apiKey) {
 
 function rulebookContext(game, language = "en") {
   const rulebook = language === "zh" ? game.rulebooks.zh : game.rulebooks.en;
-  return rulebook.trim().slice(0, 50000);
+  return rulebook.trim();
 }
 
 function chatPrompt({ question, game, context, rulebook, language = "en" }) {
@@ -236,8 +266,8 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
     return [
       `你是 ${game.metadata.title} 的细心桌游规则导师。`,
       "网页语言是中文，因此默认用户会用中文提问；请用简体中文回答。",
-      "你只能使用下方提供的游戏资料、已审核中文教学提纲、完整中文规则和相关规则摘录来回答。",
-      "如果相关规则摘录与完整中文规则冲突，以完整中文规则为准。",
+      "你只能使用下方提供的游戏资料、已审核中文教学提纲、提供的中文规则文本和相关规则摘录来回答。",
+      "如果相关规则摘录与提供的中文规则文本冲突，以提供的中文规则文本为准。",
       "如果提供的上下文没有回答这个问题，请明确说“提供的规则上下文没有说明”，不要猜测或编造。",
       "回答要简洁、具体、适合边玩边查。必要时可以提到相关规则章节名。",
       "不要把可选规则当作基础规则，除非用户明确询问可选规则。",
@@ -248,7 +278,7 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
       "已审核规则的教学提纲:",
       lessonContext(game, language),
       "",
-      "完整中文规则:",
+      "提供的中文规则文本:",
       rulebook,
       "",
       "可能相关的规则摘录:",
@@ -261,8 +291,8 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
   return [
     `You are a careful board game tutor for ${game.metadata.title}.`,
     "The page language is English, so assume the learner is asking in English unless their message clearly says otherwise.",
-    "Teach casual players using only the provided game metadata, curated English teaching context, complete English rules, and reviewed rule excerpts.",
-    "If likely relevant excerpts conflict with the complete English rules, trust the complete English rules.",
+    "Teach casual players using only the provided game metadata, curated English teaching context, provided English rule text, and reviewed rule excerpts.",
+    "If likely relevant excerpts conflict with the provided English rule text, trust the provided English rule text.",
     "If the provided context does not answer the question, say that the provided context does not specify it.",
     "Be concise, concrete, and friendly. Include relevant section names when useful.",
     "Do not treat optional rules as base-game rules unless the learner explicitly asks about optional rules.",
@@ -274,7 +304,7 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
     "Curated teaching context from reviewed rules:",
     lessonContext(game, language),
     "",
-    "Complete English rules:",
+    "Provided English rule text:",
     rulebook,
     "",
     "Likely relevant rule excerpts:",
@@ -284,7 +314,7 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
   ].join("\n");
 }
 
-async function callOpenAI({ question, game, context, language = "en" }) {
+export async function callOpenAI({ question, game, context, language = "en" }, fetcher = fetch) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!hasUsableOpenAiKey(apiKey)) return null;
 
@@ -297,7 +327,7 @@ async function callOpenAI({ question, game, context, language = "en" }) {
     language,
   });
 
-  const response = await fetch("https://api.openai.com/v1/responses", {
+  const response = await fetcher("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
       authorization: `Bearer ${apiKey}`,
@@ -386,7 +416,7 @@ async function handleApi(req, res) {
     }
 
     const language = payload.language === "zh" ? "zh" : "en";
-    const matchedSections = findRelevantSections(payload.question, game.sections);
+    const matchedSections = findRelevantSections(payload.question, game.localizedSections?.[language] || game.sections);
     const context = matchedSections
       .map((section) => `## ${section.title}\n${section.content}`)
       .join("\n\n")
@@ -451,7 +481,8 @@ async function handleStatic(req, res) {
   send(res, 200, await readFile(finalPath), MIME_TYPES[extension] || "application/octet-stream");
 }
 
-createServer(async (req, res) => {
+export function createAppServer() {
+  return createServer(async (req, res) => {
   try {
     if (req.url?.startsWith("/api/")) return await handleApi(req, res);
     if (req.url?.startsWith("/game-assets/")) return await handleGameAsset(req, res);
@@ -459,9 +490,14 @@ createServer(async (req, res) => {
   } catch (error) {
     json(res, 500, { error: error.message });
   }
-}).listen(PORT, () => {
-  console.log(`Board game rule instructor running at http://localhost:${PORT}`);
-});
+  });
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  createAppServer().listen(PORT, () => {
+    console.log(`Board game rule instructor running at http://localhost:${PORT}`);
+  });
+}
 
 
 

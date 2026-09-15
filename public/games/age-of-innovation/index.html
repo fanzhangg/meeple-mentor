@@ -33,7 +33,7 @@
       </header>
       <div class="mobile-tabs" aria-label="玩家手册视图">
         <button class="active" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">规则</button>
-        <button id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">查规则</button>
+        <button id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">提问</button>
       </div>
       <section class="game-workspace">
         <article class="rule-panel active" id="summary-panel" data-panel="summary">
@@ -48,14 +48,11 @@
           </div>
         </article>
         <aside class="chat-panel game-chat" id="chat-panel" data-panel="chat">
-          <div class="chat-heading"><p class="eyebrow">规则速查</p><h2>边玩边查</h2></div>
-          <div id="lookup-results" class="chat-log" role="region" aria-label="规则查找结果">
-            <div class="message assistant"><p>建造与升级取决于地形、可达范围和资源费用。城市、学术与创造提供不同的发展机会。</p></div>
-          </div>
-          <p id="lookup-status" class="lookup-status" role="status"></p>
-          <form id="lookup-form" class="chat-form" role="search">
-            <input id="rule-search" type="search" aria-label="规则关键词" placeholder="查城市、费用、魔力、板块……" autocomplete="off" />
-            <button type="submit">查找</button>
+          <div class="chat-heading"><p class="eyebrow">规则问答</p><h2>边玩边问</h2></div>
+          <div id="chat-log" class="chat-log" aria-live="polite"></div>
+          <form id="chat-form" class="chat-form">
+            <input id="question" name="question" aria-label="规则问题" placeholder="询问行动、费用、例外等规则…" autocomplete="off" />
+            <button id="ask-button" type="submit">提问</button>
           </form>
         </aside>
       </section>

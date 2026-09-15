@@ -1,0 +1,74 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createAppServer, loadGame} from '../server.js';
+import {requestRuleAnswer, renderMarkdown} from '../public/rule-chat.js';
+
+test('all game/language chat routes send their own rules to the model', async () => {
+  const originalFetch=globalThis.fetch;
+  const originalKey=process.env.OPENAI_API_KEY;
+  const captured=[];
+  process.env.OPENAI_API_KEY='sk-test-not-a-real-key';
+  globalThis.fetch=async (url,options) => {
+    if (String(url)==='https://api.openai.com/v1/responses') {
+      captured.push(JSON.parse(options.body));
+      return Response.json({output:[{content:[{type:'output_text',text:'A rule-grounded test response.'}]}]});
+    }
+    return originalFetch(url,options);
+  };
+  const server=createAppServer();
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const endpoint=`http://127.0.0.1:${server.address().port}/api/chat`;
+  try {
+    for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship']) {
+      const game=await loadGame(slug);
+      for (const language of ['en','zh']) {
+        const response=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,language,question:'How do I take actions?'})});
+        assert.equal(response.status,200);
+        assert.equal((await response.json()).usedModel,true);
+        const prompt=captured.at(-1).input;
+        assert.ok(prompt.includes(game.rulebooks[language].trim()),`${slug}/${language} must include all supplied rules`);
+        if (slug!=='huang') {
+          assert.ok(!prompt.includes('HUANG'));
+          const notes=await readFile(new URL(`../content/games/${slug}/rules-review.md`,import.meta.url),'utf8');
+          assert.ok(!prompt.includes(notes.trim()),'review notes must not replace actual rules');
+        }
+        if (slug==='age-of-innovation') assert.ok(!prompt.includes('Frodo'));
+        if (slug==='fate-of-the-fellowship') assert.ok(!prompt.includes('Terraforming'));
+      }
+    }
+    const bad=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug:'missing-game',question:'rules?'})});
+    assert.equal(bad.status,404);
+    process.env.OPENAI_API_KEY='';
+    const fallback=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug:'fate-of-the-fellowship',language:'zh',question:'行动'})});
+    const data=await fallback.json();
+    assert.equal(data.usedModel,false);
+    assert.ok(data.answer.includes('佛罗多'));
+  } finally {
+    globalThis.fetch=originalFetch;
+    if (originalKey===undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY=originalKey;
+    server.closeAllConnections();
+    await new Promise(resolve=>server.close(resolve));
+  }
+});
+
+test('shared browser transport sends slug and language and rejects API errors', async () => {
+  for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship']) {
+    const payload={slug,language:'zh',question:'可以重复行动吗？'};
+    const answer=await requestRuleAnswer(payload,async (url,options)=>{
+      assert.ok(url.pathname.endsWith('/api/chat'));
+      assert.deepEqual(JSON.parse(options.body),payload);
+      return Response.json({answer:'可以。'});
+    });
+    assert.equal(answer,'可以。');
+  }
+  await assert.rejects(requestRuleAnswer({slug:'huang',question:'x',language:'en'},async()=>new Response('failure',{status:502})));
+});
+
+test('shared answer renderer preserves formatting without interpreting HTML', () => {
+  const html=renderMarkdown('**Rule**\n\n- First\n- <img src=x onerror=alert(1)>');
+  assert.ok(html.includes('<strong>Rule</strong>'));
+  assert.ok(html.includes('<ul><li>First</li>'));
+  assert.ok(!html.includes('<img'));
+  assert.ok(html.includes('&lt;img'));
+});
