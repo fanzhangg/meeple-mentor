@@ -127,7 +127,7 @@ function renderArticle() {
 function renderRuleSection(step) {
   return `
     <section class="rule-section" id="${step.id}">
-      <h3>${escapeHtml(step.title)}</h3>
+      <h3 tabindex="-1">${escapeHtml(step.title)}</h3>
       <p>${escapeHtml(step.summary)}</p>
       ${renderCheckpoint(step)}
     </section>
@@ -224,7 +224,11 @@ function resolveAsset(path) {
 }
 
 function selectTab(name) {
-  elements.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === name));
+  elements.tabs.forEach((tab) => {
+    const active = tab.dataset.tab === name;
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-pressed", String(active));
+  });
   elements.panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === name));
 }
 
