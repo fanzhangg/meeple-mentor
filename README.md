@@ -12,6 +12,14 @@ The guide lives in `public/games/age-of-innovation/`. Core rules and questions a
 
 Run `node --test scripts/aoi-guide.test.js` to check quiz state, search, content references, and assets.
 
+## Fate of the Fellowship player guide
+
+Open `/games/fate-of-the-fellowship/` for the Chinese / English player reference, 15 recap questions, and five rulebook image examples. It follows the shared guide layout with local keyword lookup, setup and solo references, and language switching that preserves quiz answers.
+
+Reviewed rules digests and the source audit are in `content/games/fate-of-the-fellowship/`. The supplied English and Chinese PDFs remain in the original `content/games/fate-of-fellowshipe/` folder. The digests are summaries, not verbatim rulebook transcriptions. Website modules are in `public/games/fate-of-the-fellowship/` and image assets are in `public/guide-assets/fate-of-the-fellowship/`.
+
+Run `node --test scripts/fellowship-guide.test.js scripts/aoi-guide.test.js` to check both guides.
+
 ## Run
 
 ```powershell

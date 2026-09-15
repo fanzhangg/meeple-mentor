@@ -26,5 +26,15 @@
     "titles": {"en": "Age of Innovation", "zh": "大创造时代"},
         "subtitle": "游戏夜玩家手册：规则速查与讲解回顾",
         "thumbnail": "guide-assets/age-of-innovation/coverart.webp"
-    }
+    },
+{
+  "slug": "fate-of-the-fellowship",
+  "title": "Fate of the Fellowship",
+  "titles": {
+    "en": "Fate of the Fellowship",
+    "zh": "魔戒：远征队的宿命"
+  },
+  "subtitle": "Cooperative journeys through Middle-earth",
+  "thumbnail": "guide-assets/fate-of-the-fellowship/coverart.webp"
+}
 ]

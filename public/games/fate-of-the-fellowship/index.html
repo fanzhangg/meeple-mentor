@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="魔戒：远征队的宿命中文玩家手册：规则摘要、随堂回顾与游戏中速查。" />
+    <title>魔戒：远征队的宿命 | Meeple Mentor</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="./guide.css" />
+  </head>
+  <body class="game-page fellowship-page">
+    <main class="game-shell">
+      <div class="game-top-bar">
+        <a class="home-link" href="../../">&lt; 所有游戏</a>
+        <div id="language-menu"></div>
+      </div>
+      <header class="game-hero-compact">
+        <img class="game-cover-compact" src="../../guide-assets/fate-of-the-fellowship/coverart.webp" alt="魔戒：远征队的宿命游戏封面" />
+        <div class="game-hero-body">
+          <div class="game-title-row"><div>
+            <h1>魔戒：远征队的宿命 <small>(2025)</small></h1>
+            <p class="game-tagline">守护希望，抵挡暗影，将至尊魔戒送往末日火山。</p>
+          </div></div>
+          <div class="credit-lines">
+            <div class="metadata-credits">
+              <p><strong>设计师：</strong>Matt Leacock</p>
+              <p><strong>插画：</strong>Cory Godbey、Jared Blando</p>
+              <p><strong>出版社：</strong>Z-Man Games</p>
+            </div>
+            <p class="mechanism-line"><strong>游戏机制：</strong>合作、行动分配、手牌管理、掷骰</p>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-tabs" aria-label="玩家手册视图">
+        <button class="active" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">规则</button>
+        <button id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">查规则</button>
+      </div>
+      <section class="game-workspace">
+        <article class="rule-panel active" id="summary-panel" data-panel="summary">
+          <aside class="rule-menu" aria-label="规则摘要目录">
+            <p class="eyebrow">规则摘要</p>
+            <nav id="lesson-nav"></nav>
+          </aside>
+          <div class="rule-article">
+            <h2>魔戒：远征队的宿命怎么玩</h2>
+            <div id="game-overview"></div>
+            <div id="lesson-sections"></div>
+          </div>
+        </article>
+        <aside class="chat-panel game-chat" id="chat-panel" data-panel="chat">
+          <div class="chat-heading"><p class="eyebrow">规则速查</p><h2>边玩边查</h2></div>
+          <div id="lookup-results" class="chat-log" role="region" aria-label="规则查找结果">
+            <div class="message assistant"><p>跋涉、战斗与目标推进共同守护佛罗多的希望。</p></div>
+          </div>
+          <p id="lookup-status" class="lookup-status" role="status"></p>
+          <form id="lookup-form" class="chat-form" role="search">
+            <input id="rule-search" type="search" aria-label="规则关键词" placeholder="搜索、战斗、群鸦蔽日……" autocomplete="off" />
+            <button type="submit">查找</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+    <noscript><p>请启用 JavaScript 以使用规则摘要与回顾题。</p></noscript>
+    <script type="module" src="./guide.js"></script>
+  </body>
+</html>
