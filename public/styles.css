@@ -1073,7 +1073,7 @@ body.game-page {
 
 .checkpoint-option {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr 20px;
   gap: 9px;
   align-items: start;
   border: 1px solid rgba(128, 96, 16, 0.22);
@@ -1091,15 +1091,45 @@ body.game-page {
   accent-color: var(--red);
 }
 
-.checkpoint-submit {
-  justify-self: start;
-  border: 0;
-  border-radius: 6px;
-  padding: 9px 13px;
-  color: #fff;
+.checkpoint-option span {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: none;
+}
+
+.checkpoint-option:hover {
+  border-color: #806010;
+}
+
+.checkpoint-option:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.checkpoint-option.correct {
+  border-color: #276241;
+  background: #eaf5ed;
+  color: #276241;
+}
+
+.checkpoint-option.incorrect {
+  border-color: #8a3427;
+  background: #fff0ec;
+  color: #8a3427;
+}
+
+.checkpoint-option.correct input {
+  accent-color: #276241;
+}
+
+.checkpoint-option.incorrect input {
+  accent-color: #8a3427;
+}
+
+.checkpoint-option .checkpoint-option-icon {
+  text-align: center;
   font-weight: 900;
-  background: var(--red);
-  cursor: pointer;
 }
 
 .checkpoint-feedback {
@@ -1264,7 +1294,6 @@ body.game-page {
 
 .rule-check.checkpoint {
   border: 1px solid #ead8c7;
-  border-left: 0;
   border-radius: 8px;
   background: #fffaf5;
 }

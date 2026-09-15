@@ -136,17 +136,19 @@ function renderRuleSection(step) {
 
 function renderCheckpoint(step) {
   if (!step.check?.options) {
-    return `<div class="rule-check"><strong>${escapeHtml(t("game.checkpoint"))}</strong><span>${escapeHtml(step.check || "")}</span></div>`;
+    return `<div class="rule-check"><span>${escapeHtml(step.check || "")}</span></div>`;
   }
 
   const result = checkpointResults.get(step.id);
   const options = step.check.options
     .map((option, index) => {
       const checked = result?.selected?.includes(index) ? " checked" : "";
+      const status = checked ? (result.correct ? "correct" : "incorrect") : "";
       return `
-        <label class="checkpoint-option">
+        <label class="checkpoint-option${status ? ` ${status}` : ""}">
           <input type="radio" name="checkpoint-${escapeHtml(step.id)}" value="${index}"${checked} />
           <span>${escapeHtml(option.text)}</span>
+          <span class="checkpoint-option-icon" aria-hidden="true">${status ? (result.correct ? "✓" : "✕") : ""}</span>
         </label>
       `;
     })
@@ -154,11 +156,9 @@ function renderCheckpoint(step) {
 
   return `
     <div class="rule-check checkpoint" data-check-id="${escapeHtml(step.id)}">
-      <strong>${escapeHtml(t("game.checkpoint"))}</strong>
-      <p class="checkpoint-prompt">${escapeHtml(step.check.prompt)}</p>
-      <div class="checkpoint-options">${options}</div>
-      <button class="checkpoint-submit" type="button" data-check-id="${escapeHtml(step.id)}">${escapeHtml(t("game.checkAnswer"))}</button>
-      <p class="checkpoint-feedback ${result ? (result.correct ? "correct" : "incorrect") : ""}" data-feedback-for="${escapeHtml(step.id)}">${result ? escapeHtml(result.feedback) : ""}</p>
+      <p class="checkpoint-prompt" id="checkpoint-prompt-${escapeHtml(step.id)}">${escapeHtml(step.check.prompt)}</p>
+      <div class="checkpoint-options" role="radiogroup" aria-labelledby="checkpoint-prompt-${escapeHtml(step.id)}" aria-describedby="checkpoint-feedback-${escapeHtml(step.id)}">${options}</div>
+      <p class="checkpoint-feedback ${result ? (result.correct ? "correct" : "incorrect") : ""}" id="checkpoint-feedback-${escapeHtml(step.id)}" aria-live="polite" aria-atomic="true">${result ? escapeHtml(result.feedback) : ""}</p>
     </div>
   `;
 }
@@ -174,20 +174,14 @@ function renderScoreCard() {
   `;
 }
 
-function handleCheckpointSubmit(button) {
-  const checkId = button.dataset.checkId;
+function handleCheckpointChange(input) {
+  const container = input.closest(".checkpoint");
+  const checkId = container.dataset.checkId;
   const step = currentLessonSteps.find((item) => item.id === checkId);
   if (!step?.check?.options) return;
 
-  const container = button.closest(".checkpoint");
-  const selected = [...container.querySelectorAll("input[type='radio']:checked")].map((input) => Number(input.value));
+  const selected = [Number(input.value)];
   const feedback = container.querySelector(".checkpoint-feedback");
-
-  if (selected.length === 0) {
-    feedback.textContent = t("game.selectOne");
-    feedback.className = "checkpoint-feedback incorrect";
-    return;
-  }
 
   const correctIndexes = step.check.options
     .map((option, index) => (option.correct ? index : -1))
@@ -199,6 +193,12 @@ function handleCheckpointSubmit(button) {
     : `${t("game.incorrectAnswer", { answers: correctAnswers })} ${step.check.explanation}`;
 
   checkpointResults.set(checkId, { correct, selected, feedback: feedbackText });
+  container.querySelectorAll(".checkpoint-option").forEach((option) => {
+    const checked = option.querySelector("input").checked;
+    option.classList.toggle("correct", checked && correct);
+    option.classList.toggle("incorrect", checked && !correct);
+    option.querySelector(".checkpoint-option-icon").textContent = checked ? (correct ? "✓" : "✕") : "";
+  });
   feedback.textContent = feedbackText;
   feedback.className = `checkpoint-feedback ${correct ? "correct" : "incorrect"}`;
   updateCheckpointScore();
@@ -345,9 +345,9 @@ function renderInlineMarkdown(value) {
 }
 
 elements.tabs.forEach((tab) => tab.addEventListener("click", () => selectTab(tab.dataset.tab)));
-elements.sections.addEventListener("click", (event) => {
-  const button = event.target.closest(".checkpoint-submit");
-  if (button) handleCheckpointSubmit(button);
+elements.sections.addEventListener("change", (event) => {
+  const input = event.target.closest(".checkpoint input[type='radio']");
+  if (input) handleCheckpointChange(input);
 });
 elements.chatForm.addEventListener("submit", async (event) => {
   event.preventDefault();
