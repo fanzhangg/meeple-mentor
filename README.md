@@ -40,6 +40,8 @@ $env:OPENAI_MODEL="gpt-4.1-mini"
 
 Without `OPENAI_API_KEY`, the tutor runs in local fallback mode and shows the selected game's relevant rule excerpts. The browser displays a backend-unavailable message on static-only hosting.
 
+Chat includes earlier successful questions and answers from the current page session, including after switching languages. Each game page has its own conversation; reloading starts a new conversation. Introductory messages, loading text, and failed requests are excluded from model context.
+
 Run `node --test scripts/rule-chat.test.js scripts/aoi-guide.test.js scripts/fellowship-guide.test.js` to verify game/language isolation, the model request path, safe answer formatting, and guide behavior. Model API responses are mocked in the automated chat tests.
 
 ## Deploy To Render

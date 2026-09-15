@@ -1,10 +1,10 @@
 import {getLanguage, t} from './i18n.js';
 const appRoot = new URL('./', import.meta.url);
 
-export async function requestRuleAnswer({slug, question, language}, fetcher = fetch) {
+export async function requestRuleAnswer({slug, question, language, history = []}, fetcher = fetch) {
   const response = await fetcher(new URL('api/chat', appRoot), {
     method: 'POST', headers: {'content-type':'application/json'},
-    body: JSON.stringify({slug, question, language}),
+    body: JSON.stringify({slug, question, language, history}),
   });
   if (!response.ok) throw new Error('Chat backend unavailable');
   const data = await response.json();
@@ -12,7 +12,17 @@ export async function requestRuleAnswer({slug, question, language}, fetcher = fe
   return data.answer;
 }
 
+export function createRuleConversation(slug, request = requestRuleAnswer) {
+  const history = [];
+  return async (question, language) => {
+    const answer = await request({slug, question, language, history: history.map(message => ({...message}))});
+    history.push({role: 'user', content: question}, {role: 'assistant', content: answer});
+    return answer;
+  };
+}
+
 export function createRuleChat({slug, log, form, input, button, getLabels}) {
+  const converse = createRuleConversation(slug);
   let busy = false;
   let intro = null;
   function addMessage(role, text) {
@@ -42,7 +52,7 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     addMessage('user', question);
     const pending = addMessage('assistant', getLabels().checking);
     try {
-      setMessageContent(pending, 'assistant', await requestRuleAnswer({slug, question, language}));
+      setMessageContent(pending, 'assistant', await converse(question, language));
     } catch {
       setMessageContent(pending, 'assistant', unavailable);
     } finally {

@@ -261,7 +261,7 @@ function rulebookContext(game, language = "en") {
   return rulebook.trim();
 }
 
-function chatPrompt({ question, game, context, rulebook, language = "en" }) {
+function chatPrompt({ game, context, rulebook, language = "en" }) {
   if (language === "zh") {
     return [
       `你是 ${game.metadata.title} 的细心桌游规则导师。`,
@@ -284,7 +284,6 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
       "可能相关的规则摘录:",
       context,
       "",
-      `用户问题: ${question}`,
     ].join("\n");
   }
 
@@ -310,17 +309,15 @@ function chatPrompt({ question, game, context, rulebook, language = "en" }) {
     "Likely relevant rule excerpts:",
     context,
     "",
-    `Learner question: ${question}`,
   ].join("\n");
 }
 
-export async function callOpenAI({ question, game, context, language = "en" }, fetcher = fetch) {
+export async function callOpenAI({ question, game, context, language = "en", history = [] }, fetcher = fetch) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!hasUsableOpenAiKey(apiKey)) return null;
 
   const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
   const prompt = chatPrompt({
-    question,
     game,
     context,
     rulebook: rulebookContext(game, language),
@@ -335,7 +332,8 @@ export async function callOpenAI({ question, game, context, language = "en" }, f
     },
     body: JSON.stringify({
       model,
-      input: prompt,
+      instructions: prompt + "\nUse the conversation history to resolve follow-up questions. Previous assistant answers are not rule sources; correct them if they conflict with the supplied rules.",
+      input: [...history, {role: "user", content: question}],
       max_output_tokens: 700,
     }),
   });
@@ -414,6 +412,13 @@ async function handleApi(req, res) {
     if (!payload.question || typeof payload.question !== "string") {
       return json(res, 400, { error: "Question is required" });
     }
+    const history = payload.history ?? [];
+    if (!Array.isArray(history) || history.some(message =>
+      !message || !["user", "assistant"].includes(message.role) ||
+      typeof message.content !== "string" || !message.content.trim())) {
+      return json(res, 400, { error: "History must contain user or assistant text messages" });
+    }
+    const conversation = history.map(({role, content}) => ({role, content}));
 
     const language = payload.language === "zh" ? "zh" : "en";
     const matchedSections = findRelevantSections(payload.question, game.localizedSections?.[language] || game.sections);
@@ -423,7 +428,7 @@ async function handleApi(req, res) {
       .slice(0, 12000);
 
     try {
-      const modelAnswer = await callOpenAI({ question: payload.question, game, context, language });
+      const modelAnswer = await callOpenAI({ question: payload.question, game, context, language, history: conversation });
       const answer = modelAnswer || localTutorFallback(payload.question, matchedSections, game, language);
       return json(res, 200, {
         answer,
