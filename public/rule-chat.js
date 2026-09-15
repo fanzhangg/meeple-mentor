@@ -85,7 +85,9 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     if (!question || busy) return;
     input.value = '';
     resizeComposer();
-    input.focus();
+    // Dismiss the phone keyboard once a message is accepted for sending.
+    if (window.matchMedia('(min-width: 60rem)').matches) input.focus();
+    else input.blur();
     void ask(question);
   });
   input.addEventListener('input', resizeComposer);
