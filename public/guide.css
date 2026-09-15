@@ -106,7 +106,6 @@ html:lang(zh-Hans) .game-page {
   display: grid;
   gap: var(--guide-space-1);
   padding-top: var(--guide-space-3);
-  border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: var(--guide-text-sm);
   line-height: 1.6;
@@ -152,7 +151,6 @@ html:lang(zh-Hans) .game-page {
 .rule-menu {
   min-width: 0;
   padding: var(--guide-space-2) var(--guide-space-4);
-  border-bottom: 1px solid var(--line);
 }
 .rule-menu .eyebrow {
   margin: 0;
@@ -204,7 +202,7 @@ html:lang(zh-Hans) .game-page {
 .rule-section > p, .rule-section details p { margin-top: var(--guide-space-3); }
 .rule-section :is(ul, ol) { padding-left: 1.5em; margin-block: var(--guide-space-4); }
 .rule-section li + li { margin-top: var(--guide-space-2); }
-.rule-section details { margin-top: var(--guide-space-4); border-top: 1px solid var(--line); }
+.rule-section details { margin-top: var(--guide-space-4); }
 .rule-section summary {
   padding-block: var(--guide-space-3);
   color: var(--accent-hover);
@@ -239,11 +237,11 @@ html:lang(zh-Hans) .game-page {
 .rule-article :is(td, th) {
   min-width: 7rem;
   padding: var(--guide-space-3);
-  border-bottom: 1px solid var(--line);
   vertical-align: top;
   text-align: left;
 }
 .rule-article th { background: var(--surface-soft); font-weight: var(--guide-weight-label); }
+.rule-article tbody tr:nth-child(even) { background: var(--surface-soft); }
 .game-page .lookup-status { margin-bottom: var(--guide-space-3); color: var(--muted); font-size: var(--guide-text-sm); }
 .lookup-status:empty { display: none; }
 .lookup-link { display: inline-block; padding-block: var(--guide-space-3); font-weight: var(--guide-weight-label); }
@@ -390,7 +388,6 @@ html:lang(zh-Hans) .game-page {
   padding-top: max(var(--guide-space-3), env(safe-area-inset-top));
   padding-left: max(var(--guide-space-4), env(safe-area-inset-left));
   padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
-  border-bottom: 1px solid var(--line);
 }
 .guide-dialog-header h2 { font-size: var(--guide-text-section); }
 .guide-dialog-close {
