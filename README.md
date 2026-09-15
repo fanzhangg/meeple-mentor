@@ -20,6 +20,14 @@ Reviewed rules digests and the source audit are in `content/games/fate-of-the-fe
 
 Run `node --test scripts/fellowship-guide.test.js scripts/aoi-guide.test.js` to check both guides.
 
+## Clans of Caledonia player guide
+
+Open `/games/clans-of-caledonia/` for the Chinese / English reference, 22 topics, 16 recap questions, seven artwork-only rule examples, and shared session-aware rules chat. It uses the current shared guide styling and responsive contents navigation. The library and guide use the user-supplied box-cover artwork.
+
+`content/games/clans-of-caledonia/` contains the supplied PDFs, old-edition English source transcription, organized bilingual rules, terminology/edition notes and the source audit. Both website languages follow the supplied 2025 Chinese base-game revision; port 7 matches the publisher's erratum. Standard play, solo play and optional Kickstarter variants are distinguished. The organized rules are not verbatim full translations and do not include Industria.
+
+Run `python scripts/build_clans_guide.py` to regenerate paired guide data and organized rule Markdown from the audited bilingual source. Run `node --test scripts/clans-guide.test.js scripts/rule-chat.test.js` for guide structure, quiz behavior, asset paths and mocked chat integration.
+
 ## Run
 
 ```powershell

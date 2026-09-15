@@ -67,7 +67,7 @@ export async function loadGame(slug) {
   if (!existsSync(metadataPath)) {
     // The bilingual guides keep their reviewed rules in Markdown and their
     // teaching outline in public data modules, rather than HUANG's legacy JSON.
-    if (!["age-of-innovation", "fate-of-the-fellowship"].includes(safe)) return null;
+    if (!["age-of-innovation", "fate-of-the-fellowship", "clans-of-caledonia"].includes(safe)) return null;
     const games = await readJson(path.join(CONTENT_DIR, "index.json"));
     const metadata = games.find(game => game.slug === safe);
     if (!metadata) return null;
