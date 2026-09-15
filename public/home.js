@@ -2,7 +2,7 @@ import { getLanguage, renderLanguageMenu, setLanguage, t } from "./i18n.js";
 
 const appRoot = new URL("./", import.meta.url);
 const grid = document.querySelector("#game-grid");
-const title = document.querySelector("#home-title");
+const library = document.querySelector(".library-section");
 const languageMenu = document.querySelector("#language-menu");
 let currentGames = [];
 
@@ -28,7 +28,7 @@ async function fetchJson(paths) {
 }
 
 function renderPage() {
-  title.textContent = t("home.title");
+  library.setAttribute("aria-label", t("home.title"));
   grid.innerHTML = currentGames.map(renderGameCard).join("");
 }
 
