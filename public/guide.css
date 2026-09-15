@@ -443,6 +443,13 @@ html:lang(zh-Hans) .game-page {
   padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
 }
 @media (width < 60rem) {
+  .game-page { background: var(--panel); }
+  .game-page .rule-panel {
+    border: 0;
+    border-radius: 0;
+  }
+  .game-page .rule-article { padding-inline: 0; }
+  .game-page .mobile-tabs { background: var(--panel); }
   .chat-popup-ready .mobile-tabs { display: none; }
   .chat-popup-ready .rule-panel { display: block; }
   .chat-popup-ready .game-workspace { margin-top: var(--guide-space-4); }
