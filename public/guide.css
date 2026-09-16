@@ -152,7 +152,10 @@ html:lang(zh-Hans) .game-page {
 }
 .rule-article h2 { font-size: var(--guide-text-title); margin-bottom: var(--guide-space-4); }
 .rule-article h3 { font-size: var(--guide-text-section); }
-.rule-article h4 { font-size: var(--guide-text-body); }
+.rule-article h4 {
+  font-size: var(--guide-text-body);
+  margin-block: var(--guide-space-6) var(--guide-space-2);
+}
 .rule-article .article-lead { margin-bottom: var(--type-paragraph-gap); }
 .rule-section {
   margin-top: var(--type-section-gap);
@@ -161,6 +164,9 @@ html:lang(zh-Hans) .game-page {
   scroll-margin-top: 5rem;
 }
 .rule-section > p, .rule-section details p { margin-top: var(--guide-space-3); }
+/* Keep a subheading closer to its explanation than to the preceding rule. */
+.rule-article h4 + p { margin-top: 0; }
+.rule-subsection > p + p { margin-top: var(--guide-space-4); }
 .rule-section :is(ul, ol) { padding-left: 1.5em; margin-block: var(--guide-space-4); }
 .rule-section li + li { margin-top: var(--guide-space-2); }
 .rule-section details { margin-top: var(--guide-space-4); }
