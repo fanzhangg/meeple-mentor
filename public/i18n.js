@@ -1,3 +1,5 @@
+import {languageFlags} from './icons/language-flags.js';
+
 const LANGUAGE_KEY = "meeple-mentor-language";
 const SUPPORTED_LANGUAGES = ["en", "zh"];
 
@@ -337,12 +339,16 @@ export function t(path, replacements = {}) {
 export function renderLanguageMenu(container, onChange) {
   if (!container) return;
   container.className = "language-menu";
+  const languageName = t(activeLanguage === 'zh' ? 'common.chinese' : 'common.english');
   container.innerHTML = `
-    <label for="language-select">${t("common.languageLabel")}</label>
-    <select id="language-select" aria-label="${t("common.languageLabel")}">
-      <option value="en">${t("common.english")}</option>
-      <option value="zh">${t("common.chinese")}</option>
-    </select>
+    <span class="language-picker ui-button ui-button--glass" title="${languageName}">
+      ${languageFlags[activeLanguage]}
+      <svg class="language-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <select class="language-native-select" id="language-select" aria-label="${t("common.languageLabel")}">
+        <option value="en">${t("common.english")}</option>
+        <option value="zh">${t("common.chinese")}</option>
+      </select>
+    </span>
   `;
   const select = container.querySelector("select");
   select.value = activeLanguage;

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>按钮设计系统 · Meeple Mentor</title>
+<link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="../buttons.css">
+<style>
+body{background:#f6f9fc;font-family:var(--button-font);line-height:1.6}main{max-width:1080px;margin:auto;padding:48px 24px 64px}.eyebrow{color:var(--accent);letter-spacing:.12em}h1{font-size:clamp(28px,5vw,42px);line-height:1.2;margin:12px 0}h2{font-size:20px;margin:0 0 20px}p{margin:8px 0;color:var(--muted)}.intro{max-width:600px;margin-bottom:32px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}section{min-width:0;overflow-wrap:anywhere;padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0}.swatch{background:linear-gradient(130deg,#2f6f9f,#b4d1e4);padding:20px;border-radius:16px}.wide{grid-column:1/-1}.note{font-size:14px}.ui-demo-input{font:inherit;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;flex:1;min-width:0}.live{display:flex;gap:12px;align-items:center}.tokens{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.tokens span{font-size:14px;color:var(--muted)}@media(max-width:600px){main{padding:28px 16px}.grid{grid-template-columns:minmax(0,1fr)}section{padding:20px}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">MEEPLE MENTOR / UI</div><h1>一套按钮，清晰的操作层级</h1>
+<p class="intro">延续蓝白配色与柔和圆角。颜色表达操作的重要程度，尺寸表达触控场景，交互反馈保持一致。</p>
+<div class="tokens"><span>普通控件 44px</span><span>悬浮入口 56px</span><span>文字 16px / 600</span><span>胶囊圆角</span><span>图标 22–24px</span></div>
+<div class="grid">
+<section><h2>01 · 主操作</h2><p>提问、发送：使用实心蓝色。</p><div class="row"><button class="ui-button ui-button--primary" type="button">提问</button><button class="ui-button ui-button--primary" type="button">Ask a question</button></div><p class="note">同一操作区域只强调一个主操作。</p></section>
+<section><h2>02 · 次操作</h2><p>目录、重新作答：白底、蓝字与细描边。</p><div class="row"><button class="ui-button ui-button--secondary" type="button">重新作答</button><button class="ui-button ui-button--secondary" type="button">Start again</button></div><p class="note">与主操作共享字号、圆角和触控高度。</p></section>
+<section><h2>03 · 轻量操作</h2><p>关闭窗口：柔和浅底，降低视觉干扰。</p><div class="row"><button class="ui-button ui-button--quiet ui-button--icon" aria-label="关闭示例" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="ui-button ui-button--quiet" type="button">关闭</button></div><p class="note">图标按钮必须有清晰的无障碍名称。</p></section>
+<section><h2>04 · 图片上的导航</h2><p>返回、语言：半透明白底与柔和投影。</p><div class="row swatch"><button class="ui-button ui-button--glass ui-button--icon" aria-label="返回示例" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span id="demo-language"></span></div><p class="note">首页与指南使用同一套控件样式。</p></section>
+<section><h2>交互状态</h2><div class="row"><button class="ui-button ui-button--secondary" type="button">悬停 / 按下</button><button class="ui-button ui-button--secondary" aria-pressed="true" id="demo-toggle" type="button">已选中</button><button class="ui-button ui-button--primary" type="button" disabled>不可用</button></div><p class="note">用 Tab 查看焦点描边；点击“已选中”切换状态。禁用时不出现按下动画。遵循系统减少动态效果设置。</p></section>
+<section><h2>尺寸与形状</h2><div class="row"><button class="ui-button ui-button--primary ui-button--icon" aria-label="标准发送按钮示例" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="ui-button ui-button--primary ui-button--icon ui-button--floating" aria-label="悬浮发送按钮示例" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div><p class="note">44px 圆形图标按钮 · 56px 悬浮入口。文字按钮随内容加宽，多行标签允许自然增高。</p></section>
+<section class="wide"><h2>试一下发送状态</h2><form class="live" id="demo-form"><input class="ui-demo-input" id="demo-input" aria-label="示例问题" placeholder="输入任意文字，观察按钮启用"><button class="ui-button ui-button--primary" id="demo-send" disabled>发送</button></form><p id="demo-status" role="status" class="note">仅演示按钮状态，不请求规则问答。</p></section>
+</div></main><script type="module" src="./buttons.js"></script></body></html>

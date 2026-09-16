@@ -1,15 +1,15 @@
 /* Guide design system. All games share these roles; game data owns no typography. */
 .game-page {
-  --guide-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --guide-text-sm: .875rem;
-  --guide-text-body: 1rem;
-  --guide-text-section: 1.25rem;
-  --guide-text-title: 1.5rem;
-  --guide-text-display: 1.5rem;
-  --guide-leading: 1.7;
-  --guide-weight-normal: 400;
-  --guide-weight-label: 600;
-  --guide-weight-heading: 700;
+  --guide-font: var(--type-font);
+  --guide-text-sm: var(--type-caption);
+  --guide-text-body: var(--type-body);
+  --guide-text-section: var(--type-section);
+  --guide-text-title: var(--type-title);
+  --guide-text-display: var(--type-display);
+  --guide-leading: var(--type-leading-body);
+  --guide-weight-normal: var(--type-weight-body);
+  --guide-weight-label: var(--type-weight-label);
+  --guide-weight-heading: var(--type-weight-heading);
   --guide-space-1: .25rem;
   --guide-space-2: .5rem;
   --guide-space-3: .75rem;
@@ -17,10 +17,10 @@
   --guide-space-6: 1.5rem;
   --guide-space-8: 2rem;
   --guide-space-12: 3rem;
-  --guide-measure: 42rem;
+  --guide-measure: var(--type-measure);
   --guide-gutter: 1rem;
   --guide-radius: .75rem;
-  --guide-body-ink: #344b5c;
+  --guide-body-ink: var(--type-color-body);
   background: var(--paper);
   font-family: var(--guide-font);
   font-size: var(--guide-text-body);
@@ -30,8 +30,6 @@
 }
 
 html:lang(zh-Hans) .game-page {
-  --guide-font: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --guide-leading: 1.85;
   font-family: var(--guide-font);
   line-break: strict;
 }
@@ -40,7 +38,7 @@ html:lang(zh-Hans) .game-page {
 .game-page :is(h1, h2, h3, h4) {
   color: var(--ink);
   font-weight: var(--guide-weight-heading);
-  line-height: 1.4;
+  line-height: var(--type-leading-heading);
   letter-spacing: normal;
   text-wrap: pretty;
 }
@@ -62,11 +60,7 @@ html:lang(zh-Hans) .game-page {
   gap: var(--guide-space-2);
   min-height: 44px;
   margin: 0;
-  font-size: var(--guide-text-sm);
-  font-weight: var(--guide-weight-label);
 }
-.game-page .language-menu { font-weight: var(--guide-weight-normal); }
-.game-page .language-menu select { min-height: 44px; font-size: var(--guide-text-body); }
 
 /* Only the cover and game name belong in the guide header. */
 .game-hero-compact {
@@ -102,17 +96,6 @@ html:lang(zh-Hans) .game-page {
   padding-block: var(--guide-space-2);
   background: var(--paper);
 }
-.mobile-tabs button {
-  min-height: 44px;
-  padding: var(--guide-space-2) var(--guide-space-4);
-  border: 1px solid var(--line);
-  border-radius: .5rem;
-  background: var(--panel);
-  color: var(--muted);
-  font-weight: var(--guide-weight-label);
-  cursor: pointer;
-}
-.mobile-tabs button.active { color: var(--accent-hover); border-color: var(--accent); background: var(--accent-soft); }
 .game-workspace { display: grid; gap: var(--guide-space-6); margin-top: var(--guide-space-2); }
 .rule-panel, .game-page .game-chat {
   min-width: 0;
@@ -134,7 +117,7 @@ html:lang(zh-Hans) .game-page {
   color: var(--guide-body-ink);
   font-size: var(--guide-text-sm);
   font-weight: var(--guide-weight-label);
-  line-height: 1.5;
+  line-height: var(--type-leading-control);
   text-transform: none;
   cursor: pointer;
 }
@@ -147,7 +130,7 @@ html:lang(zh-Hans) .game-page {
   border-radius: .375rem;
   color: var(--guide-body-ink);
   font-size: var(--guide-text-sm);
-  line-height: 1.5;
+  line-height: var(--type-leading-control);
   text-decoration: none;
 }
 .rule-menu a:hover, .rule-menu a[aria-current] { color: var(--accent-hover); background: var(--accent-soft); }
@@ -168,10 +151,10 @@ html:lang(zh-Hans) .game-page {
 .rule-article h2 { font-size: var(--guide-text-title); margin-bottom: var(--guide-space-4); }
 .rule-article h3 { font-size: var(--guide-text-section); }
 .rule-article h4 { font-size: var(--guide-text-body); }
-.rule-article .article-lead { margin-bottom: var(--guide-space-4); }
+.rule-article .article-lead { margin-bottom: var(--type-paragraph-gap); }
 .rule-section, .checkpoint-score {
-  margin-top: var(--guide-space-8);
-  padding-top: var(--guide-space-8);
+  margin-top: var(--type-section-gap);
+  padding-top: var(--type-section-gap);
   border-top: 1px solid var(--line);
   scroll-margin-top: 5rem;
 }
@@ -184,7 +167,7 @@ html:lang(zh-Hans) .game-page {
   color: var(--accent-hover);
   font-size: var(--guide-text-body);
   font-weight: var(--guide-weight-label);
-  line-height: 1.6;
+  line-height: var(--type-leading-detail);
   cursor: pointer;
 }
 .rule-section details details { margin-left: var(--guide-space-3); }
@@ -195,21 +178,21 @@ html:lang(zh-Hans) .game-page {
 }
 .game-page .rule-example {
   margin-block: var(--guide-space-6);
-  padding: var(--guide-space-3);
-  border: 1px solid var(--line);
-  border-radius: .5rem;
-  background: var(--surface-soft);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 .rule-example a { display: block; }
-.rule-example img { display: block; max-width: 100%; max-height: 32rem; object-fit: contain; margin-inline: auto; }
+.rule-example img { display: block; height: auto; max-width: 100%; max-height: 32rem; object-fit: contain; margin-inline: auto; }
 .rule-example figcaption {
   margin-top: var(--guide-space-3);
-  color: var(--muted);
+  color: var(--type-color-caption);
   font-size: var(--guide-text-sm);
-  line-height: 1.65;
+  line-height: var(--type-leading-caption);
 }
 .table-scroll { max-width: 100%; overflow-x: auto; margin-block: var(--guide-space-4); }
-.rule-article table { width: 100%; border-collapse: collapse; font-size: var(--guide-text-body); line-height: 1.65; }
+.rule-article table { width: 100%; border-collapse: collapse; font-size: var(--guide-text-body); line-height: var(--type-leading-caption); }
 .rule-article :is(td, th) {
   min-width: 7rem;
   padding: var(--guide-space-3);
@@ -246,7 +229,7 @@ html:lang(zh-Hans) .game-page {
   border-radius: .375rem;
   background: var(--panel);
   color: var(--guide-body-ink);
-  line-height: 1.65;
+  line-height: var(--type-leading-caption);
   cursor: pointer;
 }
 .checkpoint-option input { width: 1.125rem; height: 1.125rem; margin: .25rem 0 0; accent-color: var(--accent); }
@@ -272,7 +255,6 @@ html:lang(zh-Hans) .game-page {
 }
 .score-dial::before { content: ""; position: absolute; inset: .75rem; border-radius: inherit; background: var(--panel); }
 .score-dial-value { position: relative; font-size: var(--guide-text-section); font-weight: var(--guide-weight-heading); font-variant-numeric: tabular-nums; }
-.reset-checkpoints { min-height: 44px; padding: var(--guide-space-2) var(--guide-space-4); border: 1px solid var(--line); border-radius: .5rem; color: var(--accent); background: var(--panel); cursor: pointer; }
 .checkpoint-score .score-progress { margin-top: var(--guide-space-3); color: var(--muted); font-size: var(--guide-text-sm); }
 
 /* Conversation shares the same body scale as the rules. */
@@ -317,7 +299,7 @@ html:lang(zh-Hans) .game-page {
 .message :is(ul, ol) { padding-left: 1.25em; }
 .message li > * + *, .message blockquote > * + * { margin-top: var(--guide-space-2); }
 .message li + li { margin-top: var(--guide-space-2); }
-.message :is(h3, h4, h5, h6) { font-size: var(--guide-text-body); line-height: 1.5; }
+.message :is(h3, h4, h5, h6) { font-size: var(--guide-text-body); line-height: var(--type-leading-control); }
 .game-chat .message hr { border: 0; border-top: 1px solid var(--line); margin-block: var(--guide-space-4); }
 .message blockquote { padding-left: var(--guide-space-3); border-left: 3px solid var(--line); color: var(--muted); }
 .message pre { max-width: 100%; padding: var(--guide-space-3); overflow-x: auto; background: var(--panel); border-radius: .25rem; }
@@ -338,13 +320,10 @@ html:lang(zh-Hans) .game-page {
 .game-chat .chat-form:focus-within { border-color: var(--accent); }
 .game-chat .chat-form textarea {
   width: 100%; min-width: 0; min-height: 44px; max-height: 9rem;
-  padding: .5rem; border: 0; resize: none; background: transparent; color: inherit; line-height: 1.5;
+  padding: .5rem; border: 0; resize: none; background: transparent; color: inherit; line-height: var(--type-leading-control);
 }
 /* The composer border provides one focus indicator around the entire input. */
 .game-chat .chat-form textarea:focus-visible { outline: none; }
-.game-chat .chat-form button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; }
-.game-chat .chat-form button:hover { background: var(--accent-hover); }
-.game-chat .chat-form button:disabled { opacity: .35; cursor: default; }
 .game-chat .message.is-typing::after { content: '•••'; display: block; letter-spacing: .25em; color: var(--accent); animation: chat-thinking 1.2s ease-in-out infinite; }
 @keyframes chat-thinking { 50% { opacity: .25; } }
 @media (prefers-reduced-motion: reduce) { .game-chat .message.is-typing::after { animation: none; } }
@@ -383,20 +362,7 @@ html:lang(zh-Hans) .game-page {
   padding-right: max(var(--guide-space-4), env(safe-area-inset-right));
 }
 .guide-dialog-header h2 { font-size: var(--guide-text-section); }
-.guide-dialog-close {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  color: var(--ink);
-  background: var(--surface-soft);
-  cursor: pointer;
-}
-.guide-dialog-close:hover { background: var(--accent-soft); }
+.guide-dialog-close { flex: 0 0 auto; }
 .contents-dialog .rule-menu {
   flex: 1;
   min-height: 0;
@@ -450,30 +416,14 @@ html:lang(zh-Hans) .game-page {
     right: max(1rem, env(safe-area-inset-right));
     bottom: calc(1rem + env(safe-area-inset-bottom));
     z-index: 10;
-    display: grid;
-    place-items: center;
-    width: 56px;
-    height: 56px;
-    padding: 0;
-    border: 1px solid var(--accent-hover);
-    border-radius: 50%;
-    color: #fff;
-    background: var(--accent);
-    box-shadow: 0 4px 16px #20374b40;
-    cursor: pointer;
   }
-  .game-page .guide-launcher:hover { background: var(--accent-hover); }
   .game-page .contents-launcher {
     bottom: calc(5.25rem + env(safe-area-inset-bottom));
-    color: var(--accent);
-    background: var(--panel);
-    border-color: var(--line);
   }
-  .game-page .contents-launcher:hover { background: var(--accent-soft); }
 }
 
 @media (min-width: 40rem) {
-  .game-page { --guide-gutter: 1.5rem; --guide-text-display: 2rem; --guide-text-title: 1.75rem; }
+  .game-page { --guide-gutter: 1.5rem; }
   .game-hero-compact { grid-template-columns: 8rem minmax(0, 1fr); padding: var(--guide-space-6); gap: var(--guide-space-6); }
   .game-hero-body { display: grid; gap: var(--guide-space-4); }
   .rule-menu nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -503,21 +453,8 @@ html:lang(zh-Hans) .game-page {
     right: max(var(--guide-gutter), env(safe-area-inset-right));
     margin: 0;
   }
-  .game-page .home-link,
-  .game-page .game-top-bar select {
-    min-height: 44px;
-    border: 1px solid #ffffff80;
-    border-radius: 999px;
-    color: #172b39;
-    background: #fffffff0;
-    box-shadow: 0 4px 20px #0000001a;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .game-page .home-link { width: 44px; justify-content: center; }
-  .game-page .home-link:hover { background: #fff; }
-  .game-top-bar .home-link-label,
-  .game-top-bar .language-menu label {
+  .game-page .home-link { width: var(--button-size); padding: 0; justify-content: center; }
+  .game-top-bar .home-link-label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -527,7 +464,6 @@ html:lang(zh-Hans) .game-page {
     clip-path: inset(50%);
     white-space: nowrap;
   }
-  .game-page .game-top-bar select { padding-inline: 16px 30px; }
   .game-hero-compact {
     position: relative;
     isolation: isolate;
@@ -562,7 +498,7 @@ html:lang(zh-Hans) .game-page {
   .game-page .rule-article { padding-top: var(--guide-space-3); }
   .game-title-row h1 {
     color: var(--ink);
-    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-size: var(--type-display-cover);
     line-height: 1.15;
     text-wrap: balance;
     text-shadow: 0 1px 12px #ffffff80;

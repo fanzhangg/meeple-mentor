@@ -6,11 +6,12 @@
     <title>HUANG | Meeple Mentor</title>
     <link rel="stylesheet" href="../../styles.css" />
     <link rel="stylesheet" href="../../guide.css" />
+    <link rel="stylesheet" href="../../buttons.css" />
   </head>
   <body class="game-page">
     <main class="game-shell">
       <div class="game-top-bar">
-        <a class="home-link" id="home-link" href="../../"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="home-link-label">All games</span></a>
+        <a class="home-link ui-button ui-button--glass" id="home-link" href="../../"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="home-link-label">All games</span></a>
         <div id="language-menu"></div>
       </div>
 
@@ -24,8 +25,8 @@
       </header>
 
       <div class="mobile-tabs" aria-label="HUANG page views">
-        <button class="active" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">Rules</button>
-        <button id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">Ask</button>
+        <button class="active ui-button ui-button--secondary" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">Rules</button>
+        <button class="ui-button ui-button--secondary" id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">Ask</button>
       </div>
 
       <section class="game-workspace">
@@ -48,7 +49,7 @@
               autocomplete="off"
               placeholder="Ask me about game rules"
             ></textarea>
-            <button id="ask-button" type="submit" title="Ask tutor">Ask</button>
+            <button class="ui-button ui-button--primary ui-button--icon" id="ask-button" type="submit" title="Ask tutor">Ask</button>
           </form>
         </aside>
       </section>

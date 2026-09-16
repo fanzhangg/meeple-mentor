@@ -82,7 +82,7 @@ function renderScoreCard() {
       <div class="score-dial" role="meter" aria-label="${escape(labels.scoreLabel)}" aria-valuemin="0" aria-valuemax="${questions.length}" aria-valuenow="0">
         <span class="score-dial-value" id="checkpoint-score-text">0/${questions.length}</span>
       </div>
-      <button class="reset-checkpoints" type="button" id="reset-checkpoints">${escape(labels.reset)}</button>
+      <button class="reset-checkpoints ui-button ui-button--secondary" type="button" id="reset-checkpoints">${escape(labels.reset)}</button>
     </div>
     <p class="score-progress" id="score-progress" role="status">${escape(text('progress', {count:0,total:questions.length}))}</p>
   </section>`;

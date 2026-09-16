@@ -7,11 +7,12 @@
     <title>大创造时代 | Meeple Mentor</title>
     <link rel="stylesheet" href="../../styles.css" />
     <link rel="stylesheet" href="../../guide.css" />
+    <link rel="stylesheet" href="../../buttons.css" />
   </head>
   <body class="game-page aoi-page">
     <main class="game-shell">
       <div class="game-top-bar">
-        <a class="home-link" href="../../"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="home-link-label">所有游戏</span></a>
+        <a class="home-link ui-button ui-button--glass" href="../../"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="home-link-label">所有游戏</span></a>
         <div id="language-menu"></div>
       </div>
       <header class="game-hero-compact">
@@ -23,8 +24,8 @@
         </div>
       </header>
       <div class="mobile-tabs" aria-label="玩家手册视图">
-        <button class="active" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">规则</button>
-        <button id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">提问</button>
+        <button class="active ui-button ui-button--secondary" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">规则</button>
+        <button class="ui-button ui-button--secondary" id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">提问</button>
       </div>
       <section class="game-workspace">
         <article class="rule-panel active" id="summary-panel" data-panel="summary">
@@ -41,7 +42,7 @@
           <div id="chat-log" class="chat-log" aria-live="polite"></div>
           <form id="chat-form" class="chat-form">
             <textarea id="question" rows="1" name="question" aria-label="规则问题" placeholder="Ask me about game rules" autocomplete="off" ></textarea>
-            <button id="ask-button" type="submit">提问</button>
+            <button class="ui-button ui-button--primary ui-button--icon" id="ask-button" type="submit">提问</button>
           </form>
         </aside>
       </section>

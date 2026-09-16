@@ -1,0 +1,41 @@
+/* Shared text tokens: meaning determines the scale, not the game. */
+:root {
+  --type-font-en: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --type-font-zh: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --type-font: var(--type-font-en);
+  --type-body: 1rem;
+  --type-caption: .875rem;
+  --type-section: 1.25rem;
+  --type-title: 1.5rem;
+  --type-display: 2rem;
+  --type-display-cover: clamp(2rem, 8vw, 2.75rem);
+  --type-weight-body: 400;
+  --type-weight-label: 600;
+  --type-weight-heading: 700;
+  --type-leading-body: 1.7;
+  --type-leading-heading: 1.4;
+  --type-leading-caption: 1.65;
+  --type-leading-control: 1.5;
+  --type-leading-detail: 1.6;
+  --type-measure: 42rem;
+  --type-color-heading: var(--ink, #20374b);
+  --type-color-body: #344b5c;
+  --type-color-caption: var(--muted, #5c7182);
+  --type-paragraph-gap: 1rem;
+  --type-section-gap: 2rem;
+}
+html:lang(zh), html:lang(zh-Hans) {
+  --type-font: var(--type-font-zh);
+  --type-leading-body: 1.85;
+}
+@media (min-width: 40rem) {
+  :root { --type-title: 1.75rem; }
+}
+
+/* Optional role classes for new surfaces and the typography specimen. */
+.type-display { font: var(--type-weight-heading) var(--type-display)/1.3 var(--type-font); color: var(--type-color-heading); text-wrap: balance; }
+.type-title { font: var(--type-weight-heading) var(--type-title)/var(--type-leading-heading) var(--type-font); color: var(--type-color-heading); }
+.type-section { font: var(--type-weight-heading) var(--type-section)/var(--type-leading-heading) var(--type-font); color: var(--type-color-heading); }
+.type-body { font: var(--type-weight-body) var(--type-body)/var(--type-leading-body) var(--type-font); color: var(--type-color-body); }
+.type-label { font: var(--type-weight-label) var(--type-body)/var(--type-leading-detail) var(--type-font); color: var(--type-color-heading); }
+.type-caption { font: var(--type-weight-body) var(--type-caption)/var(--type-leading-caption) var(--type-font); color: var(--type-color-caption); }

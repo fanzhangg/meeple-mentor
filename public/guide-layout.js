@@ -37,7 +37,7 @@ function createMobilePopup(panel, kind, labels, icon) {
   panel.before(anchor);
   const launcher = document.createElement('button');
   launcher.type = 'button';
-  launcher.className = `guide-launcher ${kind}-launcher`;
+  launcher.className = `guide-launcher ${kind}-launcher ui-button ui-button--${kind === 'chat' ? 'primary' : 'secondary'} ui-button--icon ui-button--floating`;
   launcher.setAttribute('aria-haspopup', 'dialog');
   launcher.setAttribute('aria-controls', `rules-${kind}-dialog`);
   launcher.setAttribute('aria-expanded', 'false');
@@ -47,7 +47,7 @@ function createMobilePopup(panel, kind, labels, icon) {
   dialog.id = `rules-${kind}-dialog`;
   dialog.className = `guide-dialog ${kind}-dialog`;
   dialog.setAttribute('aria-labelledby', `rules-${kind}-title`);
-  dialog.innerHTML = `<header class="guide-dialog-header"><h2 id="rules-${kind}-title"></h2><button class="guide-dialog-close" type="button" autofocus><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></header>`;
+  dialog.innerHTML = `<header class="guide-dialog-header"><h2 id="rules-${kind}-title"></h2><button class="guide-dialog-close ui-button ui-button--quiet ui-button--icon" type="button" autofocus><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></header>`;
   const title = dialog.querySelector('h2');
   const closeButton = dialog.querySelector('button');
   document.body.append(launcher, dialog);

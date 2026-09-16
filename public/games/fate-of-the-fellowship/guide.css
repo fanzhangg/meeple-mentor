@@ -27,10 +27,3 @@
 @media (max-width: 520px) {
   .fellowship-page .rule-icon-grid { grid-template-columns: 1fr; }
 }
-.game-page.fellowship-page .rule-example {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-}
-.fellowship-page .rule-example img { height: auto; }

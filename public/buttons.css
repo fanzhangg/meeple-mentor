@@ -1,0 +1,149 @@
+/* Shared controls. Load after page styles; placement belongs to the page. */
+:root {
+  --button-size: 2.75rem;
+  --button-size-floating: 3.5rem;
+  --button-radius: 999px;
+  --button-font: var(--type-font, ui-sans-serif, system-ui, sans-serif);
+  --button-weight: var(--type-weight-label, 600);
+  --button-gap: .5rem;
+  --button-padding: 1rem;
+  --button-border: var(--line, #cfdeea);
+  --button-primary: var(--accent, #2f6f9f);
+  --button-primary-hover: var(--accent-hover, #24577e);
+  --button-primary-pressed: #1c4564;
+  --button-ink: var(--ink, #20374b);
+  --button-soft: var(--paper, #f0f6fb);
+  --button-soft-hover: var(--accent-soft, #e8f2fa);
+  --button-soft-pressed: #dbeaf5;
+  --button-shadow: 0 4px 16px #20374b24;
+  --button-focus: var(--button-primary);
+  --button-duration: 140ms;
+}
+
+.ui-button,
+.game-page .ui-button {
+  --control-bg: #fff;
+  --control-hover: var(--button-soft-hover);
+  --control-pressed: var(--button-soft-pressed);
+  --control-ink: var(--button-primary-hover);
+  --control-border: var(--button-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  min-height: var(--button-size);
+  min-width: var(--button-size);
+  max-width: 100%;
+  padding: .5rem var(--button-padding);
+  border: 1px solid var(--control-border);
+  border-radius: var(--button-radius);
+  background: var(--control-bg);
+  color: var(--control-ink);
+  font: var(--button-weight) var(--type-body, 1rem)/var(--type-leading-control, 1.5) var(--button-font);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--button-duration), border-color var(--button-duration), transform var(--button-duration);
+}
+
+.ui-button.ui-button--primary {
+  --control-bg: var(--button-primary);
+  --control-hover: var(--button-primary-hover);
+  --control-pressed: var(--button-primary-pressed);
+  --control-ink: #fff;
+  --control-border: transparent;
+}
+.ui-button.ui-button--quiet {
+  --control-bg: var(--button-soft);
+  --control-ink: var(--button-ink);
+  --control-border: transparent;
+}
+.ui-button.ui-button--glass {
+  --control-bg: #fffffff0;
+  --control-hover: #fff;
+  --control-pressed: var(--button-soft-pressed);
+  --control-ink: var(--button-ink);
+  --control-border: #ffffff80;
+  box-shadow: var(--button-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ui-button.ui-button--icon {
+  width: var(--button-size);
+  height: var(--button-size);
+  padding: 0;
+  flex-shrink: 0;
+}
+.ui-button svg { width: 1.375rem; height: 1.375rem; flex-shrink: 0; }
+.ui-button.ui-button--floating {
+  width: var(--button-size-floating);
+  height: var(--button-size-floating);
+  box-shadow: var(--button-shadow);
+}
+.ui-button--floating svg { width: 1.5rem; height: 1.5rem; }
+.ui-button.ui-select { padding-inline-end: 1.875rem; text-align: start; }
+/* The transparent native select keeps keyboard and mobile-picker behavior. */
+.language-picker.ui-button { position: relative; gap: .375rem; padding-inline: .75rem; }
+.language-picker .language-flag { display: block; width: 1.875rem; height: 1.25rem; border-radius: 2px; object-fit: cover; }
+.language-picker .language-chevron { width: 1rem; height: 1rem; }
+.language-picker .language-native-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.language-picker:has(select:focus-visible) {
+  outline: 3px solid var(--button-focus);
+  outline-offset: 3px;
+}
+.ui-button[aria-pressed="true"] {
+  --control-bg: var(--button-soft-hover);
+  --control-border: var(--button-primary);
+  --control-ink: var(--button-primary-hover);
+}
+
+@media (hover: hover) {
+  .ui-button:not(:disabled):not([aria-disabled="true"]):hover,
+  .game-page .ui-button:not(:disabled):not([aria-disabled="true"]):hover {
+    background: var(--control-hover);
+    color: var(--control-ink);
+  }
+}
+.ui-button:not(:disabled):not([aria-disabled="true"]):active,
+.game-page .ui-button:not(:disabled):not([aria-disabled="true"]):active {
+  background: var(--control-pressed);
+  transform: translateY(1px);
+}
+.ui-button:focus-visible,
+.game-page .ui-button:focus-visible {
+  outline: 3px solid var(--button-focus);
+  outline-offset: 3px;
+}
+.ui-button:disabled, .ui-button[aria-disabled="true"],
+.game-page .ui-button:disabled, .game-page .ui-button[aria-disabled="true"] {
+  background: #e8eef3;
+  border-color: transparent;
+  color: #6a7b88;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+/* Launchers remain hidden on desktop; the guide owns their fixed position. */
+.ui-button.guide-launcher { display: none; }
+@media (width < 60rem) {
+  .game-page .ui-button.guide-launcher { display: inline-flex; }
+  .game-page .home-link.ui-button { width: var(--button-size); padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-button, .game-page .ui-button { transition: none; }
+  .ui-button:not(:disabled):active, .game-page .ui-button:not(:disabled):active { transform: none; }
+}
+@media (forced-colors: active) {
+  .ui-button, .game-page .ui-button { border: 1px solid ButtonText; }
+  .ui-button:focus-visible, .game-page .ui-button:focus-visible { outline-color: Highlight; }
+}
