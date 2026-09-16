@@ -1,12 +1,48 @@
 import {getLanguage, t} from './i18n.js';
+import {readSse} from './sse.js';
+import MarkdownIt from './vendor/markdown-it/markdown-it.js';
 const appRoot = new URL('./', import.meta.url);
+const markdown = new MarkdownIt({html: false, linkify: false});
+// Chat answers render text and links, without automatically loading remote images.
+markdown.renderer.rules.image = (tokens, index) => markdown.utils.escapeHtml(
+  markdown.renderer.renderInlineAsText(tokens[index].children || [], markdown.options, {})
+);
+// Keep message headings below the surrounding page and dialog headings.
+for (const rule of ['heading_open', 'heading_close']) {
+  markdown.renderer.rules[rule] = (tokens, index, options, env, renderer) => {
+    const token = tokens[index];
+    token.tag = `h${Math.min(6, Number(token.tag.slice(1)) + 2)}`;
+    return renderer.renderToken(tokens, index, options);
+  };
+}
+markdown.renderer.rules.table_open = () => '<div class="chat-table-scroll"><table>\n';
+markdown.renderer.rules.table_close = () => '</table></div>\n';
 
-export async function requestRuleAnswer({slug, question, language, history = []}, fetcher = fetch) {
+export async function requestRuleAnswer({slug, question, language, history = [], onUpdate}, fetcher = fetch) {
   const response = await fetcher(new URL('api/chat', appRoot), {
-    method: 'POST', headers: {'content-type':'application/json'},
+    method: 'POST', headers: {'content-type':'application/json', accept:'text/event-stream'},
+    signal: AbortSignal.timeout(120_000),
     body: JSON.stringify({slug, question, language, history}),
   });
   if (!response.ok) throw new Error('Chat backend unavailable');
+  if (response.headers.get('content-type')?.includes('text/event-stream')) {
+    let answer = '';
+    for await (const {event, data} of readSse(response.body)) {
+      const payload = JSON.parse(data);
+      if (event === 'error') throw new Error('Chat request failed');
+      if (event === 'delta') {
+        if (typeof payload.delta !== 'string') throw new Error('Invalid answer chunk');
+        answer += payload.delta;
+        onUpdate?.(answer);
+      }
+      if (event === 'done') {
+        if (typeof payload.answer !== 'string' || !payload.answer.trim()) throw new Error('Empty answer');
+        if (payload.answer !== answer) onUpdate?.(payload.answer);
+        return payload.answer;
+      }
+    }
+    throw new Error('Answer stream interrupted');
+  }
   const data = await response.json();
   if (typeof data.answer !== 'string' || !data.answer.trim()) throw new Error('Empty answer');
   return data.answer;
@@ -14,8 +50,8 @@ export async function requestRuleAnswer({slug, question, language, history = []}
 
 export function createRuleConversation(slug, request = requestRuleAnswer) {
   const history = [];
-  return async (question, language) => {
-    const answer = await request({slug, question, language, history: history.map(message => ({...message}))});
+  return async (question, language, onUpdate) => {
+    const answer = await request({slug, question, language, onUpdate, history: history.map(message => ({...message}))});
     history.push({role: 'user', content: question}, {role: 'assistant', content: answer});
     return answer;
   };
@@ -64,16 +100,44 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     const pending = addMessage('assistant', '');
     pending.classList.add('is-typing');
     let followReply = true;
+    let lastScrollTop = log.scrollTop;
+    let frame = null;
+    let streamedAnswer = '';
+    const stopFollowing = () => { followReply = false; };
+    // Touch/wheel intent can precede the actual scroll (including smooth scrolling).
+    log.addEventListener('wheel', stopFollowing, {passive: true});
+    log.addEventListener('touchmove', stopFollowing, {passive: true});
+    const updateFollowReply = () => {
+      // Once the reader scrolls manually, leave their position alone for this reply.
+      followReply = followReply && Math.abs(log.scrollTop - lastScrollTop) < 2;
+    };
+    const renderReply = text => {
+      updateFollowReply();
+      pending.classList.remove('is-typing');
+      setMessageContent(pending, 'assistant', text);
+      // Keep the start of a long answer in view as more text arrives.
+      if (followReply) log.scrollTop = pending.offsetTop - 12;
+      lastScrollTop = log.scrollTop;
+    };
     try {
-      const answer = await converse(question, language);
-      followReply = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
-      setMessageContent(pending, 'assistant', answer);
+      const answer = await converse(question, language, text => {
+        streamedAnswer = text;
+        if (frame === null) frame = requestAnimationFrame(() => {
+          frame = null;
+          renderReply(streamedAnswer);
+        });
+      });
+      cancelAnimationFrame(frame);
+      renderReply(answer);
     } catch {
-      followReply = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+      cancelAnimationFrame(frame);
+      updateFollowReply();
       pending.classList.add('is-error');
       pending.setAttribute('role', 'alert');
       setMessageContent(pending, 'assistant', `**${failedTitle}**\n\n${unavailable}`);
     } finally {
+      log.removeEventListener('wheel', stopFollowing);
+      log.removeEventListener('touchmove', stopFollowing);
       busy = false;
       pending.classList.remove('is-typing');
       resizeComposer();
@@ -103,15 +167,6 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
   return {addMessage, ask, refresh};
 }
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
 function setMessageContent(message, role, text) {
   if (role === "assistant") {
     message.innerHTML = renderMarkdown(text);
@@ -121,71 +176,6 @@ function setMessageContent(message, role, text) {
 }
 
 export function renderMarkdown(value) {
-  const lines = String(value ?? "").replace(/\r\n/g, "\n").split("\n");
-  const blocks = [];
-  let paragraph = [];
-  let list = [];
-  let listTag = "ul";
-
-  const flushParagraph = () => {
-    if (!paragraph.length) return;
-    blocks.push(`<p>${renderInlineMarkdown(paragraph.join(" "))}</p>`);
-    paragraph = [];
-  };
-  const flushList = () => {
-    if (!list.length) return;
-    blocks.push(`<${listTag}>${list.map((item) => `<li>${renderInlineMarkdown(item)}</li>`).join("")}</${listTag}>`);
-    list = [];
-    listTag = "ul";
-  };
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      flushParagraph();
-      flushList();
-      continue;
-    }
-
-    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
-    if (heading) {
-      flushParagraph();
-      flushList();
-      const level = heading[1].length + 2;
-      blocks.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
-      continue;
-    }
-
-    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
-    if (bullet) {
-      flushParagraph();
-      if (list.length && listTag !== "ul") flushList();
-      listTag = "ul";
-      list.push(bullet[1]);
-      continue;
-    }
-
-    const numbered = trimmed.match(/^\d+[.)]\s+(.+)$/);
-    if (numbered) {
-      flushParagraph();
-      if (list.length && listTag !== "ol") flushList();
-      listTag = "ol";
-      list.push(numbered[1]);
-      continue;
-    }
-
-    flushList();
-    paragraph.push(trimmed);
-  }
-
-  flushParagraph();
-  flushList();
-  return blocks.join("");
-}
-
-function renderInlineMarkdown(value) {
-  return escapeHtml(value)
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  return markdown.render(String(value ?? ''));
 }
 

@@ -315,6 +315,7 @@ html:lang(zh-Hans) .game-page {
   margin: 0 0 var(--guide-space-4);
   padding: var(--guide-space-2) var(--guide-space-1);
   overscroll-behavior: contain;
+  overflow-anchor: none;
   scrollbar-width: thin;
 }
 .game-chat .message {
@@ -335,12 +336,21 @@ html:lang(zh-Hans) .game-page {
   background: #fff0ec;
   border: 1px solid #e5b7af;
 }
-.message :is(p, ul, ol, h3, h4, h5) { margin: 0; }
+.message :is(p, ul, ol, h3, h4, h5, h6, blockquote, pre) { margin: 0; }
 .game-chat .message > * + * { margin-top: var(--guide-space-3); }
 .message :is(ul, ol) { padding-left: 1.25em; }
+.message li > * + *, .message blockquote > * + * { margin-top: var(--guide-space-2); }
 .message li + li { margin-top: var(--guide-space-2); }
-.message :is(h3, h4, h5) { font-size: var(--guide-text-body); line-height: 1.5; }
+.message :is(h3, h4, h5, h6) { font-size: var(--guide-text-body); line-height: 1.5; }
+.game-chat .message hr { border: 0; border-top: 1px solid var(--line); margin-block: var(--guide-space-4); }
+.message blockquote { padding-left: var(--guide-space-3); border-left: 3px solid var(--line); color: var(--muted); }
+.message pre { max-width: 100%; padding: var(--guide-space-3); overflow-x: auto; background: var(--panel); border-radius: .25rem; }
 .message code { padding: .1em .25em; border: 1px solid var(--line); border-radius: .25rem; background: var(--panel); font-size: .925em; }
+.message pre code { padding: 0; border: 0; background: transparent; }
+.message a { text-decoration: underline; text-underline-offset: .15em; }
+.message .chat-table-scroll { max-width: 100%; overflow-x: auto; }
+.message table { width: 100%; border-collapse: collapse; font-size: inherit; }
+.message :is(th, td) { padding: var(--guide-space-2); text-align: left; vertical-align: top; }
 .game-chat .chat-form {
   flex-shrink: 0;
   align-items: end;

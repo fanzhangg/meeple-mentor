@@ -42,13 +42,19 @@ Copy `.env.example` to `.env.local` or set environment variables before starting
 
 ```powershell
 $env:OPENAI_API_KEY="..."
-$env:OPENAI_MODEL="gpt-4.1-mini"
+$env:OPENAI_MODEL="gpt-5.6-luna"
 & "C:\Users\fzhan\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" server.js
 ```
 
 Without `OPENAI_API_KEY`, the tutor runs in local fallback mode and shows the selected game's relevant rule excerpts. The browser displays a backend-unavailable message on static-only hosting.
 
+The default model is `gpt-5.6-luna`, with `medium` reasoning, `low` text verbosity, and an 8,192-token output budget shared by reasoning and answer text. Answers lead with the ruling and normally use 1–3 short sentences, retaining decisive conditions and exceptions. Detailed explanations and examples are provided when requested; the token budget is not a target answer length. SSE displays answer text once generation begins. `OPENAI_MODEL` can override the model, and Luna-specific reasoning and verbosity parameters are omitted for other models.
+
 Chat includes earlier successful questions and answers from the current page session, including after switching languages. Each game page has its own conversation; reloading starts a new conversation. Introductory messages, loading text, and failed requests are excluded from model context.
+
+Chat Markdown uses the locally bundled `markdown-it` parser in `public/vendor/markdown-it` (version and license included). It supports numbered and nested lists, paragraphs inside list items, thematic breaks, links, code and tables. Raw HTML remains escaped, unsafe link schemes are rejected, and images render as alt text without fetching remote assets.
+
+The browser requests SSE from `POST /api/chat` using `fetch` and `Accept: text/event-stream`. The server streams Responses API text into `delta` events, then sends `done` with the complete answer and source-section metadata. The shared chat renders Markdown progressively without moving readers past the start of a long answer. Failed, timed-out, or interrupted streams show the red request-failed message and never enter conversation history. Disconnecting cancels the upstream request; heartbeats and no-buffering headers help proxies deliver events promptly. Clients without the SSE Accept header still receive JSON, and local fallback answers work in both modes. The server allows 90 seconds per model request, with a 120-second browser deadline.
 
 Run `node --test scripts/rule-chat.test.js scripts/aoi-guide.test.js scripts/fellowship-guide.test.js` to verify game/language isolation, the model request path, safe answer formatting, and guide behavior. Model API responses are mocked in the automated chat tests.
 

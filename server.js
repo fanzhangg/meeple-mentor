@@ -4,6 +4,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { readSse } from "./public/sse.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 loadEnvFile(path.join(__dirname, ".env.local"));
@@ -269,7 +270,10 @@ function chatPrompt({ game, context, rulebook, language = "en" }) {
       "你只能使用下方提供的游戏资料、已审核中文教学提纲、提供的中文规则文本和相关规则摘录来回答。",
       "如果相关规则摘录与提供的中文规则文本冲突，以提供的中文规则文本为准。",
       "如果提供的上下文没有回答这个问题，请明确说“提供的规则上下文没有说明”，不要猜测或编造。",
-      "回答要简洁、具体、适合边玩边查。必要时可以提到相关规则章节名。",
+      "回答适合手机上边玩边查：第一句直接给结论，再补会影响结论的必要条件或例外。",
+      "默认用 1–3 句短句，通常不超过 150 个汉字；简单的是非或数量问题用 1–2 句。步骤或并列条件较多时，优先用不超过 3 个短要点。",
+      "只回答当前问题，不复述问题，不附带无关规则、策略建议、重复总结或邀请继续提问。默认不用标题，不主动举例。必要时简短注明相关规则章节名。",
+      "不要为了简短省略决定答案的条件、费用、时机或例外。用户明确要求详细解释、完整流程或例子时，再按要求展开，不受默认篇幅限制。",
       "不要把可选规则当作基础规则，除非用户明确询问可选规则。",
       "",
       "游戏资料:",
@@ -293,7 +297,10 @@ function chatPrompt({ game, context, rulebook, language = "en" }) {
     "Teach casual players using only the provided game metadata, curated English teaching context, provided English rule text, and reviewed rule excerpts.",
     "If likely relevant excerpts conflict with the provided English rule text, trust the provided English rule text.",
     "If the provided context does not answer the question, say that the provided context does not specify it.",
-    "Be concise, concrete, and friendly. Include relevant section names when useful.",
+    "Write for quick lookup on a phone: give the ruling in the first sentence, then only the conditions or exceptions that affect it.",
+    "Default to 1–3 short sentences, usually under 80 words; use 1–2 sentences for simple yes/no or quantity questions. Prefer at most 3 short bullets when steps or parallel conditions need a list.",
+    "Answer only the current question. Do not restate it, add unrelated rules or strategy, repeat a summary, or offer further help. Omit headings and unsolicited examples by default. Mention a relevant rule section briefly when useful.",
+    "Never omit decisive conditions, costs, timing, or exceptions just to be brief. When the user explicitly asks for detail, a complete procedure, or examples, expand as requested without the default length target.",
     "Do not treat optional rules as base-game rules unless the learner explicitly asks about optional rules.",
     "Answer in English.",
     "",
@@ -312,11 +319,12 @@ function chatPrompt({ game, context, rulebook, language = "en" }) {
   ].join("\n");
 }
 
-export async function callOpenAI({ question, game, context, language = "en", history = [] }, fetcher = fetch) {
+export async function callOpenAI({ question, game, context, language = "en", history = [], onDelta, signal }, fetcher = fetch) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!hasUsableOpenAiKey(apiKey)) return null;
 
-  const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+  const model = process.env.OPENAI_MODEL || "gpt-5.6-luna";
+  const isLuna = model === 'gpt-5.6-luna' || model.startsWith('gpt-5.6-luna-');
   const prompt = chatPrompt({
     game,
     context,
@@ -326,6 +334,7 @@ export async function callOpenAI({ question, game, context, language = "en", his
 
   const response = await fetcher("https://api.openai.com/v1/responses", {
     method: "POST",
+    signal,
     headers: {
       authorization: `Bearer ${apiKey}`,
       "content-type": "application/json",
@@ -334,13 +343,34 @@ export async function callOpenAI({ question, game, context, language = "en", his
       model,
       instructions: prompt + "\nUse the conversation history to resolve follow-up questions. Previous assistant answers are not rule sources; correct them if they conflict with the supplied rules.",
       input: [...history, {role: "user", content: question}],
-      max_output_tokens: 700,
+      // Luna's output budget includes reasoning tokens as well as the final answer.
+      max_output_tokens: isLuna ? 8192 : 700,
+      ...(isLuna ? {reasoning: {effort: 'medium'}, text: {verbosity: 'low'}} : {}),
+      ...(onDelta ? {stream: true} : {}),
     }),
   });
 
   if (!response.ok) {
-    const details = await response.text();
-    throw new Error(`OpenAI request failed: ${response.status} ${details}`);
+    await response.body?.cancel();
+    throw new Error(`OpenAI request failed: ${response.status}`);
+  }
+
+  if (onDelta) {
+    let answer = '';
+    for await (const event of readSse(response.body)) {
+      const data = JSON.parse(event.data);
+      if (data.type === 'response.output_text.delta' || data.type === 'response.refusal.delta') {
+        if (typeof data.delta !== 'string') throw new Error('Invalid model delta');
+        answer += data.delta;
+        onDelta(data.delta);
+      } else if (data.type === 'response.completed') {
+        if (!answer.trim()) throw new Error('Empty model answer');
+        return answer;
+      } else if (['error', 'response.failed', 'response.incomplete'].includes(data.type)) {
+        throw new Error('Model response failed or was incomplete');
+      }
+    }
+    throw new Error('Model stream ended before completion');
   }
 
   const data = await response.json();
@@ -427,16 +457,56 @@ async function handleApi(req, res) {
       .join("\n\n")
       .slice(0, 12000);
 
+    const streaming = req.headers.accept?.includes('text/event-stream');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 90_000);
+    const disconnect = () => controller.abort();
+    res.on('close', disconnect);
+    if (res.destroyed) controller.abort();
+    let heartbeat;
+    const emit = (event, data) => {
+      if (!res.destroyed && !res.writableEnded) res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+    };
+    if (streaming) {
+      res.writeHead(200, {
+        'content-type': 'text/event-stream; charset=utf-8',
+        'cache-control': 'no-cache, no-transform',
+        'x-accel-buffering': 'no',
+      });
+      res.flushHeaders();
+      heartbeat = setInterval(() => {
+        if (!res.destroyed) res.write(': keep-alive\n\n');
+      }, 15_000);
+    }
     try {
-      const modelAnswer = await callOpenAI({ question: payload.question, game, context, language, history: conversation });
+      const modelAnswer = await callOpenAI({
+        question: payload.question, game, context, language, history: conversation,
+        signal: controller.signal,
+        onDelta: streaming ? delta => emit('delta', {delta}) : undefined,
+      });
       const answer = modelAnswer || localTutorFallback(payload.question, matchedSections, game, language);
-      return json(res, 200, {
+      const result = {
         answer,
         sections: matchedSections.map((section) => ({ id: section.id, title: section.title })),
         usedModel: Boolean(modelAnswer),
-      });
-    } catch (error) {
-      return json(res, 502, { error: error.message });
+      };
+      if (streaming) {
+        if (!modelAnswer) emit('delta', {delta: answer});
+        emit('done', result);
+        return res.end();
+      }
+      return json(res, 200, result);
+    } catch {
+      if (res.destroyed) return;
+      if (streaming) {
+        emit('error', {error: 'Chat request failed'});
+        return res.end();
+      }
+      return json(res, 502, { error: 'Chat request failed' });
+    } finally {
+      clearTimeout(timeout);
+      clearInterval(heartbeat);
+      res.off('close', disconnect);
     }
   }
 
