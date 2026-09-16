@@ -4,6 +4,7 @@ import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
 import {copy} from './guide-copy.js';
 import {examplesFor} from './guide-examples.js';
+import {imageSizes} from './guide-image-sizes.js';
 import {createQuizSession} from './guide-model.js';
 import {getLanguage, setLanguage, renderLanguageMenu, t} from '../../i18n.js';
 let language = getLanguage();
@@ -27,13 +28,21 @@ function renderTable(table) {
   </table></div>`;
 }
 
-function renderDetails(topic) {
-  return `<details class="topic-details"><summary>${appendixTopics.includes(topic) ? labels.appendix : labels.details}</summary>
+function renderRules(topic) {
+  const body = `<div class="topic-rules">
     ${renderTable(topic.table)}
     ${topic.bullets.length ? `<ul>${topic.bullets.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}
     ${topic.warning ? `<p class="rule-warning">${escape(labels.note)}${escape(topic.warning)}</p>` : ''}
-    ${(topic.details ?? []).map(detail => `<details><summary>${escape(detail.title)}</summary><p>${escape(detail.text)}</p></details>`).join('')}
-  </details>`;
+    ${(topic.details ?? []).map(detail => {
+      const content = `<p>${escape(detail.text)}</p>`;
+      return ['clans', 'variants'].includes(topic.id)
+        ? `<details><summary>${escape(detail.title)}</summary>${content}</details>`
+        : `<div class="rule-subsection"><h4>${escape(detail.title)}</h4>${content}</div>`;
+    }).join('')}
+  </div>`;
+  return topic.id === 'setup'
+    ? `<details class="topic-details"><summary>${escape(labels.appendix)}</summary>${body}</details>`
+    : body;
 }
 
 function renderCheckpoint(question) {
@@ -52,7 +61,7 @@ function renderCheckpoint(question) {
 function renderExamples(topic) {
   return examplesFor(topic, language).map(example => `<figure class="rule-example">
     <a href="${asset(example.image)}" target="_blank" rel="noopener">
-      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" />
+      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" width="${imageSizes[example.image][0]}" height="${imageSizes[example.image][1]}" />
     </a>
     <figcaption>${escape(example.caption)}</figcaption>
   </figure>`).join('');
@@ -62,8 +71,8 @@ function renderSection(topic) {
   return `<section class="rule-section" id="${topic.id}">
     <h3 tabindex="-1">${escape(topic.title)}</h3>
     <p>${escape(topic.key)}</p>
+    ${renderRules(topic)}
     ${renderExamples(topic)}
-    ${renderDetails(topic)}
     ${questions.filter(question => question.topic === topic.id).map(renderCheckpoint).join('')}
   </section>`;
 }

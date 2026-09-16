@@ -76,24 +76,82 @@ topics.find(t=>t.id==='income').details = [
 topics.push(...appendixTopics);
 for (const topic of topics) { topic.keywords ??= topic.title; topic.tag ??= 'Rules'; }
 
+// Topic placement is independent of whether a recap question is selected.
+const referenceIds = new Set(['factions', 'palaces', 'innovations', 'privileges', 'competencies', 'round-scoring']);
+topics.forEach(topic => { topic.appendix = referenceIds.has(topic.id); });
+topics.find(topic => topic.id === 'pass').details[1].reference = true;
+
 export const questions = [
- {id:'turn-one',topic:'turn',prompt:'You have plenty of resources. How many ordinary actions can you take on this turn?',options:['Keep acting until resources run out','One; your next turn comes around later','Exactly two'],answer:1,explanation:'Each round contains multiple turns per player, but each turn provides one action. Resource conversions are an additional option.'},
- {id:'sailing-adjacent',topic:'reach',prompt:'An opponent’s building is across the river, within Sailing Reach but without a Bridge. Does your Workshop get the Guild upgrade discount?',options:['Yes, Reach is sufficient','No, direct adjacency is required','Yes, after paying one power'],answer:1,explanation:'Reach by Sailing is not direct adjacency. The discount needs a directly adjacent opposing building; a Bridge can create adjacency across the river.'},
- {id:'power-neighbor',topic:'power',prompt:'Red builds beside your Workshop and School. How many points do you lose if you accept the full power offer?',options:['Zero; Red only built a Workshop','Two points for gaining three power','Three points, equal to your Power value'],answer:1,explanation:'Your adjacent buildings determine the offer: Workshop 1 + School 2 = three power. Accepting power from construction costs the power gained minus one point.'},
- {id:'power-cycle',topic:'power',prompt:'Bowl I has two tokens and Bowl II also has tokens. You gain three power. What happens?',options:['Move three tokens from II to III','Move both tokens from I to II, then one from II to III','Add three new tokens to III'],answer:1,explanation:'Bowl I must be empty before tokens can move from II to III. Gaining power normally cycles existing tokens rather than adding new ones.'},
- {id:'spade-range',topic:'build',prompt:'With two free Spades, can you terraform and build first, then use the new Workshop to reach a previously unreachable second hex?',options:['No; use all Spades before building','Yes, if the second hex is Native terrain','Yes, for one extra Coin'],answer:0,explanation:'Use every Spade before building at most one Workshop. The new building cannot extend Reach for terraforming in that same action.'},
- {id:'city-university',topic:'city',prompt:'Your connected University, Guild and Workshop have total Power value six and belong to no City. Can they normally found a City?',options:['Yes; having a University is enough','No; three buildings suffice, but Power value seven is still required','No; four buildings are always required'],answer:1,explanation:'A University reduces the building count to three, not the Power requirement. Here 3 + 2 + 1 = 6. Palace 8 is the exception that reduces the Power requirement to six.'},
- {id:'school-competency',topic:'upgrade',prompt:'Which tile do you gain when upgrading a Guild to a School?',options:['Any Innovation, developed for free','A Competency plus its location’s Science / Book reward','A new Round Bonus tile'],answer:1,explanation:'Schools and Universities grant Competencies, not Innovations. No duplicate Competencies are allowed; location rewards total three Science Levels and/or Books.'},
- {id:'science-key',topic:'science',prompt:'You have no Keys to the City and Law is at Level 7. What happens when you gain two Law Levels?',options:['Reach Level 9 and supply a Key later','Stay at Level 7; the excess advances are lost','Reach Level 8 without income'],answer:1,explanation:'Entering Level 8 already requires a Key available for that Discipline. Without it, advances beyond Level 7 are lost.'},
- {id:'scholar-permanent',topic:'science',prompt:'You send an acquired Scholar to Law’s three-Level space. When does that Scholar return?',options:['Next Income phase','At the end of this round','Never; it stays on the Science display'],answer:2,explanation:'Scholars sent to the Science display remain permanently. You have seven in total. The alternative action returns a Scholar to your supply to gain only one Level.'},
- {id:'innovation-cost',topic:'innovation',prompt:'Your first Innovation’s column costs five Books. Your own Palace is not built. What do you pay?',options:['Only five Books','Five Books plus five Coins','You cannot develop until your Palace is built'],answer:1,explanation:'Developing before building your own Palace costs five additional Coins. Later Innovation slots may also require extra Books.'},
- {id:'public-conversion',topic:'resources',prompt:'Someone already used the public three-power Scholar action this round. Can you still gain a Scholar on your turn?',options:['No Scholar can be gained this round','Yes; convert five power into a Scholar without using an action','Yes; repeat the public action for three power'],answer:1,explanation:'Public actions are limited to once per round, but ordinary conversion is separate: pay five power before or after your action. You must still have a Scholar in your personal supply.'},
- {id:'pass-return',topic:'pass',prompt:'After Passing, you see an opportunity you want to act on. Can you take another action this round?',options:['Yes; everyone may undo Passing once','No; you have left this round’s Actions phase','Yes, if you keep your Round Bonus tile'],answer:1,explanation:'After Passing, your turns are skipped for the rest of the round. In Rounds 1–5, you exchange your Round Bonus tile and establish next round’s order.'},
- {id:'round-six',topic:'pass',prompt:'Everyone has passed in Round 6. What happens next?',options:['Collect one last Science bonus, then score','Proceed to final Area, Science and resource scoring','Exchange Round Bonus tiles and begin Round 7'],answer:1,explanation:'Round 6 still awards Pass rewards, but skips all of Phase III. There is no Science bonus and no preparation for another round.'},
- {id:'annex-final',topic:'city',prompt:'Your largest connected group has seven buildings, two with Annexes. How many buildings count for final Area scoring?',options:['Nine','Seven','Use total Power value instead'],answer:1,explanation:'Annexes count as extra buildings only when founding Cities. Final Area scoring counts buildings, not Annexes or their Power values.'}
+  {
+    "id": "sailing-adjacent",
+    "topic": "reach",
+    "prompt": "An opponent’s building is across the river, within Sailing Reach but without a Bridge. Does your Workshop get the Guild upgrade discount?",
+    "options": [
+      "No, direct adjacency is required",
+      "Yes, after paying one power",
+      "Yes, Reach is sufficient"
+    ],
+    "answer": 0,
+    "explanation": "Reach by Sailing is not direct adjacency. The discount needs a directly adjacent opposing building; a Bridge can create adjacency across the river."
+  },
+  {
+    "id": "power-neighbor",
+    "topic": "power",
+    "prompt": "Red builds next to your Workshop and School. Your bowls can receive all 3 power and you have at least 2 points. How many points do you lose if you accept all the power?",
+    "options": [
+      "Three points, equal to your Power value",
+      "Zero; Red only built a Workshop",
+      "Two points for gaining three power"
+    ],
+    "answer": 2,
+    "explanation": "Your adjacent buildings determine the offer: Workshop 1 + School 2 = three power. Accepting power from construction costs the power gained minus one point."
+  },
+  {
+    "id": "spade-range",
+    "topic": "build",
+    "prompt": "With two free Spades, can you terraform and build first, then use the new Workshop to reach a previously unreachable second hex?",
+    "options": [
+      "Yes, if the second hex is Native terrain",
+      "Yes, for one extra Coin",
+      "No; use all Spades before building"
+    ],
+    "answer": 2,
+    "explanation": "Use every Spade before building at most one Workshop. The new building cannot extend Reach for terraforming in that same action."
+  },
+  {
+    "id": "city-university",
+    "topic": "city",
+    "prompt": "Your connected University, Guild and Workshop have total Power value six and belong to no City. Can they normally found a City?",
+    "options": [
+      "No; four buildings are always required",
+      "No; three buildings suffice, but Power value seven is still required",
+      "Yes; having a University is enough"
+    ],
+    "answer": 1,
+    "explanation": "A University reduces the building count to three, not the Power requirement. Here 3 + 2 + 1 = 6. Palace 8 is the exception that reduces the Power requirement to six."
+  },
+  {
+    "id": "science-key",
+    "topic": "science",
+    "prompt": "You have no Keys to the City and Law is at Level 7. What happens when you gain two Law Levels?",
+    "options": [
+      "Reach Level 8 without income",
+      "Stay at Level 7; the excess advances are lost",
+      "Reach Level 9 and supply a Key later"
+    ],
+    "answer": 1,
+    "explanation": "Entering Level 8 already requires a Key available for that Discipline. Without it, advances beyond Level 7 are lost."
+  },
+  {
+    "id": "public-conversion",
+    "topic": "resources",
+    "prompt": "The public 3-power Scholar action is already used. You have 5 power in Bowl III and a Scholar in your personal supply. Can you gain a Scholar through a normal resource conversion?",
+    "options": [
+      "Yes; convert five power into a Scholar without using an action",
+      "Yes; repeat the public action for three power",
+      "No Scholar can be gained this round"
+    ],
+    "answer": 0,
+    "explanation": "Public actions are limited to once per round, but ordinary conversion is separate: pay five power before or after your action. You must still have a Scholar in your personal supply."
+  }
 ];
-questions.forEach((question,index)=>{
- const offset=index%question.options.length;
- question.options=question.options.slice(offset).concat(question.options.slice(0,offset));
- question.answer=(question.answer-offset+question.options.length)%question.options.length;
-});

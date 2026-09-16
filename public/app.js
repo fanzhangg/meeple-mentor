@@ -42,7 +42,6 @@ const chat = createRuleChat({
 
 setLanguage(getLanguage());
 renderLanguageMenu(elements.languageMenu, () => {
-  checkpointResults.clear();
   renderAll();
 });
 
@@ -93,6 +92,8 @@ function renderGame() {
 }
 
 function renderArticle() {
+  const collapsed = new Map([...elements.sections.querySelectorAll('.checkpoint')]
+    .map(el => [el.dataset.checkId, el.classList.contains('is-collapsed')]));
   const lesson = getHuangLesson(currentGame.lesson);
   currentLessonSteps = lesson.steps;
   elements.overview.textContent = lesson.overview;
@@ -101,6 +102,14 @@ function renderArticle() {
     .join("");
   elements.sections.innerHTML = `${lesson.steps.map(renderRuleSection).join("")}`;
   initializeQuizFeedback(elements.sections);
+  elements.sections.querySelectorAll('.checkpoint').forEach(el => {
+    const result = checkpointResults.get(el.dataset.checkId);
+    if (result) updateQuizFeedback(el, result.correct, {immediate: true});
+    const wasCollapsed = collapsed.get(el.dataset.checkId);
+    if (wasCollapsed !== undefined && el.classList.contains('is-collapsed') !== wasCollapsed) {
+      el.querySelector('.checkpoint-review').click();
+    }
+  });
 }
 
 function renderRuleSection(step) {
@@ -108,6 +117,7 @@ function renderRuleSection(step) {
     <section class="rule-section" id="${step.id}">
       <h3 tabindex="-1">${escapeHtml(step.title)}</h3>
       <p>${escapeHtml(step.summary)}</p>
+      ${step.bullets?.length ? `<ul>${step.bullets.map(text => `<li>${escapeHtml(text)}</li>`).join('')}</ul>` : ''}
       ${renderCheckpoint(step)}
     </section>
   `;
@@ -115,7 +125,7 @@ function renderRuleSection(step) {
 
 function renderCheckpoint(step) {
   if (!step.check?.options) {
-    return `<div class="rule-check"><span>${escapeHtml(step.check || "")}</span></div>`;
+    return '';
   }
 
   const result = checkpointResults.get(step.id);
@@ -137,7 +147,7 @@ function renderCheckpoint(step) {
     <div class="rule-check checkpoint" data-check-id="${escapeHtml(step.id)}">
       <p class="checkpoint-prompt" id="checkpoint-prompt-${escapeHtml(step.id)}">${escapeHtml(step.check.prompt)}</p>
       <div class="checkpoint-options" role="radiogroup" aria-labelledby="checkpoint-prompt-${escapeHtml(step.id)}" aria-describedby="checkpoint-feedback-${escapeHtml(step.id)}">${options}</div>
-      <p class="checkpoint-feedback ${result ? (result.correct ? "correct" : "incorrect") : ""}" id="checkpoint-feedback-${escapeHtml(step.id)}" aria-live="polite" aria-atomic="true">${result ? escapeHtml(result.feedback) : ""}</p>
+      <p class="checkpoint-feedback ${result ? (result.correct ? "correct" : "incorrect") : ""}" id="checkpoint-feedback-${escapeHtml(step.id)}" aria-live="polite" aria-atomic="true">${result ? escapeHtml(checkpointFeedback(step, result.correct)) : ""}</p>
     </div>
   `;
 }
@@ -155,10 +165,7 @@ function handleCheckpointChange(input) {
     .map((option, index) => (option.correct ? index : -1))
     .filter((index) => index >= 0);
   const correct = selected.length === 1 && selected[0] === correctIndexes[0];
-  const correctAnswers = correctIndexes.map((index) => step.check.options[index].text).join("; ");
-  const feedbackText = correct
-    ? `${t("game.correctAnswer")} ${step.check.explanation}`
-    : `${t("game.incorrectAnswer", { answers: correctAnswers })} ${step.check.explanation}`;
+  const feedbackText = checkpointFeedback(step, correct);
 
   checkpointResults.set(checkId, { correct, selected, feedback: feedbackText });
   container.querySelectorAll(".checkpoint-option").forEach((option) => {
@@ -170,6 +177,11 @@ function handleCheckpointChange(input) {
   feedback.textContent = feedbackText;
   feedback.className = `checkpoint-feedback ${correct ? "correct" : "incorrect"}`;
   updateQuizFeedback(container, correct);
+}
+
+function checkpointFeedback(step, correct) {
+  const answers = step.check.options.filter(option => option.correct).map(option => option.text).join('; ');
+  return `${correct ? t('game.correctAnswer') : t('game.incorrectAnswer', {answers})} ${step.check.explanation}`;
 }
 
 function resolveAsset(path) {

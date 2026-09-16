@@ -1,128 +1,5 @@
 {
-  "metadata": {
-    "slug": "huang",
-    "title": "HUANG",
-    "subtitle": "Unite China under your banner, quash your enemies, and claim the Emperor's throne!",
-    "description": "Lead an ancient China kingdom dreaming of imperial power, establish new states, build pagodas, strive for influence, and battle to unite the country under your glorious dynasty.",
-    "players": "2-4",
-    "minPlayers": 2,
-    "maxPlayers": 4,
-    "bestPlayers": [
-      "4"
-    ],
-    "recommendedPlayers": [
-      "2-4"
-    ],
-    "playTime": "90 min",
-    "minPlayTime": 90,
-    "maxPlayTime": 90,
-    "age": "14+",
-    "communityAge": "12+",
-    "complexity": "Medium-heavy",
-    "yearPublished": 2024,
-    "designers": [
-      "Reiner Knizia"
-    ],
-    "artists": [
-      "Bartek Jedrzejewski"
-    ],
-    "publishers": [
-      "PHALANX"
-    ],
-    "categories": [
-      "Ancient",
-      "Civilization",
-      "Territory Building"
-    ],
-    "mechanisms": [
-      "Area Majority / Influence",
-      "Hand Management",
-      "Hexagon Grid",
-      "Hidden Victory Points",
-      "Highest-Lowest Scoring"
-    ],
-    "families": [
-      "Animals: Goats",
-      "Animals: Rabbits / Hares",
-      "Animals: Rats",
-      "Animals: Tigers",
-      "Components: Map (Regional scale)",
-      "Country: China"
-    ],
-    "reimplements": [
-      "Tigris & Euphrates",
-      "Yellow & Yangtze"
-    ],
-    "languageDependence": "No necessary in-game text",
-    "thumbnail": "/game-assets/huang/cover-art.png",
-    "bgg": {
-      "id": 371688,
-      "url": "https://boardgamegeek.com/boardgame/371688",
-      "rank": 1851,
-      "strategyRank": 890,
-      "averageRating": 7.9,
-      "ratingsLabel": "1.2K Ratings & 313 Comments",
-      "weight": 3.02,
-      "weightScale": 5,
-      "itemId": 371688,
-      "name": "HUANG",
-      "snapshotNote": "Legacy saved BGG page; retrieval date unknown. Statistics are not current."
-    },
-    "sourceNote": "Rule text is generated from the provided HUANG rules PDF and should be reviewed before being treated as canonical. Board game metadata is from the saved BoardGameGeek page PDF/HTML in GameRulesPDF/huang.",
-    "canonicalRuleFile": "clean.md",
-    "minAge": 14,
-    "metadataSources": [
-      {
-        "provider": "Existing reviewed guide",
-        "path": "content/games/huang/metadata.json",
-        "method": "curated",
-        "fields": [
-          "designers",
-          "artists",
-          "publishers",
-          "yearPublished"
-        ]
-      },
-      {
-        "provider": "Publisher",
-        "url": "https://phalanx.co.uk/games/huang-reiner-knizia-board-game/",
-        "fields": [
-          "designers",
-          "players",
-          "minPlayers",
-          "maxPlayers",
-          "playTime",
-          "age",
-          "minAge"
-        ],
-        "checkedAt": "2026-09-16T01:14:11.418Z",
-        "method": "reviewed-web"
-      },
-      {
-        "provider": "Publisher",
-        "url": "https://phalanx.co.uk/wp-content/uploads/2023/04/HUANG_rules.pdf",
-        "fields": [
-          "minPlayTime",
-          "maxPlayTime"
-        ],
-        "checkedAt": "2026-09-16T01:14:11.418Z",
-        "method": "reviewed-web"
-      },
-      {
-        "provider": "Saved BoardGameGeek page",
-        "path": "GameRulesPDF/huang",
-        "method": "archive",
-        "fields": [
-          "categories",
-          "mechanisms",
-          "families",
-          "bgg"
-        ],
-        "note": "Existing local metadata; original retrieval date unknown."
-      }
-    ]
-  },
-  "lesson": {
+  "en": {
     "title": "HUANG player reference",
     "overview": "Build states with leaders and tiles, gain points through placement, pagodas and conflicts, and keep your four scoring colors balanced. White points are wild; your weakest color decides your score.",
     "steps": [
@@ -329,6 +206,217 @@
             }
           ],
           "explanation": "The trigger is an unsuccessful required draw, including refills or replacement, not an empty bag alone."
+        }
+      }
+    ]
+  },
+  "zh": {
+    "title": "HUANG 玩家速查",
+    "overview": "用领袖和板块建立国家，通过放置、宝塔和冲突获得分数。黄、红、蓝、绿四种颜色要均衡发展；白色分可以补足弱项，最终比较最低颜色的分数。",
+    "steps": [
+      {
+        "id": "objective",
+        "title": "目标：均衡四色",
+        "summary": "把白色胜利点分配到黄、红、蓝、绿后，以最低颜色作为最终分数，分数最高者获胜。",
+        "bullets": []
+      },
+      {
+        "id": "states",
+        "title": "国家与五种颜色",
+        "summary": "国家由相连板块及至少一个相连领袖组成。共享边即相邻，板块和领袖可通过相邻链彼此连接。",
+        "bullets": [
+          "黄色板块支撑领袖并决定叛乱强度；红色板块决定战争强度；蓝色板块放在河流格；绿色板块可取得市场板块。白色胜利点在终局作为万能分。",
+          "国家内的领袖颜色各不相同时保持和平；出现两个同色领袖就必须解决冲突。"
+        ]
+      },
+      {
+        "id": "setup",
+        "title": "基础游戏设置",
+        "summary": "在七个都城格各放一个黄色总督板块。每人拿五个领袖，暗抽六个板块；另抽六个板块公开放到市场。",
+        "bullets": [
+          "把宝塔、胜利点和统一标记放在版图旁。随机决定起始玩家，之后顺时针进行。",
+          "双人局可事先约定，从袋中随机移除二十四个不查看的板块来缩短游戏。此速查以基础游戏为准。"
+        ]
+      },
+      {
+        "id": "turn-actions",
+        "title": "两个行动，再计分和补牌",
+        "summary": "每回合执行两个行动，可以重复；每个行动的冲突和效果结算完，才能开始下一个行动。",
+        "bullets": [
+          "五种行动：操作一个领袖；放一个板块；弃两蓝发动农民暴动；弃两绿建立宝塔；替换至多六个手牌板块。",
+          "两个行动后，先结算自己的宝塔得分；然后自己和其他不足六个手牌板块的玩家补到六个，市场也补到六个。不能在两个行动之间或每拿一次市场板块后例行补牌。"
+        ]
+      },
+      {
+        "id": "leaders",
+        "title": "放置、移动或撤回领袖",
+        "summary": "一个行动可放置、移动或撤回自己的一个领袖。放置或移动须选择邻接黄色总督板块的空非河流格。",
+        "bullets": [
+          "可以用领袖连接国家，但不能因此造成冲突；把领袖放入一个已有同色领袖的国家，则会引发叛乱。",
+          "领袖邻接的最后一个黄色板块被移除时，该领袖退回拥有者处；宝塔下的黄色板块仍提供支撑。"
+        ]
+      },
+      {
+        "id": "tiles",
+        "title": "放置板块与得分",
+        "summary": "花一个行动把板块正面朝上放到空格。蓝色只能放河流格，其他颜色只能放非河流格。",
+        "bullets": [
+          "国家内有同色领袖时，该领袖的拥有者得一个板块颜色的胜利点；没有同色领袖时，改由黄色总督领袖的拥有者得分，不一定是放板块的玩家。",
+          "没有对应领袖也没有黄色总督领袖时不得分；连接国家并导致战争的那次放置也不产生普通放置得分。"
+        ]
+      },
+      {
+        "id": "tile-exceptions",
+        "title": "绿色拿市场，蓝色可连放",
+        "summary": "绿色放置没有引发战争时，可拿一个公开市场板块。蓝色则可在同一行动中连续放置。",
+        "bullets": [
+          "后一个蓝色必须邻接刚放的前一个蓝色，并遵守河流限制。前一个引发战争或建立新宝塔时，连放停止；合法得分的蓝色逐个计分。"
+        ],
+        "check": {
+          "prompt": "蓝色连放过程中刚建立了一座新宝塔，还能在同一行动继续连放吗？",
+          "options": [
+            {
+              "text": "可以，只要还有蓝色板块",
+              "correct": false
+            },
+            {
+              "text": "不可以，这条连放到此停止",
+              "correct": true
+            },
+            {
+              "text": "弃一个绿色板块即可",
+              "correct": false
+            }
+          ],
+          "explanation": "前一个蓝色引发战争或建立新宝塔，都会使这次连放停止。"
+        }
+      },
+      {
+        "id": "special-actions",
+        "title": "暴动、付费建塔与换牌",
+        "summary": "以下每项各花一个行动。未在版图上的蓝色或绿色领袖，可以分别抵扣对应两板块费用中的一个。",
+        "bullets": [
+          "暴动：弃两蓝，移除版图上任意一个板块，包括起始黄色。自己的蓝色领袖在版图外时只需弃一蓝；失去黄色支撑的领袖退回，被拆掉底座的建筑移到版图旁。",
+          "付费建塔：弃两绿，在三个同色板块组成、未支撑其他建筑的现有三角形上建立同色宝塔。自己的绿色领袖在版图外时只需弃一绿。",
+          "换牌：把屏风后至多六个板块弃入盒中，再从袋中抽取同样数量。使用版图外领袖效果不会把领袖当板块弃掉。"
+        ]
+      },
+      {
+        "id": "pagodas",
+        "title": "建立宝塔与持续得分",
+        "summary": "新放板块形成三个同色板块的三角形时，若未引发战争、三格也未支撑其他建筑，可免费建立同色宝塔，不另占行动。",
+        "bullets": [
+          "先用版图旁可用的同色宝塔；没有可用同色宝塔时，才能移动版图上的同色宝塔。塔下板块仍在场并正常生效。",
+          "自己回合结束时，己方领袖所在国家每有一座同色宝塔，获得一个该颜色胜利点；黄色总督不能代替缺少的同色领袖。"
+        ],
+        "check": {
+          "prompt": "国家里有蓝色宝塔和你的黄色总督，却没有蓝色领袖。你的回合末，总督能拿蓝色宝塔分吗？",
+          "options": [
+            {
+              "text": "能，总督可以替代",
+              "correct": false
+            },
+            {
+              "text": "本回合放过蓝色就能",
+              "correct": false
+            },
+            {
+              "text": "不能，宝塔要求同色领袖",
+              "correct": true
+            }
+          ],
+          "explanation": "黄色总督的替代得分只适用于放置板块，不适用于宝塔。"
+        }
+      },
+      {
+        "id": "conflicts",
+        "title": "先分清叛乱和战争",
+        "summary": "领袖进入已有同色领袖的国家引发叛乱；板块连接国家并产生同色领袖则引发战争。处理完所有后果，行动才结束。",
+        "bullets": [
+          "叛乱看双方领袖旁的黄色板块，平手守方赢；战争看参战国家的红色强度，平手由放统一板块者决定。"
+        ]
+      },
+      {
+        "id": "revolts",
+        "title": "叛乱：黄牌、攻方先加援",
+        "summary": "分别数双方领袖邻接的黄色板块，同时邻接双方的黄色可为双方计入。攻方先投入手中的黄色援军，守方后投入。",
+        "bullets": [
+          "参战玩家的黄色总督若在版图外，可为自己增加一点强度；总强度高者赢，平手守方赢。",
+          "败方领袖退回；胜者获得一个冲突领袖颜色的分数，不一定是黄色分。双方投入的黄色援军全部弃掉。"
+        ],
+        "check": {
+          "prompt": "两个蓝色领袖发生叛乱，最终强度平手。谁赢，得到什么颜色的分？",
+          "options": [
+            {
+              "text": "守方，得一个蓝色分",
+              "correct": true
+            },
+            {
+              "text": "攻方，得一个黄色分",
+              "correct": false
+            },
+            {
+              "text": "由连接国家者决定，得一个红色分",
+              "correct": false
+            }
+          ],
+          "explanation": "叛乱平手由守方获胜，分数颜色取决于冲突领袖。"
+        }
+      },
+      {
+        "id": "wars",
+        "title": "战争：比国家，再同时移除",
+        "summary": "用统一标记盖住连接板块；它不产生放置分、不计红色强度，若为绿色也不能拿市场板块。整场比较国家，不按冲突颜色逐场重打。",
+        "bullets": [
+          "各国以本国红色板块为基础强度。从放统一板块者左手边起顺时针，每人可用红色援军及版图外红色领袖（加一）支持一个国家，放统一板块者最后出援；没有领袖参战的玩家也可支持。",
+          "最高强度国家获胜；最高并列时由放统一板块者决定。记下各败国总强度，再同时移除败国所有冲突领袖及红色板块，统一板块保留。",
+          "每移除一个冲突领袖，胜国同色领袖的拥有者得一个该颜色分；没有冲突的领袖保留，但仍须有黄色支撑。",
+          "取败国总强度中的最高值作为胜国红色损失要求。先弃掉所有投入的红色援军；胜国援军数量不足该值时，由放统一板块者从胜国版图红色板块中移除差额。失去底座的建筑退到版图旁，最后移走统一标记。"
+        ],
+        "check": {
+          "prompt": "唯一败国总强度为 5，胜国有 3 个版图红色板块，并投入了 3 个红色援军。胜国须移除几个版图红色板块？",
+          "options": [
+            {
+              "text": "零个，只有败国损失版图板块",
+              "correct": false
+            },
+            {
+              "text": "两个",
+              "correct": true
+            },
+            {
+              "text": "另加五个",
+              "correct": false
+            }
+          ],
+          "explanation": "胜国的三个援军已计入所需五个损失，因此还要移除两个版图红色。"
+        }
+      },
+      {
+        "id": "endgame",
+        "title": "结束条件与平手处理",
+        "summary": "任何原因需要抽取板块，却因袋空无法抽取时，游戏结束；仅把最后一个板块抽走，本身不会立即触发结束。",
+        "bullets": [
+          "公开分数，把每个白色分分配到黄红蓝绿。先比最低色，再依次比较第二低、第三低和第四低，各次比较均为高者胜。",
+          "四种分数仍全相同时，原有白色胜利点较少者获胜；白色数量也相同，则无人获胜。"
+        ],
+        "check": {
+          "prompt": "你顺利抽到了袋中的最后一个板块，暂时没有下一次抽取需求。游戏会立即结束吗？",
+          "options": [
+            {
+              "text": "会，袋空就立刻结束",
+              "correct": false
+            },
+            {
+              "text": "抽到白色板块才会",
+              "correct": false
+            },
+            {
+              "text": "不会，须等需要抽取却无法抽取",
+              "correct": true
+            }
+          ],
+          "explanation": "触发点是补牌、换牌等所需抽取无法完成，而不是袋中刚好归零。"
         }
       }
     ]

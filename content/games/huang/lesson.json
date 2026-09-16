@@ -1,127 +1,211 @@
 {
-  "title": "Learn HUANG",
-  "audience": "Casual players learning before game night",
-  "overview": "HUANG is a tile-placement and conflict game about building states, placing dynasty leaders, earning colored victory points, and managing conflicts when same-colored leaders meet.",
-  "goal": "Win by building a balanced dynasty. Your final score depends on your weakest victory point color, so do not over-focus on only one color.",
+  "title": "HUANG player reference",
+  "overview": "Build states with leaders and tiles, gain points through placement, pagodas and conflicts, and keep your four scoring colors balanced. White points are wild; your weakest color decides your score.",
   "steps": [
     {
-      "id": "big-picture",
-      "title": "The Big Picture",
-      "summary": "Players use leaders and tiles to create states on the map. Leaders earn victory points when matching tiles are placed in their state.",
-      "check": {
-        "prompt": "What is a state in HUANG?",
-        "options": [
-          { "text": "One or more linked tiles with at least one linked leader", "correct": true },
-          { "text": "Any three tiles of the same color", "correct": false },
-          { "text": "A group of leaders with no tiles", "correct": false },
-          { "text": "Only the marked capital spaces", "correct": false }
-        ],
-        "explanation": "A state is one or more linked tiles plus at least one linked leader."
-      }
+      "id": "objective",
+      "title": "Balance four colors",
+      "summary": "Your score is your weakest of yellow, red, blue and green after assigning white points. The highest such score wins.",
+      "bullets": []
+    },
+    {
+      "id": "states",
+      "title": "States and five colors",
+      "summary": "A state contains linked tiles and at least one linked leader. Shared edges create adjacency; chains of tiles and leaders create links.",
+      "bullets": [
+        "Yellow tiles support leaders and determine revolt strength; red tiles determine war strength. Blue tiles use river spaces; green tiles give Market access. White points are wild at game end.",
+        "A state is peaceful while all its leaders have different colors. Two leaders of the same color cause a conflict, even if other leader colors differ."
+      ]
     },
     {
       "id": "setup",
-      "title": "Set Up the Board",
-      "summary": "Prepare the board, starting Governor tiles, pagodas, victory points, unification marker, player screens, leaders, tile bag, player hands, and market.",
-      "check": {
-        "prompt": "How many tiles does each player draw behind their screen during setup?",
-        "options": [
-          { "text": "4 tiles", "correct": false },
-          { "text": "5 tiles", "correct": false },
-          { "text": "6 tiles", "correct": true },
-          { "text": "7 tiles", "correct": false }
-        ],
-        "explanation": "Each player draws 6 tiles and keeps them hidden behind their screen."
-      }
+      "title": "Base-game setup",
+      "summary": "Place one yellow Governor tile on each of the seven marked capitals. Each player takes five leaders and draws six hidden tiles; reveal six more tiles in the Market.",
+      "bullets": [
+        "Keep the pagodas, victory-point markers and unification marker beside the board. Choose a random starting player; play proceeds clockwise.",
+        "For a shorter two-player game, players may agree before setup to remove 24 unseen tiles from the bag. Optional expansions are not part of this base-game reference."
+      ]
     },
     {
-      "id": "turns",
-      "title": "Take Two Actions",
-      "summary": "On your turn, resolve two actions. You may choose two different actions or repeat the same action.",
-      "check": {
-        "prompt": "On your turn, how many actions do you resolve?",
-        "options": [
-          { "text": "One action", "correct": false },
-          { "text": "Two actions", "correct": true },
-          { "text": "Three actions", "correct": false },
-          { "text": "As many actions as you can pay for", "correct": false }
-        ],
-        "explanation": "Each turn has exactly 2 actions, and you may repeat the same action."
-      }
+      "id": "turn-actions",
+      "title": "Two actions, then score and refill",
+      "summary": "Resolve exactly two actions on your turn. You may repeat an action, but finish its conflicts and effects before the next action.",
+      "bullets": [
+        "Choose: position one leader; place one tile; discard two blue tiles for a peasants’ riot; discard two green tiles to establish a pagoda; or replace up to six hidden tiles.",
+        "After both actions, score your pagodas. Then refill your hand to six, refill other players who have fewer than six, and refill the Market to six. Do not routinely refill between actions or after each Market pick."
+      ]
     },
     {
       "id": "leaders",
-      "title": "Use Leaders Carefully",
-      "summary": "A leader can be placed, repositioned, or withdrawn. Leaders must be placed on empty non-river spaces adjacent to a yellow Governor tile.",
-      "check": {
-        "prompt": "Where can you place or reposition a leader?",
-        "options": [
-          { "text": "On any river space", "correct": false },
-          { "text": "On an empty non-river space adjacent to a yellow Governor tile", "correct": true },
-          { "text": "On top of a matching tile", "correct": false },
-          { "text": "Anywhere inside an opponent's state", "correct": false }
-        ],
-        "explanation": "A leader must go on an empty non-river space adjacent to a yellow Governor tile."
-      }
+      "title": "Position a leader",
+      "summary": "One action places, moves or withdraws one of your leaders. A placed or moved leader needs an empty non-river space adjacent to a yellow Governor tile.",
+      "bullets": [
+        "A leader may unite states only if doing so causes no conflict. Entering a single existing state with a same-colored leader instead causes a revolt.",
+        "If a leader loses its last adjacent yellow tile, return it to its owner. Yellow tiles under pagodas still support leaders."
+      ]
     },
     {
       "id": "tiles",
-      "title": "Place Tiles for Points",
-      "summary": "Tiles expand states and can score points for matching leaders. Some placements can unite states and trigger conflicts.",
+      "title": "Tile placement and scoring",
+      "summary": "Spend one action to place a tile face up on an empty space. Only blue tiles go on rivers; blue tiles cannot go on land.",
+      "bullets": [
+        "In a state with a matching leader, that leader’s owner gains one point of the tile’s color. If there is no matching leader, the yellow Governor’s owner gains that point instead. It need not be the placing player.",
+        "Without either eligible leader, no point is gained. A placement that unites states and causes war gives no placement point."
+      ]
+    },
+    {
+      "id": "tile-exceptions",
+      "title": "Green Market picks and blue chains",
+      "summary": "After a green placement that does not cause war, you may take one face-up Market tile. Blue tiles may continue in a chain within one action.",
+      "bullets": [
+        "Every additional blue tile must touch the immediately preceding blue tile and obey river placement. Stop the chain if the previous tile caused war or a new pagoda was placed. Score each eligible blue tile separately."
+      ],
       "check": {
-        "prompt": "When does placing a tile usually score a victory point?",
+        "prompt": "A blue placement establishes a new pagoda. Can you continue the blue chain in that same action?",
         "options": [
-          { "text": "When it is placed in a state with a same-colored leader", "correct": true },
-          { "text": "Whenever it touches any empty space", "correct": false },
-          { "text": "Only when it is placed in the market", "correct": false },
-          { "text": "Only when it causes a conflict", "correct": false }
+          {
+            "text": "Yes, while blue tiles remain",
+            "correct": false
+          },
+          {
+            "text": "No, that chain stops",
+            "correct": true
+          },
+          {
+            "text": "Only by discarding a green tile",
+            "correct": false
+          }
         ],
-        "explanation": "A tile usually scores when it is placed in a state containing a leader of the same color."
+        "explanation": "A war or newly established pagoda ends continuation from that blue placement."
+      }
+    },
+    {
+      "id": "special-actions",
+      "title": "Riot, paid pagoda and replacement",
+      "summary": "Each option below costs one action. Off-board blue or green leaders can replace one matching tile in their respective two-tile cost.",
+      "bullets": [
+        "Riot: discard two blue tiles and remove any one board tile, including a starting yellow tile. With your blue leader off the board, discard only one blue. Remove unsupported leaders and any building resting on the removed tile.",
+        "Paid pagoda: discard two green tiles to establish a matching pagoda on an existing unoccupied triangle of three same-colored tiles. With your green leader off the board, discard only one green.",
+        "Replacement: discard up to six hidden tiles into the box, then draw the same number from the bag. Off-board leaders used for their effects stay with their owners; they are not discarded as tiles."
+      ]
+    },
+    {
+      "id": "pagodas",
+      "title": "Establish and score pagodas",
+      "summary": "A tile completing a same-colored triangle may establish a matching pagoda without an extra action, provided it caused no war and none of the three tiles supports a building.",
+      "bullets": [
+        "Use an available matching pagoda beside the board first. Only if none is available may you move an existing matching pagoda from the board. The underlying tiles remain in play.",
+        "At the end of your own turn, each of your leaders earns one point per same-colored pagoda in its state. A yellow Governor cannot substitute for a missing matching leader."
+      ],
+      "check": {
+        "prompt": "Your state has a blue pagoda and your yellow Governor, but no blue leader. Does the Governor score the blue pagoda on your turn?",
+        "options": [
+          {
+            "text": "Yes, the Governor substitutes",
+            "correct": false
+          },
+          {
+            "text": "Only if you placed blue this turn",
+            "correct": false
+          },
+          {
+            "text": "No, pagodas require a matching leader",
+            "correct": true
+          }
+        ],
+        "explanation": "The Governor’s fallback applies to tile placement, not pagoda scoring."
       }
     },
     {
       "id": "conflicts",
-      "title": "Resolve Conflicts",
-      "summary": "Conflicts happen when a state contains two leaders of the same color. The rules distinguish peaceful states from states with same-colored leader conflict.",
+      "title": "Revolt or war?",
+      "summary": "Positioning a leader into a state with a matching leader causes a revolt. A tile uniting states with matching leaders causes a war. Resolve all consequences before the action ends.",
+      "bullets": [
+        "Revolt compares yellow tiles adjacent to the two leaders; the defender wins ties. War compares the red strength of the participating states; the unifying player breaks ties."
+      ]
+    },
+    {
+      "id": "revolts",
+      "title": "Resolve a revolt",
+      "summary": "Count yellow tiles adjacent to each involved leader. A yellow tile touching both leaders counts for both. The attacker commits extra yellow tiles first, then the defender.",
+      "bullets": [
+        "A participating player may add one strength if their yellow Governor is off the board. Higher strength wins; ties go to the defender.",
+        "Return the losing leader to its owner. The winner receives one point of the conflicting leaders’ color, not automatically yellow. Discard both players’ committed yellow tiles."
+      ],
       "check": {
-        "prompt": "What causes a conflict?",
+        "prompt": "Two blue leaders revolt. Both sides finish with equal strength. Who wins, and which point is awarded?",
         "options": [
-          { "text": "Two leaders of the same color are in one state", "correct": true },
-          { "text": "A state has no pagoda", "correct": false },
-          { "text": "A player has fewer than six tiles", "correct": false },
-          { "text": "A blue tile is placed on a river", "correct": false }
+          {
+            "text": "Defender; one blue point",
+            "correct": true
+          },
+          {
+            "text": "Attacker; one yellow point",
+            "correct": false
+          },
+          {
+            "text": "Unifying player chooses; one red point",
+            "correct": false
+          }
         ],
-        "explanation": "A conflict happens when one state contains two like-colored leaders."
+        "explanation": "The defender wins tied revolts and scores the conflicting leader color."
+      }
+    },
+    {
+      "id": "wars",
+      "title": "Resolve a war",
+      "summary": "Mark the unifying tile. It gives no placement point, contributes no red strength and, if green, gives no Market pick. Compare the states once, not once per conflicting color.",
+      "bullets": [
+        "Each state starts with its red tiles. Starting to the unifying player’s left and proceeding clockwise, each player may support one state with red tiles and an off-board red leader (+1). The unifying player contributes last. Any player may support.",
+        "Highest strength wins; the unifying player chooses among tied strongest states. Record each loser’s total strength, then simultaneously remove all conflicting leaders and all board red tiles from losing states. The unifying tile stays.",
+        "For each removed conflicting leader, the matching leader’s owner in the winning state scores one point of that color. Non-conflicting leaders remain unless they lose their required yellow support.",
+        "The strongest losing state determines the winner’s red losses. Discard all committed red tiles first. If the winner’s committed tiles are fewer than that strength, the unifying player removes the difference from the winner’s board red tiles. Return buildings that lose a supporting tile; remove the unification marker."
+      ],
+      "check": {
+        "prompt": "The only losing state has total strength 5. The winner has 3 board red tiles and committed 3 more. How many board red tiles must the winner lose?",
+        "options": [
+          {
+            "text": "None; only losers lose board tiles",
+            "correct": false
+          },
+          {
+            "text": "Two",
+            "correct": true
+          },
+          {
+            "text": "Five more",
+            "correct": false
+          }
+        ],
+        "explanation": "The 3 committed tiles count toward the required loss of 5, leaving 2 board tiles to remove."
       }
     },
     {
       "id": "endgame",
-      "title": "Think in Five Colors",
-      "summary": "HUANG rewards balanced scoring across colors. Watch your weakest color and use leader and tile choices to shore it up.",
+      "title": "End trigger and tie-breaks",
+      "summary": "The game ends when a required draw for any purpose cannot be made because the bag is empty. Merely drawing its last tile does not by itself trigger the end.",
+      "bullets": [
+        "Reveal points and allocate each white point to yellow, red, blue or green. Compare the lowest color, then second-lowest, third-lowest and fourth-lowest. Highest wins each comparison.",
+        "If all four adjusted totals still tie, fewer original white points wins. If that also ties, nobody wins."
+      ],
       "check": {
-        "prompt": "How is your final score determined?",
+        "prompt": "You draw the last tile successfully and no further draw is due. Does the game end immediately?",
         "options": [
-          { "text": "Use your highest color score", "correct": false },
-          { "text": "Add all colors together", "correct": false },
-          { "text": "Use your lowest score among yellow, red, blue, and green after assigning white points", "correct": true },
-          { "text": "Count only white victory points", "correct": false }
+          {
+            "text": "Yes, as soon as the bag becomes empty",
+            "correct": false
+          },
+          {
+            "text": "Only if a white tile was drawn",
+            "correct": false
+          },
+          {
+            "text": "No; a required draw must fail",
+            "correct": true
+          }
         ],
-        "explanation": "After assigning white points, your final score is your lowest total among yellow, red, blue, and green."
+        "explanation": "The trigger is an unsuccessful required draw, including refills or replacement, not an empty bag alone."
       }
-    }
-  ],
-  "quiz": [
-    {
-      "question": "How many actions must you resolve on your turn?",
-      "answer": "Two actions."
-    },
-    {
-      "question": "What are the five action families listed in the rules?",
-      "answer": "Position a leader, place a tile, discard two blue Farmer tiles for a peasants' riot, discard two green Trader tiles to establish a pagoda, or replace up to six tiles."
-    },
-    {
-      "question": "What should the tutor do if a question is not answered by the reviewed rules?",
-      "answer": "Say that the provided rules do not specify the answer."
     }
   ]
 }

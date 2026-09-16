@@ -1,5 +1,21 @@
 # Fate of the Fellowship — player-guide audit
 
+## Short-example visibility refinement — 2026-09-15
+
+Following user feedback, nine short figures now appear directly after their rules: travel overview, search, capture, Fellowship, Prepare, Muster, both Shadow-card diagrams, and the single reinforcement battle. Eleven longer figures remain in topic disclosures: map overview, extra travel-payment examples, the complete attack and advance sequences, Nazgûl deployment/approach, and setup. No captions, rules, assets, or quiz questions were removed or changed. The prior 19-folded-figure count below describes the earlier iteration.
+
+## Table reference and selective recap — 2026-09-15
+
+Following the usability review and the user's requested hierarchy changes:
+
+- Reduced both languages from 15 questions to five consequential checks: Frodo's travel payment, Shadow-initiated battle dice, newly exposed Shadow-card back, captured-stronghold special orders, and the final search. Stable IDs, option order and answer indices are retained.
+- Clarified the final-search question to exclude both Nazgûl in Mordor and Shadow troops at Mount Doom, and to use normal rules without character abilities. The answer remains five dice: `0 + (8 − 3)`, capped at seven (English rulebook pp. 11, 19).
+- Exposed gameplay bullets, costs, tables, warnings, solo rules and all three reinforcement orders directly below their topic reminder. Setup details and individual character abilities remain expandable; the extra outer character disclosure is removed.
+- Retained all 20 figures and 20 icon keys. The Shadow-card selection diagram stays visible; the other 19 figures are grouped into topic-specific disclosures after the written rules. Complete before/after sequences remain together. Dice icons serve as the visible result reference, avoiding duplicate search/battle tables in the rendered page.
+- Made the one-action Attack cost explicit and corrected the English Eye destination to the location's region (p. 13). Other rule content is unchanged; remaining findings in `guide-usability-review.md` are not all resolved by this layout change.
+
+Verification: all eight tests in `fellowship-guide.test.js` and `fellowship-characters.test.js` passed; renderer syntax and scoped whitespace checks passed. Browser checks confirmed five questions, correct/wrong feedback, score and open-example preservation across language changes, reset to 0/5, and visible gameplay rules outside disclosures. English desktop at 1366 × 900 and both languages at 390 × 844 were checked; neither mobile language overflowed horizontally. An expanded travel example rendered correctly, all 20 figures remain in the DOM, and browser warning/error logs were empty. Chinese language, the original viewport and the guide root URL were restored. Existing unrelated quiz-feedback and shared-style work was preserved.
+
 ## Character supplement — 2026-09-15
 
 Added an eighteenth topic covering all 13 base character cards in both languages, using the supplied v1.6 player aid and online printed-card checks. The same source generates the guide entries and the full chatbot rules supplement. The original 17-topic audit below is preserved as historical scope; character coverage now extends beyond it. See [character-review.md](character-review.md) for individual sources, corrections, and the distinction between cards directly inspected and abilities summarized from the aid.

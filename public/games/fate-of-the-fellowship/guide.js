@@ -16,6 +16,11 @@ const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 })[character]);
 const asset = name => new URL(`../../guide-assets/fate-of-the-fellowship/${name}`, import.meta.url).href;
+const inlineExampleImages = new Set([
+  'travel.png', 'search.png', 'capture.png',
+  'fellowship.webp', 'prepare.webp', 'muster.webp',
+  'shadow-halves.webp', 'shadow-flow.webp', 'reinforce-battle.webp',
+]);
 const quiz = createQuizSession(questions);
 let coreTopics = topics.filter(topic => !topic.appendix);
 let appendixTopics = topics.filter(topic => !coreTopics.includes(topic));
@@ -28,13 +33,28 @@ function renderTable(table) {
   </table></div>`;
 }
 
-function renderDetails(topic) {
-  return `<details class="topic-details"><summary>${escape(topic.detailsLabel ?? (appendixTopics.includes(topic) ? labels.appendix : labels.details))}</summary>
-    ${renderTable(topic.table)}
+function renderRules(topic) {
+  const icons = iconsFor(topic, language);
+  const legend = icons.length ? `<ul class="rule-icon-grid">${icons.map(icon => `<li>
+    <img src="${asset(icon.image)}" alt="" loading="lazy" width="40" height="40" />
+    <span>${escape(icon.caption)}</span>
+  </li>`).join('')}</ul>` : '';
+  // Dice keys already contain every effect in these two tables.
+  const table = ['search', 'battle'].includes(topic.id) ? '' : renderTable(topic.table);
+  const body = `<div class="topic-rules">
     ${topic.bullets.length ? `<ul>${topic.bullets.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}
+    ${table}${legend}
     ${topic.warning ? `<p class="rule-warning">${escape(labels.note)}${escape(topic.warning)}</p>` : ''}
-    ${(topic.details ?? []).map(detail => `<details><summary>${escape(detail.title)}</summary>${detail.text.split('\n').map(line => `<p>${escape(line)}</p>`).join('')}</details>`).join('')}
-  </details>`;
+    ${(topic.details ?? []).map(detail => {
+      const paragraphs = detail.text.split('\n').map(line => `<p>${escape(line)}</p>`).join('');
+      return topic.appendix
+        ? `<details><summary>${escape(detail.title)}</summary>${paragraphs}</details>`
+        : `<div class="rule-subsection"><h4>${escape(detail.title)}</h4>${paragraphs}</div>`;
+    }).join('')}
+  </div>`;
+  return topic.id === 'setup'
+    ? `<details class="topic-details"><summary>${escape(labels.appendix)}</summary>${body}</details>`
+    : body;
 }
 
 function renderCheckpoint(question) {
@@ -51,27 +71,30 @@ function renderCheckpoint(question) {
 }
 
 function renderExamples(topic) {
-  const icons = iconsFor(topic, language);
-  const legend = icons.length ? `<ul class="rule-icon-grid">${icons.map(icon => `<li>
-    <img src="${asset(icon.image)}" alt="" loading="lazy" width="40" height="40" />
-    <span>${escape(icon.caption)}</span>
-  </li>`).join('')}</ul>` : '';
-  return legend + examplesFor(topic, language).map(example => `<figure class="rule-example">
+  const examples = examplesFor(topic, language);
+  const renderFigure = example => `<figure class="rule-example">
     <a href="${asset(example.image)}" target="_blank" rel="noopener">
       <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" width="${imageSizes[example.image][0]}" height="${imageSizes[example.image][1]}" />
     </a>
     <figcaption>${escape(example.caption)}
       ${example.steps ? `<ul class="example-steps">${example.steps.map(step => `<li>${escape(step)}</li>`).join('')}</ul>` : ''}
     </figcaption>
-  </figure>`).join('');
+  </figure>`;
+  // Short, self-contained examples stay visible. Longer demonstrations and
+  // battle/advance before-and-after sequences remain together in disclosures.
+  const inline = examples.filter(example => inlineExampleImages.has(example.image));
+  const supplementary = examples.filter(example => !inlineExampleImages.has(example.image));
+  return inline.map(renderFigure).join('') + (supplementary.length
+    ? `<details class="rule-examples"><summary>${escape(labels.examples)}${language === 'zh' ? '：' : ': '}${escape(topic.title)}</summary>${supplementary.map(renderFigure).join('')}</details>`
+    : '');
 }
 
 function renderSection(topic) {
   return `<section class="rule-section" id="${topic.id}">
     <h3 tabindex="-1">${escape(topic.title)}</h3>
     <p>${escape(topic.key)}</p>
+    ${renderRules(topic)}
     ${renderExamples(topic)}
-    ${renderDetails(topic)}
     ${questions.filter(question => question.topic === topic.id).map(renderCheckpoint).join('')}
   </section>`;
 }

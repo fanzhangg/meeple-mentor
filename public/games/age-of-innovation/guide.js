@@ -4,6 +4,7 @@ import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
 import {copy} from './guide-copy.js';
 import {examplesFor} from './guide-examples.js';
+import {imageSizes} from './guide-image-sizes.js';
 import {createQuizSession} from './guide-model.js';
 import {getLanguage, setLanguage, renderLanguageMenu, t} from '../../i18n.js';
 let language = getLanguage();
@@ -16,7 +17,7 @@ const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({
 })[character]);
 const asset = name => new URL(`../../guide-assets/age-of-innovation/${name}`, import.meta.url).href;
 const quiz = createQuizSession(questions);
-let coreTopics = topics.filter(topic => questions.some(question => question.topic === topic.id) || topic.id === 'income');
+let coreTopics = topics.filter(topic => !topic.appendix);
 let appendixTopics = topics.filter(topic => !coreTopics.includes(topic));
 
 function renderTable(table) {
@@ -27,13 +28,21 @@ function renderTable(table) {
   </table></div>`;
 }
 
-function renderDetails(topic) {
-  return `<details class="topic-details"><summary>${appendixTopics.includes(topic) ? labels.appendix : labels.details}</summary>
+function renderRules(topic) {
+  const body = `<div class="topic-rules">
     ${renderTable(topic.table)}
     ${topic.bullets.length ? `<ul>${topic.bullets.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}
     ${topic.warning ? `<p class="rule-warning">${escape(labels.note)}${escape(topic.warning)}</p>` : ''}
-    ${(topic.details ?? []).map(detail => `<details><summary>${escape(detail.title)}</summary><p>${escape(detail.text)}</p></details>`).join('')}
-  </details>`;
+    ${(topic.details ?? []).map(detail => {
+      const content = `<p>${escape(detail.text)}</p>`;
+      return ['factions', 'palaces', 'innovations'].includes(topic.id) || detail.reference
+        ? `<details><summary>${escape(detail.title)}</summary>${content}</details>`
+        : `<div class="rule-subsection"><h4>${escape(detail.title)}</h4>${content}</div>`;
+    }).join('')}
+  </div>`;
+  return topic.id === 'setup'
+    ? `<details class="topic-details"><summary>${escape(labels.appendix)}</summary>${body}</details>`
+    : body;
 }
 
 function renderCheckpoint(question) {
@@ -50,20 +59,27 @@ function renderCheckpoint(question) {
 }
 
 function renderExamples(topic) {
-  return examplesFor(topic, language).map(example => `<figure class="rule-example">
+  const figures = examplesFor(topic, language);
+  const renderFigure = example => `<figure class="rule-example">
     <a href="${asset(example.image)}" target="_blank" rel="noopener">
-      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" />
+      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" width="${imageSizes[example.image][0]}" height="${imageSizes[example.image][1]}" />
     </a>
     <figcaption>${escape(example.caption)}</figcaption>
-  </figure>`).join('');
+  </figure>`;
+  const longImages = new Set(['terraform-two-spades.png', 'science-display.png']);
+  const short = figures.filter(example => !longImages.has(example.image));
+  const long = figures.filter(example => longImages.has(example.image));
+  return short.map(renderFigure).join('') + (long.length
+    ? `<details class="rule-examples"><summary>${language === 'zh' ? '完整图解：' : 'Detailed example: '}${escape(topic.title)}</summary>${long.map(renderFigure).join('')}</details>`
+    : '');
 }
 
 function renderSection(topic) {
   return `<section class="rule-section" id="${topic.id}">
     <h3 tabindex="-1">${escape(topic.title)}</h3>
     <p>${escape(topic.key)}</p>
+    ${renderRules(topic)}
     ${renderExamples(topic)}
-    ${renderDetails(topic)}
     ${questions.filter(question => question.topic === topic.id).map(renderCheckpoint).join('')}
   </section>`;
 }
@@ -130,7 +146,7 @@ function renderAll() {
   language = getLanguage();
   ({topics, questions} = language === 'zh' ? zh : en);
   labels = copy[language];
-  coreTopics = topics.filter(topic => questions.some(question => question.topic === topic.id) || topic.id === 'income');
+  coreTopics = topics.filter(topic => !topic.appendix);
   appendixTopics = topics.filter(topic => !coreTopics.includes(topic));
   document.title = `${labels.title} | Meeple Mentor`;
   document.querySelector('meta[name="description"]').content = labels.description;

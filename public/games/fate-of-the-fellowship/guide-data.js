@@ -135,7 +135,7 @@ export const topics = [
   {
     "id": "battle",
     "title": "攻击与战斗骰",
-    "key": "执行攻击需要角色所在地点同时有盟友士兵和暗影士兵。先将索伦之眼移到该地区，再投骰。",
+    "key": "攻击花费 1 个行动，需要角色所在地点同时有盟友士兵和暗影士兵。先将索伦之眼移到该地区，再投骰。",
     "bullets": [
       "玩家攻击：选择投 1 至 3 颗白色战斗骰，但不得超过在场盟友士兵数。一次攻击只结算一次投骰，不是一直打到一方全灭。",
       "暗影卡或群鸦蔽日触发的战斗：按当地暗影士兵数投骰，最多 3 颗；不会因此移动索伦之眼。",
@@ -375,30 +375,6 @@ export const topics = [
 ];
 export const questions = [
   {
-    "id": "q-turn",
-    "topic": "turn",
-    "prompt": "一般回合如何分配行动？",
-    "options": [
-      "两位角色各 3 次",
-      "一位最多 4 次，另一位最多 1 次，不交替执行",
-      "合计 5 次，任意分配"
-    ],
-    "answer": 1,
-    "explanation": "先完成一位再换另一位，不能分成 3 + 2。"
-  },
-  {
-    "id": "q-symbols",
-    "topic": "symbols",
-    "prompt": "花费卡上的符号时，地区必须匹配吗？",
-    "options": [
-      "总是必须",
-      "只在避风港外必须",
-      "通常不必，除非特定规则另有要求"
-    ],
-    "answer": 2,
-    "explanation": "普通符号支付不要求地区匹配；远征队行动另有地区条件。"
-  },
-  {
     "id": "q-travel",
     "topic": "travel",
     "prompt": "另一位角色跋涉并带上佛罗多，由谁付 1 隐身避免搜索？",
@@ -409,54 +385,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "由执行行动的角色支付，特殊路径费用另付。"
-  },
-  {
-    "id": "q-search",
-    "topic": "search",
-    "prompt": "佛罗多所在地区有 2 个戒灵，所在地点有 3 个暗影士兵，投几颗搜索骰？",
-    "options": [
-      "3",
-      "5",
-      "有索伦之眼所以是 6"
-    ],
-    "answer": 1,
-    "explanation": "地区内戒灵加当地暗影士兵；眼睛本身不加骰。"
-  },
-  {
-    "id": "q-fellowship",
-    "topic": "fellowship",
-    "prompt": "以下哪种一般远征队转交合法？",
-    "options": [
-      "把标记给同地区其他地点的角色",
-      "把任意事件卡给同地点玩家",
-      "给同地点有角色的另一位玩家一张符合当前地区的卡"
-    ],
-    "answer": 2,
-    "explanation": "双方同意、位于同一地点，并转交一张符合当前地区的卡。"
-  },
-  {
-    "id": "q-prepare",
-    "topic": "prepare",
-    "prompt": "多人游戏通常在哪里可以储备？",
-    "options": [
-      "任何避风港，且供应堆有对应标记",
-      "任意地点",
-      "仅限卡牌对应地区的避风港"
-    ],
-    "answer": 0,
-    "explanation": "卡牌地区匹配是单人模式额外限制。"
-  },
-  {
-    "id": "q-muster",
-    "topic": "muster",
-    "prompt": "一般集结需要什么？",
-    "options": [
-      "1 勇气",
-      "一个行动和 1 友情",
-      "供应堆有士兵就不花行动"
-    ],
-    "answer": 1,
-    "explanation": "从供应堆加入一个与集结地点颜色相同的士兵。"
   },
   {
     "id": "q-battle",
@@ -471,42 +399,6 @@ export const questions = [
     "explanation": "暗影方触发战斗按暗影士兵数，最多 3 颗。"
   },
   {
-    "id": "q-capture",
-    "topic": "capture",
-    "prompt": "只有一个角色能守住有暗影士兵的避风港吗？",
-    "options": [
-      "不能，至少要有一个盟友士兵",
-      "可以，任意角色都行",
-      "只有佛罗多可以"
-    ],
-    "answer": 0,
-    "explanation": "行动或效果后有暗影士兵却无盟友士兵，避风港失守并失去 3 希望。"
-  },
-  {
-    "id": "q-draw",
-    "topic": "draw",
-    "prompt": "需要抽两张玩家卡时，牌库已空，怎么办？",
-    "options": [
-      "不论希望多少都立即失败",
-      "失去 2 希望",
-      "重洗弃牌堆"
-    ],
-    "answer": 1,
-    "explanation": "每少抽一张失去 1 希望；希望归零才落败。"
-  },
-  {
-    "id": "q-darken",
-    "topic": "darken",
-    "prompt": "结算群鸦蔽日后，需要补抽玩家卡吗？",
-    "options": [
-      "总是补抽",
-      "手牌不足 7 张才补抽",
-      "不补抽"
-    ],
-    "answer": 2,
-    "explanation": "该卡移出游戏，不抽替代卡。"
-  },
-  {
     "id": "q-shadow",
     "topic": "shadow",
     "prompt": "哪张牌的牌背决定暗影卡执行哪一半？",
@@ -517,18 +409,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "新顶牌背：红旗推进，黑色布条增援。"
-  },
-  {
-    "id": "q-advance",
-    "topic": "advance",
-    "prompt": "士兵前进后仍在同一战线上，这张卡会让它继续前进吗？",
-    "options": [
-      "会，直到受阻",
-      "不会，每个士兵只前进一次",
-      "没有盟友士兵才会"
-    ],
-    "answer": 1,
-    "explanation": "从最前方的一组开始移动，确保每个士兵只移动一次。"
   },
   {
     "id": "q-reinforce",
@@ -545,14 +425,14 @@ export const questions = [
   {
     "id": "q-finish",
     "topic": "finish",
-    "prompt": "佛罗多剩 3 希望，末日火山没有相关敌人，最后搜索投几颗？",
+    "prompt": "按普通规则、不使用角色能力：佛罗多剩 3 希望，魔多地区没有戒灵，末日火山没有暗影士兵。最后搜索投几颗？",
     "options": [
       "5",
       "0",
       "3"
     ],
     "answer": 0,
-    "explanation": "希望上限为 8，缺少 5 点；即使没有敌人仍额外加入 5 颗。"
+    "explanation": "普通搜索为 0 颗，再加上缺少的 5 点希望：0 + (8 − 3) = 5。总数最多 7 颗。"
   }
 ];
 

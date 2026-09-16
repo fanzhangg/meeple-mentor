@@ -135,7 +135,7 @@ export const topics = [
   {
     "id": "battle",
     "title": "Attack and battle dice",
-    "key": "An Attack action requires your character, friendly troops, and Shadow troops in the same location. Move the Eye there, then roll.",
+    "key": "An Attack costs 1 action and requires your character, friendly troops, and Shadow troops in the same location. Move the Eye to that location’s region, then roll.",
     "bullets": [
       "Player Attack: choose 1 to 3 white battle dice, no more than the number of friendly troops present. One Attack resolves one roll, not repeated rounds until an army is eliminated.",
       "Shadow-card or Skies Darken battle: roll one die per Shadow troop in that location, up to 3. Do not move the Eye for this battle.",
@@ -375,30 +375,6 @@ export const topics = [
 ];
 export const questions = [
   {
-    "id": "q-turn",
-    "topic": "turn",
-    "prompt": "How may you split your normal actions?",
-    "options": [
-      "3 with each character",
-      "Up to 4 with one and 1 with the other, without alternating",
-      "Any split totaling 5"
-    ],
-    "answer": 1,
-    "explanation": "Finish one character before switching; a 3 + 2 split is not allowed."
-  },
-  {
-    "id": "q-symbols",
-    "topic": "symbols",
-    "prompt": "Must a card’s region match your location to spend its symbol?",
-    "options": [
-      "Always",
-      "Only outside a haven",
-      "No, unless a specific rule says otherwise"
-    ],
-    "answer": 2,
-    "explanation": "Ordinary symbol payments ignore region; Fellowship has a separate region requirement."
-  },
-  {
     "id": "q-travel",
     "topic": "travel",
     "prompt": "Another character brings Frodo along by Travel. Who pays 1 Stealth to avoid the search?",
@@ -409,54 +385,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "The acting character pays, in addition to any special-path cost."
-  },
-  {
-    "id": "q-search",
-    "topic": "search",
-    "prompt": "Frodo’s region has 2 Nazgûl; his location has 3 Shadow troops. How many search dice?",
-    "options": [
-      "3",
-      "5",
-      "6 because of the Eye"
-    ],
-    "answer": 1,
-    "explanation": "Count region-wide Nazgûl plus local Shadow troops; the Eye adds no die."
-  },
-  {
-    "id": "q-fellowship",
-    "topic": "fellowship",
-    "prompt": "Which normal Fellowship transfer is legal?",
-    "options": [
-      "A token to a character elsewhere in the region",
-      "Any event card to someone at your location",
-      "One region-matching card to another player with a character at your location"
-    ],
-    "answer": 2,
-    "explanation": "Both players agree, share an exact location, and transfer one matching region card."
-  },
-  {
-    "id": "q-prepare",
-    "topic": "prepare",
-    "prompt": "In multiplayer, where can you normally Prepare?",
-    "options": [
-      "At any haven with the matching token available",
-      "At any location",
-      "Only at a haven in the discarded card’s region"
-    ],
-    "answer": 0,
-    "explanation": "Matching the card’s region is an additional solo restriction."
-  },
-  {
-    "id": "q-muster",
-    "topic": "muster",
-    "prompt": "What does a normal Muster cost?",
-    "options": [
-      "1 Valor",
-      "1 action and 1 Friendship",
-      "No action if a troop is available"
-    ],
-    "answer": 1,
-    "explanation": "Add one troop of the muster location’s color from the supply."
   },
   {
     "id": "q-battle",
@@ -471,42 +399,6 @@ export const questions = [
     "explanation": "Shadow-initiated battles count Shadow troops, capped at 3."
   },
   {
-    "id": "q-capture",
-    "topic": "capture",
-    "prompt": "Can a character alone protect a haven containing Shadow troops?",
-    "options": [
-      "No; at least one friendly troop must remain",
-      "Yes, any character can",
-      "Only Frodo can"
-    ],
-    "answer": 0,
-    "explanation": "After an action or effect, a haven with Shadow troops and no friendly troops falls, costing 3 hope."
-  },
-  {
-    "id": "q-draw",
-    "topic": "draw",
-    "prompt": "The player deck is empty when you must draw two cards. What happens?",
-    "options": [
-      "Immediate defeat regardless of hope",
-      "Lose 2 hope",
-      "Reshuffle the discard pile"
-    ],
-    "answer": 1,
-    "explanation": "Lose one hope per missing card; defeat occurs if hope reaches zero."
-  },
-  {
-    "id": "q-darken",
-    "topic": "darken",
-    "prompt": "After resolving Skies Darken, do you replace it with another player card?",
-    "options": [
-      "Yes, always",
-      "Only if your hand has fewer than 7 cards",
-      "No"
-    ],
-    "answer": 2,
-    "explanation": "Remove it from the game without drawing a replacement."
-  },
-  {
     "id": "q-shadow",
     "topic": "shadow",
     "prompt": "Which back selects the half of a flipped Shadow card?",
@@ -517,18 +409,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "New top back: red flag means Advance; black banner means Reinforce."
-  },
-  {
-    "id": "q-advance",
-    "topic": "advance",
-    "prompt": "A troop advances into a location further along the same battle line. Does it advance again on this card?",
-    "options": [
-      "Yes, until blocked",
-      "No, each troop advances once",
-      "Only if there are no friendly troops"
-    ],
-    "answer": 1,
-    "explanation": "Move frontmost groups first so every troop moves exactly once."
   },
   {
     "id": "q-reinforce",
@@ -545,14 +425,14 @@ export const questions = [
   {
     "id": "q-finish",
     "topic": "finish",
-    "prompt": "Frodo has 3 hope and no enemies present at Mount Doom. How many dice for the final search?",
+    "prompt": "Using the normal rules without character abilities: Frodo has 3 hope, no Nazgûl are in Mordor, and no Shadow troops are at Mount Doom. How many dice for the final search?",
     "options": [
       "5",
       "0",
       "3"
     ],
     "answer": 0,
-    "explanation": "Five hope is missing from the eight-space hope track, adding five dice even without enemies."
+    "explanation": "The normal search contributes 0 dice. Add the 5 missing hope: 0 + (8 − 3) = 5. The total is capped at 7 dice."
   }
 ];
 

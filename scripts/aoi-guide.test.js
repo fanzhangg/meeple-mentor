@@ -51,7 +51,9 @@ test('all questions have one valid answer and a matching reference topic', () =>
     assert.equal(new Set(question.options).size, question.options.length);
     assert.ok(question.explanation.length > 20);
   }
-  assert.equal(questions.length, 14);
+  assert.equal(questions.length, 6);
+  assert.deepEqual(topics.filter(t => !t.appendix).map(t => t.id),
+    ['turn', 'income', 'build', 'power', 'reach', 'upgrade', 'city', 'science', 'innovation', 'resources', 'pass']);
   assert.deepEqual(new Set(questions.map(q => q.answer)), new Set([0, 1, 2]));
 });
 

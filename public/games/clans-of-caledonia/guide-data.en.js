@@ -591,18 +591,6 @@ export const topics = [
 
 export const questions = [
   {
-    "id": "q-turn",
-    "topic": "turn",
-    "prompt": "After taking one action, may you immediately take another main action?",
-    "options": [
-      "Yes, if you can afford it",
-      "No; wait until your next turn",
-      "Only in round 5"
-    ],
-    "answer": 1,
-    "explanation": "The eight main actions use a turn each. Explicit bonus actions are exceptions."
-  },
-  {
     "id": "q-trade",
     "topic": "trade",
     "prompt": "Whisky costs £10. How much do two barrels cost in one trade?",
@@ -613,30 +601,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "Both barrels use the price at the start of the trade. The price rises afterward."
-  },
-  {
-    "id": "q-contracts",
-    "topic": "contracts",
-    "prompt": "Your export box holds an unfinished contract you no longer want. What can you do?",
-    "options": [
-      "Discard it for free",
-      "Replace it by paying the round cost",
-      "Fulfil it before taking a new one"
-    ],
-    "answer": 2,
-    "explanation": "Unfulfilled contracts cannot be discarded; the ordinary clan has one export box."
-  },
-  {
-    "id": "q-expand",
-    "topic": "expand",
-    "prompt": "A normal miner is placed on £3 land. What is the total cost?",
-    "options": [
-      "£3",
-      "£10",
-      "£13"
-    ],
-    "answer": 2,
-    "explanation": "Pay the £10 miner cost plus £3 for the land."
   },
   {
     "id": "q-shipping",
@@ -663,18 +627,6 @@ export const questions = [
     "explanation": "The per-turn cap is three per good type, even beside identical producers."
   },
   {
-    "id": "q-building-bonus",
-    "topic": "building-bonus",
-    "prompt": "What triggers the ordinary building bonus?",
-    "options": [
-      "Your fourth field",
-      "Any fourth unit",
-      "Your fourth bakery, with an empty export box"
-    ],
-    "answer": 2,
-    "explanation": "Only the fourth factory of a processed-good type qualifies, and you need room for a contract."
-  },
-  {
     "id": "q-upgrades",
     "topic": "upgrades",
     "prompt": "Does a bonus upgrade make technology completely free?",
@@ -697,78 +649,6 @@ export const questions = [
     ],
     "answer": 2,
     "explanation": "Slaughtering is allowed only as part of fulfilling an export contract."
-  },
-  {
-    "id": "q-export-bonuses",
-    "topic": "export-bonuses",
-    "prompt": "A contract grants free land. What must you still pay?",
-    "options": [
-      "Nothing",
-      "The unit cost",
-      "The land cost only"
-    ],
-    "answer": 1,
-    "explanation": "Only the land cost is waived. Placement restrictions also remain in force."
-  },
-  {
-    "id": "q-ports",
-    "topic": "ports",
-    "prompt": "Another player has already used a port. Can you use it?",
-    "options": [
-      "Yes, if it is reachable and you have not used it",
-      "No, ports are exclusive",
-      "Only after paying them £4"
-    ],
-    "answer": 0,
-    "explanation": "The once-per-game limit is per player per port."
-  },
-  {
-    "id": "q-pass",
-    "topic": "pass",
-    "prompt": "After passing, may you re-enter the action phase when someone lowers a market price?",
-    "options": [
-      "Yes, with a merchant",
-      "No, passing ends your actions this round",
-      "Only in round 1"
-    ],
-    "answer": 1,
-    "explanation": "Passing is final for this round; production and scoring still follow."
-  },
-  {
-    "id": "q-production",
-    "topic": "production",
-    "prompt": "You have one field, one bakery and one distillery. Can the field’s new grain feed both factories?",
-    "options": [
-      "Yes: the field produces two grain",
-      "No: new grain cannot be processed yet",
-      "No: a field produces one grain"
-    ],
-    "answer": 0,
-    "explanation": "Basics are produced before processing. One field supplies two grain, one for each factory."
-  },
-  {
-    "id": "q-round-scoring",
-    "topic": "round-scoring",
-    "prompt": "When do you check the current round’s scoring tile?",
-    "options": [
-      "Before production",
-      "After production",
-      "Only at the end of the game"
-    ],
-    "answer": 1,
-    "explanation": "Production is phase 3; scoring is phase 4."
-  },
-  {
-    "id": "q-final-scoring",
-    "topic": "final-scoring",
-    "prompt": "Cotton and tobacco imports tie for the lowest quantity. Which is worth more?",
-    "options": [
-      "Cotton",
-      "Tobacco",
-      "Both have the same value"
-    ],
-    "answer": 0,
-    "explanation": "Cotton wins the rarity tiebreak, so it is worth 5 VP; tobacco is worth 4."
   },
   {
     "id": "q-settlements",

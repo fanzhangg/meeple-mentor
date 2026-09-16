@@ -1,20 +1,20 @@
-# HUANG Rules - Markdown Review Draft
+# HUANG Rules — Reviewed Base-Game Reference
 
 > Source: `content/games/huang/source/rules.pdf`
-> Status: Draft conversion for human review. This file is not yet treated as canonical app context.
+> Status: English app rules context. Core rules reviewed against printed pages 2–9 on 2026-09-15. Optional modules and metadata below retain explicit review notes.
 > Conversion note: The source PDF is laid out as visual spreads, so this draft is manually structured from the rendered pages and text extraction. Diagrams and examples are summarized rather than reproduced exactly.
 
 ## Review Checklist
 
 - [ ] Verify component counts against the source PDF.
 - [ ] Verify setup wording and board diagram details.
-- [ ] Verify leader placement restrictions.
-- [ ] Verify tile placement scoring and exceptions.
-- [ ] Verify Peasants' Riot effects.
-- [ ] Verify pagoda creation and scoring.
-- [ ] Verify revolt rules.
-- [ ] Verify war rules and example.
-- [ ] Verify end-game scoring and tie-breakers.
+- [x] Verify leader placement restrictions.
+- [x] Verify tile placement scoring and exceptions.
+- [x] Verify Peasants' Riot effects.
+- [x] Verify pagoda creation and scoring.
+- [x] Verify revolt rules.
+- [x] Verify war rules and example.
+- [x] Verify end-game scoring and tie-breakers.
 - [ ] Verify optional rules are clearly separated from the base game.
 - [ ] Verify credits and publication metadata.
 
@@ -43,8 +43,8 @@ The PDF lists the following base-game components:
 - 1 game board
 - 4 screens
 - 5 leader discs per player, one in each color
-- Civilization tiles in yellow, red, blue, and green
-- Market tiles
+- Civilization tiles in yellow, red, blue, green, and white
+- A Market display of six civilization tiles drawn from the same bag
 - Pagodas
 - Unification markers
 - Victory point tokens in yellow, red, blue, green, and white
@@ -60,14 +60,14 @@ Review note: The exact component counts should be checked directly against the P
 4. Place the starting yellow Governor tiles on the marked board spaces.
 5. Deal each player a screen and their five leaders.
 6. Each player draws 6 civilization tiles and keeps them hidden behind their screen.
-7. Reveal Market tiles as instructed by the rulebook.
+7. Draw six further civilization tiles from the bag and reveal them in the Market.
 8. Choose a starting player.
 
 Review note: The PDF setup uses a diagram and numbered callouts. This draft preserves the rules conceptually, but the exact diagram-specific details need visual review.
 
 ### States
 
-A state is a connected group of one or more tiles that contains at least one leader. Tiles are connected orthogonally, not diagonally.
+A state is a connected group of one or more tiles that contains at least one leader. Adjacent spaces share an edge on the hex board; chains of adjacent tiles and leaders connect a state.
 
 Connected tiles without any leader are not a state. They can later become a state when a leader is connected to them.
 
@@ -100,7 +100,7 @@ You may place, move, or withdraw one of your leaders.
 When placing or moving a leader onto the board:
 
 - The leader must be placed on an empty land space.
-- The leader must be orthogonally adjacent to a yellow Governor tile.
+- The leader must be adjacent (sharing an edge) to a yellow Governor tile.
 - The leader may not be placed on a river space.
 - The leader may not be placed in a way that unites states and creates a conflict.
 
@@ -132,7 +132,7 @@ Keep victory points hidden behind your screen. Players may exchange five 1-point
 
 After placing a green Trader tile, if the placement did not lead to a war, you may take one face-up Market tile and place it behind your screen.
 
-Review note: Confirm whether the Market tile is replaced immediately or during the normal end-of-turn refill step.
+Do not replenish the Market immediately. Refill it at the end of the turn, after all players have refilled their hidden tiles to 6.
 
 #### Blue Farmer Tile Effect
 
@@ -177,7 +177,7 @@ Conditions:
 - None of the 3 tiles may already support another building.
 - The pagoda color must match the 3 tiles.
 
-If the matching pagoda is next to the board, place it on the triangle. If the matching pagoda is already on the board, move it from its current triangle to the new triangle.
+Use an available matching-color pagoda beside the board first. Only if none is available may you move a matching-color pagoda already on the board onto the new triangle.
 
 Tiles under a pagoda remain in play and continue to count as tiles of their color. A yellow Governor tile under a pagoda can still support adjacent leaders.
 
@@ -185,7 +185,7 @@ At the end of your turn, for each of your leaders in a state containing a same-c
 
 The yellow Governor leader's fallback scoring ability does not apply to pagoda scoring.
 
-Review note: Confirm whether multiple same-color pagodas can ever be in the same state in the base game, or whether this wording mainly matters for optional buildings and movement.
+The base game includes two pagodas of each non-white color and one white pagoda; multiple matching pagodas in a state each score.
 
 ### Conflicts
 
@@ -206,7 +206,7 @@ The player who positioned the new leader is the attacker. The player who control
 
 Determine each side's strength:
 
-1. Count yellow Governor tiles orthogonally adjacent to each involved leader.
+1. Count yellow Governor tiles adjacent (sharing an edge) to each involved leader.
 2. The attacker may commit additional yellow Governor tiles from behind their screen.
 3. The defender may commit additional yellow Governor tiles from behind their screen.
 
@@ -230,12 +230,12 @@ The unifying tile has no other effect during the war:
 - If it is red, it does not add war strength.
 - If it is green, it does not allow taking a Market tile.
 
-For each leader color that appears in conflict, resolve a war.
+Compare the participating states once. Resolve all conflicting leader colors together using that winning state; do not resolve a separate war for each color.
 
 Determine each warring state's strength:
 
 1. Count red Soldier tiles in that state.
-2. Add 1 strength if the red Soldier leader supporting that state is off the board and eligible to support.
+2. Each player may support one warring state, adding 1 strength if their own red Soldier leader is off the board.
 3. Players may commit red Soldier tiles from behind their screens to support one of the warring states.
 
 Support order begins with the player to the left of the player who placed the unifying tile and proceeds clockwise. The player who placed the unifying tile commits last.
@@ -252,12 +252,10 @@ After determining the winner:
 4. Do not remove the unifying tile because of the war.
 5. Non-conflicting leaders in losing states remain on the board if still legally supported.
 6. For each removed losing leader, the player controlling the matching-color leader in the winning state gains 1 victory point of that leader color.
-7. From the winning state, discard red Soldier tiles equal to the highest losing strength. Discard committed red Soldier tiles first, then red Soldier tiles from the board if needed.
+7. Discard all committed red Soldier tiles, even if they exceed the required losses. The winning state must lose red tiles equal to the highest losing strength: its committed tiles count first; if fewer were committed, the unifying player removes the difference from its board tiles. Return any building that loses a supporting tile.
 8. Remove the unification marker.
 
-If more conflicts remain after resolving one war, continue resolving wars until no state contains duplicate leader colors.
-
-Review note: The PDF example should be checked to confirm whether this draft captures every removal and scoring edge case, especially multi-color wars.
+Remove the losing conflicting leaders simultaneously, including multiple colors. Non-conflicting leaders are not war casualties.
 
 ### Game End
 
@@ -276,10 +274,10 @@ Tie-breakers:
 
 1. Compare the tied players' second-lowest color totals.
 2. If still tied, compare the third-lowest color totals, then the fourth-lowest if needed.
-3. If all four color totals are tied, the player with fewer unassigned or originally white victory points wins.
+3. If all four color totals are tied, the player with fewer originally white victory points wins.
 4. If still tied, nobody wins.
 
-Review note: Confirm the exact wording of the final white-point tie-breaker.
+An empty bag alone does not trigger the end: a required draw must fail.
 
 ## Optional Rules
 

@@ -51,9 +51,6 @@ topic('turn', '4, 6', ('Five rounds; one action per turn', '五轮游戏，每�
           (['Hire a merchant', '£4; move one from your board to your stock'], ['雇佣商人', '£4；从玩家版图拿一个到可用区']),
           (['Fulfil an export contract', 'Pay all its required goods and slaughter any required animals'], ['完成出口合同', '支付全部指定货物，屠宰所需牛羊']),
           (['Pass', 'Take pass money; leave the action phase for this round'], ['跳过', '获得跳过奖励，本轮不再行动'])]))
-quiz('turn', ('After taking one action, may you immediately take another main action?', '执行一个行动后，可以立刻再执行一个主要行动吗？'),
-     [('Yes, if you can afford it', '可以，只要付得起'), ('No; wait until your next turn', '不可以，等下次轮到你'), ('Only in round 5', '仅第五轮可以')], 1,
-     ('The eight main actions use a turn each. Explicit bonus actions are exceptions.', '八种主要行动每次占一个行动轮。规则明确给出的奖励行动另计。'))
 
 topic('trade', '4', ('Trade: pay first, then change the price', '贸易：先结算，再调价'),
       ('Buy or sell one type of good at its current market price. Use one available merchant for each unit traded; change the price only after the entire trade.',
@@ -74,9 +71,6 @@ topic('contracts', '4; board image 2', ('Obtain an export contract', '获取出�
           ('Obtaining and fulfilling a contract are different main actions. A building bonus can obtain a contract during another action, but still uses the normal round cost.', '获取与完成合同是两个不同的主要行动。建筑奖励可以在其他行动中获取合同，但仍按当前轮次支付费用。')],
       table=((['Round', 'Cost to obtain'], ['轮次', '获取费用']), [
           (['1', 'Receive £5'], ['1', '获得£5']), (['2', '£0'], ['2', '£0']), (['3', 'Pay £5'], ['3', '支付£5']), (['4', 'Pay £10'], ['4', '支付£10']), (['5', 'Pay £15'], ['5', '支付£15'])]))
-quiz('contracts', ('Your export box holds an unfinished contract you no longer want. What can you do?', '出口货箱里有一个不想要的未完成合同，你能怎么做？'),
-     [('Discard it for free', '免费弃掉'), ('Replace it by paying the round cost', '支付当轮费用换一个'), ('Fulfil it before taking a new one', '完成它，再获取新合同')], 2,
-     ('Unfulfilled contracts cannot be discarded; the ordinary clan has one export box.', '未完成合同不能弃掉，普通氏族只有一个出口货箱。'))
 
 topic('expand', '3–5; player-board icons', ('Expand: reach, terrain and costs', '扩张：范围、地形与费用'),
       ('Deploy one unit from the top of its column to an empty space neighbouring or within shipping reach of one of your units. Pay the unit cost plus the printed land cost.', '从玩家版图对应栏最上方拿一个单位，放到与己方单位相邻或在航行范围内的空格，并支付单位费用加土地费用。'), [
@@ -89,8 +83,6 @@ topic('expand', '3–5; player-board icons', ('Expand: reach, terrain and costs'
           (['Cheese dairy', '£12', 'Grassland'], ['乳酪工厂', '£12', '草地']), (['Bakery', '£8', 'Grassland'], ['面包店', '£8', '草地']),
           (['Field', '£18', 'Grassland'], ['田地', '£18', '草地']), (['Distillery', '£10', 'Grassland'], ['酿酒厂', '£10', '草地']),
           (['Woodcutter', '£6', 'Forest'], ['伐木工', '£6', '森林']), (['Miner', '£10', 'Mountain'], ['采矿工', '£10', '山脉'])]))
-quiz('expand', ('A normal miner is placed on £3 land. What is the total cost?', '普通氏族把采矿工放到£3土地上，总共要付多少？'),
-     [('£3', '£3'), ('£10', '£10'), ('£13', '£13')], 2, ('Pay the £10 miner cost plus £3 for the land.', '采矿工本身£10，加上土地£3。'))
 
 topic('shipping', '5; publisher FAQ', ('Shipping crosses water, not land', '航行跨水，不跳陆地'),
       ('Pay £4 to advance shipping by one step. River-crossing reaches the adjacent space across a river; later levels also cross the indicated number of loch spaces.', '花费£4提升一级航行能力。跨河级可到河对岸紧邻的格子；后续等级还可跨越相应数量的湖泊格。'), [
@@ -117,9 +109,6 @@ topic('building-bonus', '5, 11', ('Fourth factory: building bonus', '第四座�
           ('Draw three contracts from the draw pile. Keep zero or one and return the others to the bottom; pay the normal current-round cost if you take one.', '从合同堆抽3个，保留0或1个，其余放回堆底。拿取时照常按当轮费用结算。'),
           ('This is part of the Expand action. Fields, sheep, cows and workers do not trigger this fourth-factory bonus.', '奖励是扩张行动的一部分。田地、绵羊、奶牛和工人不会触发第四座工厂奖励。'),
           ('Buchanan draws six and may keep up to two, limited by available export boxes. Taking two in the same bonus costs only once.', '布坎南氏族抽6个，按货箱空位最多保留2个。同一次奖励拿2个只结算一次费用。')])
-quiz('building-bonus', ('What triggers the ordinary building bonus?', '哪种情况触发普通建筑奖励？'),
-     [('Your fourth field', '第四块田地'), ('Any fourth unit', '任意第四个单位'), ('Your fourth bakery, with an empty export box', '第四座面包店，且出口货箱为空')], 2,
-     ('Only the fourth factory of a processed-good type qualifies, and you need room for a contract.', '只有第四座同类加工货物工厂触发，且必须有空货箱。'))
 
 topic('upgrades', '5–6', ('Technology, shipping and merchants', '科技、航行与商人'),
       ('Each upgrade or merchant hire normally uses its own action. Technology improves every deployed worker of one type; hiring makes one new merchant available.', '通常每次升级或雇佣各用一个行动。科技提升同类全部已部署工人的收入，雇佣则增加一个可用商人。'), [
@@ -146,9 +135,6 @@ topic('export-bonuses', '6', ('Resolve export bonuses immediately', '立即结�
           ('Money comes from the supply immediately. Free land permits an immediate Expand action without land cost; the unit itself still costs money and all reach/terrain rules apply.', '金钱立即从供应堆拿取。免费土地允许立即扩张一次，免土地费，但单位仍要付费，范围和地形规则照常适用。'),
           ('A free-land expansion can trigger neighbourhood and building bonuses when their conditions are met.', '免费土地扩张满足条件时，仍可触发相邻奖励与建筑奖励。'),
           ('For each bonus upgrade choose technology at £5, free shipping, a free merchant hire, or retrieving one merchant. With multiple bonus upgrades you may repeat the same eligible option.', '每次奖励升级可选择£5科技、免费航行、免费雇佣商人或收回一个商人。有多次奖励升级时，可重复选择仍合法的同一选项。')])
-quiz('export-bonuses', ('A contract grants free land. What must you still pay?', '合同奖励免费土地，扩张时还需要支付什么？'),
-     [('Nothing', '什么都不用付'), ('The unit cost', '单位本身的费用'), ('The land cost only', '只付土地费')], 1,
-     ('Only the land cost is waived. Placement restrictions also remain in force.', '只免土地费用，单位费用与放置限制仍然适用。'))
 
 topic('ports', '6, 10', ('Ports: a bonus once per game', '港口：每处每局一次'),
       ('A port neighbouring or within shipping reach of one of your units is available as a free bonus on your turn, before or after your main action.', '港口与己方单位相邻或处于其航行范围内时，可在自己的主要行动前或后免费使用奖励。'), [
@@ -156,18 +142,12 @@ topic('ports', '6, 10', ('Ports: a bonus once per game', '港口：每处每局�
           ('After using a port, place your marker by it. Each player may use each port once per game; another player’s marker does not block you.', '使用后放自己的港口标记。每位玩家每处港口每局限用一次；别人的标记不会阻止你使用。'),
           ('The meat-discount port must be used with a contract requiring meat. The price-adjustment port changes one good by three steps before trading it.', '减肉港口须配合要求肉类的合同使用；调价港口在交易该货物前把其价格调整3格。')],
       image='port-reach.png', caption=('Black is directly next to this port. Red needs at least 2-loch shipping to use it from the pictured cow.', '黑色直接邻接港口；红色要从图中奶牛位置使用该港口，需至少跨2块湖泊的航行能力。'))
-quiz('ports', ('Another player has already used a port. Can you use it?', '其他玩家已经用过某个港口，你还能用吗？'),
-     [('Yes, if it is reachable and you have not used it', '可以，只要你可达且自己还没用过'), ('No, ports are exclusive', '不可以，港口是独占的'), ('Only after paying them £4', '要先付给对方£4')], 0,
-     ('The once-per-game limit is per player per port.', '每局一次的限制分别对每位玩家、每处港口计算。'))
 
 topic('pass', '3, 6', ('Pass money and next round’s order', '跳过奖励与下轮顺位'),
       ('Passing ends your actions for this round. Put your order marker in the next available position and immediately take the printed pass money.', '跳过后本轮不再行动。将顺位标记移到下轮最靠前的空位，并立即拿取该位置的跳过奖励。'), [
           ('The first player to pass is first next round, the second is second, and so on. With four players, pass rewards in order are £16, £14, £12 and £10.', '先跳过者下轮先行动，之后依次排序。四人游戏按跳过顺序分别获得£16、£14、£12、£10。'),
           ('Use the turn-order track for your player count. If others have passed, the remaining player continues taking one action each turn until also passing.', '按人数使用对应顺位轨。其他人都跳过后，剩余玩家仍可每次执行一个行动，直到自己也跳过。'),
           ('You still collect production and round scoring after passing. The passing money in round 5 also matters for the final money score.', '跳过后仍参加生产与当轮计分。第五轮跳过所得金钱也计入最终金钱得分。')])
-quiz('pass', ('After passing, may you re-enter the action phase when someone lowers a market price?', '跳过后看到别人把市场价格压低，可以重新加入本轮行动吗？'),
-     [('Yes, with a merchant', '可以，只要有商人'), ('No, passing ends your actions this round', '不可以，跳过后本轮不再行动'), ('Only in round 1', '仅第一轮可以')], 1,
-     ('Passing is final for this round; production and scoring still follow.', '跳过后不能恢复本轮行动，但仍参加生产和计分。'))
 
 topic('production', '7', ('Production: income → basics → processing', '生产：收入 → 基础货物 → 加工'),
       ('Only units deployed on the map produce. Collect worker income, then basic goods, then optionally process goods once per factory.', '只有地图上已部署的单位生产。先拿工人收入，再拿基础货物，最后可选择让每座工厂加工一次。'), [
@@ -179,18 +159,12 @@ topic('production', '7', ('Production: income → basics → processing', '生�
           (['Sheep / cow / field', '1 wool / 1 milk / 2 grain'], ['绵羊／奶牛／田地', '1羊毛／1牛奶／2谷物']),
           (['Cheese dairy', '1 milk → 1 cheese'], ['乳酪工厂', '1牛奶 → 1乳酪']), (['Bakery', '1 grain → 1 bread'], ['面包店', '1谷物 → 1面包']), (['Distillery', '1 grain → 1 whisky'], ['酿酒厂', '1谷物 → 1威士忌'])]),
       image='production.png', caption=('Each factory consumes its input. One grain used for bread cannot also become whisky.', '每座工厂都会消耗原料。同一个谷物做了面包，就不能再用来酿威士忌。'))
-quiz('production', ('You have one field, one bakery and one distillery. Can the field’s new grain feed both factories?', '有一块田地、一座面包店和一座酿酒厂，田地当轮产出够两座工厂使用吗？'),
-     [('Yes: the field produces two grain', '够，田地产2谷物'), ('No: new grain cannot be processed yet', '不够，新谷物本轮不能加工'), ('No: a field produces one grain', '不够，田地只产1谷物')], 0,
-     ('Basics are produced before processing. One field supplies two grain, one for each factory.', '先生产基础货物再加工，一块田地的2谷物可各供一座工厂。'))
 
 topic('round-scoring', '7, 10', ('Round scoring happens after production', '生产后进行当轮计分'),
       ('Score only the current round’s scoring tile, using your state after production. Add its Glory to your track; goods counted are not spent.', '只按当前轮次的计分板块，以生产后的状态获得荣誉分并推进记录轨；用于计分的货物不消耗。'), [
           ('Five scoring tiles are selected and ordered during setup. Some count current stock or units; others count symbols on all your fulfilled contracts.', '设置时随机选择并排列5个计分板块。有的看当前库存或单位，有的看所有已完成合同上的符号。'),
           ('For every-two conditions, count complete pairs. A leftover single does not score that pair reward.', '“每两个”条件只计算完整的一对，剩余单个不获得该组奖励。'),
           ('Round scoring is separate from final scoring. Goods kept now can contribute to both if still in stock at the end.', '当轮计分与最终计分分别结算。保留下来的货物，若终局仍在库存，可在两者中分别得分。')])
-quiz('round-scoring', ('When do you check the current round’s scoring tile?', '何时检查当前轮次的计分板块？'),
-     [('Before production', '生产前'), ('After production', '生产后'), ('Only at the end of the game', '只在游戏结束时')], 1,
-     ('Production is phase 3; scoring is phase 4.', '生产是第三阶段，计分是第四阶段。'))
 
 topic('final-scoring', '7–8', ('Final score and imported goods', '最终计分与进口货物'),
       ('After round 5 production and scoring, total Glory, remaining goods and money, imports, export ranking and settlement ranking. Highest VP wins.', '第五轮生产及计分后，汇总荣誉、剩余货物与金钱、进口货物、出口排名和定居点排名。胜利点最多者获胜。'), [
@@ -203,9 +177,6 @@ topic('final-scoring', '7–8', ('Final score and imported goods', '最终计分
           (['Money', '1 per full £10'], ['金钱', '每满£10得1分']), (['Hops on completed contracts', '1 per hops'], ['已完成合同上的啤酒花', '每个1分']),
           (['Cotton / tobacco / sugar cane', '3, 4 or 5 each by global rarity'], ['棉花／烟草／甘蔗', '按全局稀有度，每个3、4或5分']),
           (['Export ranking, 3–4 players', '12 / 6 / 0 / 0'], ['出口合同数量排名，3–4人', '12／6／0／0']), (['Export ranking, 2 players', '8 / 0'], ['出口合同数量排名，2人', '8／0'])]))
-quiz('final-scoring', ('Cotton and tobacco imports tie for the lowest quantity. Which is worth more?', '棉花与烟草进口量并列最少，哪个价值更高？'),
-     [('Cotton', '棉花'), ('Tobacco', '烟草'), ('Both have the same value', '两者同价')], 0,
-     ('Cotton wins the rarity tiebreak, so it is worth 5 VP; tobacco is worth 4.', '稀有度平局时棉花优先，因此棉花每个5分，烟草每个4分。'))
 
 topic('settlements', '8', ('Settlements: count the connected groups', '定居点：数连通的聚落'),
       ('A settlement is a connected cluster of your units with no river between neighbours. Count how many settlements your largest shipping-connected network contains.', '一个定居点是一组无河相邻、彼此连接的己方单位。最终比较的是你最大航行连通网络包含多少个定居点。'), [

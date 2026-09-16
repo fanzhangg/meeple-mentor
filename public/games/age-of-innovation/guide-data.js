@@ -25,28 +25,82 @@ topics.find(t=>t.id==='income').details = [
  {title:'荒原计划板',text:'开局获得 1 本自选书籍和 1 工具。第二项创造免付个人位置额外书费，第三项仍需支付。'}
 ];
 topics.push(...appendixTopics);
-export const questions = [
- {id:"turn-one",topic:"turn",prompt:"轮到你了，你还有很多资源。这个回合可以做几个普通行动？",options:["一直行动，直到资源用完","1 个，之后再按顺序轮回来","必须做 2 个"],answer:1,explanation:"一轮中每位玩家会有多个回合，但每回合只做一个行动。资源转换是额外选项。"}
-];
-questions.push(
- {id:"sailing-adjacent",topic:"reach",prompt:"对手的建筑在河对岸，你可以靠航行到达，但没有桥。把自己的工坊升级成公会，能享受邻居折扣吗？",options:["能，只要到得了","不能，必须直接相邻","能，但需要先付 1 魔力"],answer:1,explanation:"航行可达不等于直接相邻。公会折扣需要另一部族的直接相邻建筑；桥梁可以让跨河两格直接相邻。"},
- {id:"power-neighbor",topic:"power",prompt:"红色在你旁边建工坊。你直接相邻的建筑是 1 座工坊和 1 所学校。接受全部魔力，要扣多少分？",options:["0 分，红色建的只是工坊","2 分：拿 3 魔力，扣 2 分","3 分：有 3 点魔力值"],answer:1,explanation:"看你的相邻建筑：工坊 1 + 学校 2 = 3 魔力。接受来自对手建造的魔力，扣实际魔力数减 1 分。"},
- {id:"power-cycle",topic:"power",prompt:"I 盘剩 2 枚标记，II 盘也有标记。现在获得 3 魔力，怎么移动？",options:["从 II 盘拿 3 枚到 III 盘","先把 I 盘的 2 枚移入 II，再移 1 枚从 II 到 III","直接新增 3 枚标记到 III 盘"],answer:1,explanation:"I 盘没有清空之前，不能开始把 II 盘的标记充到 III 盘。获得魔力通常是移动标记，不是新增标记。"},
- {id:"spade-range",topic:"build",prompt:"你获得两把免费铲子。能先改一格并建工坊，再从新工坊延伸，改原本不可达的第二格吗？",options:["不能，必须先用完铲子再建工坊","可以，只要第二格也是原生地形","可以，但要多付 1 钱币"],answer:0,explanation:"本次行动先使用全部铲子，再建至多一座工坊。新建筑不能扩大同一次行动中改造的可达范围。"},
- {id:"city-university",topic:"city",prompt:"大学、公会和两者直接连通的一座工坊，总魔力值是 6，且都不属于已有城市。普通规则下能建城吗？",options:["能，有大学就够了","不能，虽然只需 3 座建筑，魔力值仍需 7","不能，永远必须有 4 座建筑"],answer:1,explanation:"大学把所需建筑数减为 3，不降低 7 点魔力值门槛。这里 3 + 2 + 1 = 6，不满足；8 号宫殿才会把魔力门槛降为 6。"},
- {id:"school-competency",topic:"upgrade",prompt:"把公会升级成学校时，会获得什么板块？",options:["任意一块创造，免费开发","一块能力，并获得它所在位置的学科／书籍奖励","一块特权，替换当前特权"],answer:1,explanation:"学校和大学给能力，不是创造。不能拿重复能力；该位置的学科升级和书籍合计为 3。"},
- {id:"science-key",topic:"science",prompt:"你还没有城市之钥，法学在 7 级。现在获得法学 +2 级，结果如何？",options:["到 9 级，钥匙以后补","保持 7 级，超出的升级作废","先到 8 级，但暂时不领收入"],answer:1,explanation:"进入 8 级就需要一把可用于这门学科的城市之钥。没有钥匙，超出 7 级的提升会失去。"},
- {id:"scholar-permanent",topic:"science",prompt:"你把一名已获得的学者派到法学的 3 级位置。这位学者什么时候回来？",options:["下一轮收入阶段","本轮结束时","不会回来，永久留在学术板"],answer:2,explanation:"派到学术板的学者永久占位，不能收回。个人一共只有 7 名学者；另一种行动是归还学者到个人供应区，只升 1 级。"},
- {id:"innovation-cost",topic:"innovation",prompt:"第一项创造的列费用是 5 本书。你还没建自己的宫殿，需要支付什么？",options:["5 本书即可","5 本书，另加 5 钱币","必须先建宫殿，不能开发"],answer:1,explanation:"未建自己的宫殿时，开发创造另付 5 钱币。第二、三项还要检查个人计划板位置上的额外书费。"},
- {id:"public-conversion",topic:"resources",prompt:"别人本轮已经用了公共的“3 魔力换学者”。轮到你时，还能得到学者吗？",options:["不能，这轮完全不能获得学者","可以用普通资源转换付 5 魔力换 1 学者，不占行动","再付 3 魔力即可重复该公共行动"],answer:1,explanation:"公共行动每轮限用一次，但普通资源转换是另一套规则：在自己行动前或后，可付 5 魔力换学者。前提是个人供应区还有学者。"},
- {id:"pass-return",topic:"pass",prompt:"你宣告结束行动后，看到下一位玩家做了一个很想跟进的行动。你能再行动吗？",options:["可以，每人有一次反悔机会","不能，本轮已退出行动阶段","可以，只要不换特权"],answer:1,explanation:"宣告结束行动后，本轮一直跳过你。第 1–5 轮会换特权，并按结束先后决定下一轮顺序。"},
- {id:"round-six",topic:"pass",prompt:"第 6 轮所有人都宣告结束行动。接下来做什么？",options:["领取最后一次学术红利，再算总分","直接聚落、学术和资源终局计分","换好特权，再进行第 7 轮"],answer:1,explanation:"第 6 轮保留结束行动时的奖励，但跳过整个阶段 III：没有学术红利，也不准备下一轮。"},
- {id:"annex-final",topic:"city",prompt:"你的最大连接建筑群有 7 座建筑，其中 2 座带扩建。终局聚落计分数几座？",options:["9 座","7 座","按总魔力值来数"],answer:1,explanation:"扩建只在计算建城所需建筑数时算额外一座。终局聚落只数建筑，不数扩建，也不比较魔力值。"}
-);
+// Topic placement is independent of whether a recap question is selected.
+const referenceIds = new Set(['factions', 'palaces', 'innovations', 'privileges', 'competencies', 'round-scoring']);
+topics.forEach(topic => { topic.appendix = referenceIds.has(topic.id); });
+topics.find(topic => topic.id === 'pass').details[1].reference = true;
 
-// Fixed rotation keeps answer positions varied and stable between visits.
-questions.forEach((question,index)=>{
-  const offset=index%question.options.length;
-  question.options=question.options.slice(offset).concat(question.options.slice(0,offset));
-  question.answer=(question.answer-offset+question.options.length)%question.options.length;
-});
+export const questions = [
+  {
+    "id": "sailing-adjacent",
+    "topic": "reach",
+    "prompt": "对手的建筑在河对岸，你可以靠航行到达，但没有桥。把自己的工坊升级成公会，能享受邻居折扣吗？",
+    "options": [
+      "不能，必须直接相邻",
+      "能，但需要先付 1 魔力",
+      "能，只要到得了"
+    ],
+    "answer": 0,
+    "explanation": "航行可达不等于直接相邻。公会折扣需要另一部族的直接相邻建筑；桥梁可以让跨河两格直接相邻。"
+  },
+  {
+    "id": "power-neighbor",
+    "topic": "power",
+    "prompt": "红色在你旁边建工坊。你直接相邻的建筑是 1 座工坊和 1 所学校，魔力盘能接收全部 3 魔力，且你至少有 2 分。接受全部魔力，要扣多少分？",
+    "options": [
+      "3 分：有 3 点魔力值",
+      "0 分，红色建的只是工坊",
+      "2 分：拿 3 魔力，扣 2 分"
+    ],
+    "answer": 2,
+    "explanation": "看你的相邻建筑：工坊 1 + 学校 2 = 3 魔力。接受来自对手建造的魔力，扣实际魔力数减 1 分。"
+  },
+  {
+    "id": "spade-range",
+    "topic": "build",
+    "prompt": "你获得两把免费铲子。能先改一格并建工坊，再从新工坊延伸，改原本不可达的第二格吗？",
+    "options": [
+      "可以，只要第二格也是原生地形",
+      "可以，但要多付 1 钱币",
+      "不能，必须先用完铲子再建工坊"
+    ],
+    "answer": 2,
+    "explanation": "本次行动先使用全部铲子，再建至多一座工坊。新建筑不能扩大同一次行动中改造的可达范围。"
+  },
+  {
+    "id": "city-university",
+    "topic": "city",
+    "prompt": "大学、公会和两者直接连通的一座工坊，总魔力值是 6，且都不属于已有城市。普通规则下能建城吗？",
+    "options": [
+      "不能，永远必须有 4 座建筑",
+      "不能，虽然只需 3 座建筑，魔力值仍需 7",
+      "能，有大学就够了"
+    ],
+    "answer": 1,
+    "explanation": "大学把所需建筑数减为 3，不降低 7 点魔力值门槛。这里 3 + 2 + 1 = 6，不满足；8 号宫殿才会把魔力门槛降为 6。"
+  },
+  {
+    "id": "science-key",
+    "topic": "science",
+    "prompt": "你还没有城市之钥，法学在 7 级。现在获得法学 +2 级，结果如何？",
+    "options": [
+      "先到 8 级，但暂时不领收入",
+      "保持 7 级，超出的升级作废",
+      "到 9 级，钥匙以后补"
+    ],
+    "answer": 1,
+    "explanation": "进入 8 级就需要一把可用于这门学科的城市之钥。没有钥匙，超出 7 级的提升会失去。"
+  },
+  {
+    "id": "public-conversion",
+    "topic": "resources",
+    "prompt": "别人本轮已用了公共“3 魔力换学者”。你的 III 盘有 5 魔力，个人供应区还有学者。能用普通资源转换获得学者吗？",
+    "options": [
+      "可以用普通资源转换付 5 魔力换 1 学者，不占行动",
+      "再付 3 魔力即可重复该公共行动",
+      "不能，这轮完全不能获得学者"
+    ],
+    "answer": 0,
+    "explanation": "公共行动每轮限用一次，但普通资源转换是另一套规则：在自己行动前或后，可付 5 魔力换学者。前提是个人供应区还有学者。"
+  }
+];

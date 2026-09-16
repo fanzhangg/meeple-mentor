@@ -591,18 +591,6 @@ export const topics = [
 
 export const questions = [
   {
-    "id": "q-turn",
-    "topic": "turn",
-    "prompt": "执行一个行动后，可以立刻再执行一个主要行动吗？",
-    "options": [
-      "可以，只要付得起",
-      "不可以，等下次轮到你",
-      "仅第五轮可以"
-    ],
-    "answer": 1,
-    "explanation": "八种主要行动每次占一个行动轮。规则明确给出的奖励行动另计。"
-  },
-  {
     "id": "q-trade",
     "topic": "trade",
     "prompt": "威士忌当前单价£10，一笔交易买两桶要付多少？",
@@ -613,30 +601,6 @@ export const questions = [
     ],
     "answer": 0,
     "explanation": "两桶都按交易开始时的价格结算，完成后才涨价。"
-  },
-  {
-    "id": "q-contracts",
-    "topic": "contracts",
-    "prompt": "出口货箱里有一个不想要的未完成合同，你能怎么做？",
-    "options": [
-      "免费弃掉",
-      "支付当轮费用换一个",
-      "完成它，再获取新合同"
-    ],
-    "answer": 2,
-    "explanation": "未完成合同不能弃掉，普通氏族只有一个出口货箱。"
-  },
-  {
-    "id": "q-expand",
-    "topic": "expand",
-    "prompt": "普通氏族把采矿工放到£3土地上，总共要付多少？",
-    "options": [
-      "£3",
-      "£10",
-      "£13"
-    ],
-    "answer": 2,
-    "explanation": "采矿工本身£10，加上土地£3。"
   },
   {
     "id": "q-shipping",
@@ -663,18 +627,6 @@ export const questions = [
     "explanation": "每个行动轮每种货物上限3个，邻接同类单位也不累加上限。"
   },
   {
-    "id": "q-building-bonus",
-    "topic": "building-bonus",
-    "prompt": "哪种情况触发普通建筑奖励？",
-    "options": [
-      "第四块田地",
-      "任意第四个单位",
-      "第四座面包店，且出口货箱为空"
-    ],
-    "answer": 2,
-    "explanation": "只有第四座同类加工货物工厂触发，且必须有空货箱。"
-  },
-  {
     "id": "q-upgrades",
     "topic": "upgrades",
     "prompt": "奖励升级会让科技升级完全免费吗？",
@@ -697,78 +649,6 @@ export const questions = [
     ],
     "answer": 2,
     "explanation": "屠宰只能作为完成出口合同的一部分。"
-  },
-  {
-    "id": "q-export-bonuses",
-    "topic": "export-bonuses",
-    "prompt": "合同奖励免费土地，扩张时还需要支付什么？",
-    "options": [
-      "什么都不用付",
-      "单位本身的费用",
-      "只付土地费"
-    ],
-    "answer": 1,
-    "explanation": "只免土地费用，单位费用与放置限制仍然适用。"
-  },
-  {
-    "id": "q-ports",
-    "topic": "ports",
-    "prompt": "其他玩家已经用过某个港口，你还能用吗？",
-    "options": [
-      "可以，只要你可达且自己还没用过",
-      "不可以，港口是独占的",
-      "要先付给对方£4"
-    ],
-    "answer": 0,
-    "explanation": "每局一次的限制分别对每位玩家、每处港口计算。"
-  },
-  {
-    "id": "q-pass",
-    "topic": "pass",
-    "prompt": "跳过后看到别人把市场价格压低，可以重新加入本轮行动吗？",
-    "options": [
-      "可以，只要有商人",
-      "不可以，跳过后本轮不再行动",
-      "仅第一轮可以"
-    ],
-    "answer": 1,
-    "explanation": "跳过后不能恢复本轮行动，但仍参加生产和计分。"
-  },
-  {
-    "id": "q-production",
-    "topic": "production",
-    "prompt": "有一块田地、一座面包店和一座酿酒厂，田地当轮产出够两座工厂使用吗？",
-    "options": [
-      "够，田地产2谷物",
-      "不够，新谷物本轮不能加工",
-      "不够，田地只产1谷物"
-    ],
-    "answer": 0,
-    "explanation": "先生产基础货物再加工，一块田地的2谷物可各供一座工厂。"
-  },
-  {
-    "id": "q-round-scoring",
-    "topic": "round-scoring",
-    "prompt": "何时检查当前轮次的计分板块？",
-    "options": [
-      "生产前",
-      "生产后",
-      "只在游戏结束时"
-    ],
-    "answer": 1,
-    "explanation": "生产是第三阶段，计分是第四阶段。"
-  },
-  {
-    "id": "q-final-scoring",
-    "topic": "final-scoring",
-    "prompt": "棉花与烟草进口量并列最少，哪个价值更高？",
-    "options": [
-      "棉花",
-      "烟草",
-      "两者同价"
-    ],
-    "answer": 0,
-    "explanation": "稀有度平局时棉花优先，因此棉花每个5分，烟草每个4分。"
   },
   {
     "id": "q-settlements",

@@ -1,5 +1,15 @@
 # Clans of Caledonia guide audit
 
+## 2026-09-15 — README scenario and writing review
+
+Rechecked the core action, placement bonus, production, scoring and settlement summaries against the supplied English rulebook pp. 4–8. No new substantive mismatch was identified in those summaries. Preserve the existing 2025 Chinese port-7 correction recorded below; the older English wording is not grounds to revert that edition-specific ruling. This pass does not claim a fresh exhaustive audit of every optional tile or clan interaction.
+
+- Reduced 16 recaps to six: trade pricing, shipping, neighbourhood bonuses, upgrades, contract fulfilment/slaughter and connected settlements. The selected answers and explanations were checked against their rules, independently of programmatic index checks.
+- Moved core costs, restrictions, rewards, timing, tables and warnings out of generic disclosures. Kept short port effects and scoring references directly readable; the long setup, clan and optional-variant references remain expandable.
+- Kept all seven short rulebook illustrations inline after their relevant rules, with intrinsic image dimensions. Illustration coverage no longer follows quiz selection.
+- Updated `scripts/build_clans_guide.py` so regeneration preserves the curated question set. Source rules and existing component catalogs remain available.
+- Verified desktop/mobile rendering, navigation, incorrect/correct answers and selected-answer preservation across languages. This supports the README's return-to-a-forgotten-rule scenario without requiring a quiz or disclosure click to find an ordinary rule.
+
 ## Scope and authority
 
 Reviewed on 2026-09-15 against both supplied 12-page base-game rulebooks. The 2025-06-08 Chinese edition governs port 7, corroborated by the publisher's erratum. `rules-review.md` records links, terminology and edition differences. Industria is excluded; Kickstarter content is explicitly optional. The organized English/Chinese rules describe mechanical rules rather than reproducing every historical paragraph.

@@ -1,5 +1,19 @@
 # Age of Innovation player guide — rulebook audit
 
+## 2026-09-15 — README scenario and writing review
+
+Rechecked core procedures and retained questions against the supplied v1.1 rulebook: power/adjacency/City rules pp. 7–9, actions and costs pp. 10–16, round-end and final scoring pp. 17–18. Visually checked the upgrade costs on p. 13. No new substantive mismatch was found in these core rules. The earlier full appendix audit below remains historical evidence; this pass does not claim a new exhaustive check of every faction, Palace or Innovation interaction.
+
+- Reduced 14 questions to six: adjacency versus Reach, construction power cost, multiple-Spade timing, University City threshold, Keys, and ordinary conversion versus a public action. Added power capacity/available points and Scholar supply to questions whose answers depend on them.
+- Core/appendix classification is now explicit and independent of questions. Removing a quiz cannot move its rule section into the appendix.
+- Made gameplay bullets, cost tables, warnings and short explanations visible. Short Planning-display and scoring references are visible too. Longer faction/Palace/Innovation catalogs and the two-player setup reference remain expandable.
+- Kept all 12 rulebook figures. Ten short figures are inline; the multi-hex Spade walkthrough and larger Science-display illustration can be expanded after reading their rules. Images declare their actual dimensions to reduce layout jumps.
+- Desktop/mobile checks exercised navigation, quiz feedback and switching language after answering. The source audit and behavioral checks serve different purposes: test success does not establish factual correctness.
+
+The structure now supports the README's post-teaching lookup scenario: find a topic, read its operational rule immediately, then optionally inspect a longer example or answer an easy-to-misapply question.
+
+## Earlier complete coverage review
+
 ## Scope and result
 
 Checked the Chinese and English player guide against the supplied English rulebook, version 1.1. The audit covers all 17 guide topics, the 81 faction/tile reference entries, all 14 checkpoint answers and explanations, and the 12 illustration captions. The seven Planning display exceptions are now also included under Income and development tracks.
