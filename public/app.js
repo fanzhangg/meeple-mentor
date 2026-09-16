@@ -99,9 +99,8 @@ function renderArticle() {
   elements.nav.innerHTML = lesson.steps
     .map((step) => `<a href="#${step.id}">${escapeHtml(step.title)}</a>`)
     .join("");
-  elements.sections.innerHTML = `${lesson.steps.map(renderRuleSection).join("")}${renderScoreCard()}`;
+  elements.sections.innerHTML = `${lesson.steps.map(renderRuleSection).join("")}`;
   initializeQuizFeedback(elements.sections);
-  updateCheckpointScore();
 }
 
 function renderRuleSection(step) {
@@ -143,17 +142,6 @@ function renderCheckpoint(step) {
   `;
 }
 
-function renderScoreCard() {
-  return `
-    <section class="checkpoint-score" id="checkpoint-score" aria-live="polite">
-      <h3>${escapeHtml(t("game.scoreTitle"))}</h3>
-      <div class="score-dial" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <span class="score-dial-value" id="checkpoint-score-text"></span>
-      </div>
-    </section>
-  `;
-}
-
 function handleCheckpointChange(input) {
   const container = input.closest(".checkpoint");
   const checkId = container.dataset.checkId;
@@ -182,22 +170,6 @@ function handleCheckpointChange(input) {
   feedback.textContent = feedbackText;
   feedback.className = `checkpoint-feedback ${correct ? "correct" : "incorrect"}`;
   updateQuizFeedback(container, correct);
-  updateCheckpointScore();
-}
-
-function updateCheckpointScore() {
-  const scoreText = document.querySelector("#checkpoint-score-text");
-  const scoreDial = document.querySelector(".score-dial");
-  if (!scoreText) return;
-  const total = currentLessonSteps.filter((step) => step.check?.options).length;
-  const correct = [...checkpointResults.values()].filter((result) => result.correct).length;
-  const percent = total ? Math.round((correct / total) * 100) : 0;
-  if (scoreDial) {
-    scoreDial.setAttribute("aria-valuenow", String(percent));
-    scoreDial.setAttribute("aria-label", `${correct}/${total}`);
-    scoreDial.style.setProperty("--score-percent", percent);
-  }
-  scoreText.textContent = `${correct}/${total}`;
 }
 
 function resolveAsset(path) {

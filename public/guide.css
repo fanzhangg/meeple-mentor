@@ -154,7 +154,7 @@ html:lang(zh-Hans) .game-page {
 .rule-article h3 { font-size: var(--guide-text-section); }
 .rule-article h4 { font-size: var(--guide-text-body); }
 .rule-article .article-lead { margin-bottom: var(--type-paragraph-gap); }
-.rule-section, .checkpoint-score {
+.rule-section {
   margin-top: var(--type-section-gap);
   padding-top: var(--type-section-gap);
   border-top: 1px solid var(--line);
@@ -244,20 +244,6 @@ html:lang(zh-Hans) .game-page {
 .checkpoint-feedback:empty { display: none; }
 .checkpoint-feedback.correct { color: #276241; }
 .checkpoint-feedback.incorrect { color: #8a3427; }
-.checkpoint-score h3 { margin-bottom: var(--guide-space-4); }
-.score-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--guide-space-6); }
-.score-dial {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 7rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: conic-gradient(var(--accent) calc(var(--score-percent, 0) * 1%), var(--accent-soft) 0);
-}
-.score-dial::before { content: ""; position: absolute; inset: .75rem; border-radius: inherit; background: var(--panel); }
-.score-dial-value { position: relative; font-size: var(--guide-text-section); font-weight: var(--guide-weight-heading); font-variant-numeric: tabular-nums; }
-.checkpoint-score .score-progress { margin-top: var(--guide-space-3); color: var(--muted); font-size: var(--guide-text-sm); }
 
 /* Conversation shares the same body scale as the rules. */
 .game-page .game-chat {
@@ -436,7 +422,7 @@ html:lang(zh-Hans) .game-page {
   .game-workspace { grid-template-columns: minmax(0, 1fr) 20rem; margin-top: var(--guide-space-6); }
   .rule-panel { display: block; }
   .game-page .game-chat { display: flex; position: sticky; top: var(--guide-space-4); }
-  .rule-section, .checkpoint-score { scroll-margin-top: var(--guide-space-6); }
+  .rule-section { scroll-margin-top: var(--guide-space-6); }
 }
 @media (min-width: 80rem) {
   .rule-panel, .rule-panel.active { display: grid; grid-template-columns: 12rem minmax(0, 1fr); align-items: start; }

@@ -1,4 +1,4 @@
-import {updateQuizFeedback, resetQuizFeedback, initializeQuizFeedback} from '../../quiz-feedback.js';
+import {updateQuizFeedback, initializeQuizFeedback} from '../../quiz-feedback.js';
 import {createRuleChat} from '../../rule-chat.js';
 import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
@@ -76,30 +76,6 @@ function renderSection(topic) {
   </section>`;
 }
 
-function renderScoreCard() {
-  return `<section class="checkpoint-score" id="checkpoint-score">
-    <h3 tabindex="-1">${escape(labels.score)}</h3>
-    <div class="score-actions">
-      <div class="score-dial" role="meter" aria-label="${escape(labels.scoreLabel)}" aria-valuemin="0" aria-valuemax="${questions.length}" aria-valuenow="0">
-        <span class="score-dial-value" id="checkpoint-score-text">0/${questions.length}</span>
-      </div>
-      <button class="reset-checkpoints ui-button ui-button--secondary" type="button" id="reset-checkpoints">${escape(labels.reset)}</button>
-    </div>
-    <p class="score-progress" id="score-progress" role="status">${escape(text('progress', {count:0,total:questions.length}))}</p>
-  </section>`;
-}
-
-function updateScore() {
-  const {correct} = quiz.summary();
-  const dial = $('.score-dial');
-  dial.setAttribute('aria-valuenow', String(correct));
-  dial.setAttribute('aria-valuemax', String(questions.length));
-  dial.setAttribute('aria-valuetext', text('scoreValue', {total:questions.length, correct}));
-  dial.style.setProperty('--score-percent', Math.round(correct / questions.length * 100));
-  $('#checkpoint-score-text').textContent = `${correct}/${questions.length}`;
-  $('#score-progress').textContent = text('progress', {count:quiz.answers.size,total:questions.length});
-}
-
 function selectTab(name) {
   document.querySelectorAll('[data-tab]').forEach(tab => {
     const active = tab.dataset.tab === name;
@@ -140,18 +116,8 @@ $('#lesson-sections').addEventListener('change', event => {
   feedback.className = `checkpoint-feedback ${correct ? 'correct' : 'incorrect'}`;
   feedback.textContent = `${correct ? labels.correct : text('incorrect', {answer:question.options[question.answer]})} ${question.explanation}`;
   updateQuizFeedback(checkpoint, correct, {immediate: !event.isTrusted});
-  updateScore();
 });
 
-$('#lesson-sections').addEventListener('click', event => {
-  if (!event.target.closest('#reset-checkpoints')) return;
-  quiz.reset();
-  resetQuizFeedback(document);
-  document.querySelectorAll('.checkpoint input').forEach(input => { input.checked = false; });
-  document.querySelectorAll('.checkpoint-option').forEach(option => { option.className = 'checkpoint-option'; });
-  document.querySelectorAll('.checkpoint-option-icon, .checkpoint-feedback').forEach(element => { element.textContent = ''; });
-  updateScore();
-});
 
 document.querySelectorAll('[data-tab]').forEach(tab => tab.addEventListener('click', () => selectTab(tab.dataset.tab)));
 $('#lesson-nav').addEventListener('click', event => {
@@ -186,9 +152,9 @@ function renderAll() {
   $('#rules-tab').textContent = labels.rules;
   $('#ask-tab').textContent = t('game.askTab');
   chat.refresh();
-  $('#lesson-nav').innerHTML = [...coreTopics, {id: 'checkpoint-score', title: labels.score}, ...appendixTopics]
+  $('#lesson-nav').innerHTML = [...coreTopics, ...appendixTopics]
   .map(topic => `<a href="#${topic.id}">${escape(topic.title)}</a>`).join('');
-  $('#lesson-sections').innerHTML = coreTopics.map(renderSection).join('') + renderScoreCard() + appendixTopics.map(renderSection).join('');
+  $('#lesson-sections').innerHTML = coreTopics.map(renderSection).join('') + appendixTopics.map(renderSection).join('');
   initializeQuizFeedback($('#lesson-sections'));
 
 
@@ -198,7 +164,6 @@ function renderAll() {
     input.checked = true;
     input.dispatchEvent(new Event('change', {bubbles:true}));
   }
-  updateScore();
 }
 setLanguage(language);
 renderLanguageMenu($('#language-menu'),renderAll);
