@@ -15,12 +15,7 @@ const checkpointResults = new Map();
 
 const elements = {
   title: document.querySelector("#game-title"),
-  year: document.querySelector("#game-year"),
-  subtitle: document.querySelector("#game-subtitle"),
-  credits: document.querySelector("#game-credits"),
   cover: document.querySelector("#game-cover"),
-  mechanism: document.querySelector("#game-mechanism"),
-  mechanismLabel: document.querySelector("#mechanism-label"),
   nav: document.querySelector("#lesson-nav"),
   overview: document.querySelector("#lesson-overview"),
   sections: document.querySelector("#lesson-sections"),
@@ -77,8 +72,7 @@ function renderAll() {
 }
 
 function renderStaticText() {
-  elements.homeLink.textContent = t("common.allGames");
-  elements.mechanismLabel.textContent = `${t("game.mechanism")}:`;
+  elements.homeLink.querySelector('.home-link-label').textContent = t("common.allGames").replace(/^<\s*/, '');
   elements.mobileTabs.setAttribute("aria-label", t("game.tabLabel"));
   elements.rulesTab.textContent = t("game.rulesTab");
   elements.askTab.textContent = t("game.askTab");
@@ -91,26 +85,12 @@ function renderStaticText() {
 function renderGame() {
   const metadata = getHuangMetadata(currentGame.metadata);
   elements.title.textContent = metadata.title;
-  elements.year.textContent = metadata.yearPublished ? `(${metadata.yearPublished})` : "";
-  elements.subtitle.textContent = metadata.subtitle;
 
   if (metadata.thumbnail) {
     elements.cover.src = resolveAsset(metadata.thumbnail);
     elements.cover.alt = t("game.coverAlt", { title: metadata.title });
   }
 
-  elements.mechanism.textContent = metadata.mechanisms?.includes("Area Majority / Influence")
-    ? t("game.areaMajority")
-    : "";
-
-  elements.credits.innerHTML = [
-    [t("game.designer"), metadata.designers?.join(", ")],
-    [t("game.artist"), metadata.artists?.join(", ")],
-    [t("game.publisher"), metadata.publishers?.join(", ")],
-  ]
-    .filter(([, value]) => value)
-    .map(([label, value]) => `<p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>`)
-    .join("");
 }
 
 function renderArticle() {

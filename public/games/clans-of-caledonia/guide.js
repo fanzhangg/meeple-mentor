@@ -164,13 +164,9 @@ function renderAll() {
   appendixTopics = topics.filter(topic => !coreTopics.includes(topic));
   document.title = `${labels.title} | Meeple Mentor`;
   document.querySelector('meta[name="description"]').content = labels.description;
-  $('.home-link').textContent = labels.home;
-  $('.game-title-row h1').innerHTML = `${escape(labels.title)} <small>(2017)</small>`;
-  $('.game-tagline').textContent = labels.tagline;
+  $('.home-link-label').textContent = labels.home.replace(/^<\s*/, '');
+  $('.game-title-row h1').textContent = labels.title;
   $('.game-cover-compact').alt = labels.cover;
-  const creditLabels = [labels.designer, labels.artist, labels.publisher];
-  document.querySelectorAll('.metadata-credits strong').forEach((node,index) => {node.textContent=creditLabels[index];});
-  $('.mechanism-line').innerHTML = `<strong>${escape(labels.mechanism)}</strong> ${escape(labels.mechanisms)}`;
   $('.rule-article h2').textContent = labels.articleTitle;
   $('#game-overview').innerHTML = labels.overview.map(paragraph => `<p class="article-lead">${escape(paragraph)}</p>`).join('');
   $('.rule-menu .eyebrow').textContent = labels.summary;
