@@ -1,36 +1,16 @@
-# Board Game Rule Instructor
+# Meeple Mentor
 
-Local-first V1 for teaching board games from reviewed rule text. HUANG is included as the first hardcoded sample.
+Meeple Mentor helps players recall board game rules after a host teaches the game. It supplements the explanation at the table with concise player guides, recap quizzes, and AI rules Q&A. Players can look up a forgotten action or clarify an exception during play without rereading an entire rulebook.
 
-## Game metadata
+## Project documentation
 
-The four published games include reviewed publisher facts and source records for chat. Use `npm run metadata:sync` to preview an authenticated BGG XML API import, then add `-- --write` to save it. Set `BGG_API_TOKEN` in `.env.local` first. See [metadata sources, setup and export](docs/game-metadata.md).
+- [Guide design system](docs/guide-design-system.md)
+- [Game metadata and source management](docs/game-metadata.md)
+- [Proposed content architecture](docs/site-architecture.md) and [refactoring plan](docs/refactor-plan.md) (not yet implemented)
 
-## Age of Innovation player guide
+The published guides cover HUANG, Age of Innovation, Fate of the Fellowship, and Clans of Caledonia. Fellowship includes bilingual rulebook illustrations, symbol keys, and all 13 base character summaries. Reviewed content and source audits live under `content/games/`; guide modules and published images live under `public/games/` and `public/guide-assets/`.
 
-Open `/games/age-of-innovation/` from the game library for the Chinese / English reference and 14 recap questions. The shared language selector preserves quiz answers when switching languages and remembers the language preference. Rules and quizzes work with both the Node server and static hosting without an API key. Live rules Q&A uses the Node backend and its configured OpenAI key. Quiz progress lasts while the page remains open.
-
-All three guides share `public/guide.css` for mobile-first typography and layout, and `public/guide-layout.js` for responsive contents navigation. The design roles and maintenance rules are documented in [Guide design system](docs/guide-design-system.md). Guides use continuous rule sections, inline checkpoints with immediate feedback, a score dial, and a floating mobile chat button that opens a modal conversation while preserving the reading position. Costs, examples, and appendix details expand within each section. All three games share `public/rule-chat.js` and `/api/chat` for natural-language rules Q&A. Requests carry the game slug and language; the server supplies that game's rules, teaching outline, and relevant excerpts to the model.
-
-The guide lives in `public/games/age-of-innovation/`. Core rules and questions are in `guide-data.js` and `guide-data.en.js`; interface text and overviews are in `guide-copy.js`. Both searchable appendices are generated from the rulebooks with `python scripts/build_aoi_appendix.py`. Cropped rule illustrations live in `public/guide-assets/age-of-innovation/`.
-
-Run `node --test scripts/aoi-guide.test.js` to check quiz state, search, content references, and assets.
-
-## Fate of the Fellowship player guide
-
-Open `/games/fate-of-the-fellowship/` for the Chinese / English player reference, 15 recap questions, and five rulebook image examples. It follows the shared guide layout with the same rules chatbot as HUANG, setup and solo references, and language switching that preserves quiz answers. Its chatbot uses the supplied rules digests and must acknowledge when a card-specific rule is absent from that context.
-
-Reviewed rules digests and the source audit are in `content/games/fate-of-the-fellowship/`. The supplied English and Chinese PDFs remain in the original `content/games/fate-of-fellowshipe/` folder. The digests are summaries, not verbatim rulebook transcriptions. Website modules are in `public/games/fate-of-the-fellowship/` and image assets are in `public/guide-assets/fate-of-the-fellowship/`.
-
-Run `node --test scripts/fellowship-guide.test.js scripts/aoi-guide.test.js` to check both guides.
-
-## Clans of Caledonia player guide
-
-Open `/games/clans-of-caledonia/` for the Chinese / English reference, 22 topics, 16 recap questions, seven artwork-only rule examples, and shared session-aware rules chat. It uses the current shared guide styling and responsive contents navigation. The library and guide use the user-supplied box-cover artwork.
-
-`content/games/clans-of-caledonia/` contains the supplied PDFs, old-edition English source transcription, organized bilingual rules, terminology/edition notes and the source audit. Both website languages follow the supplied 2025 Chinese base-game revision; port 7 matches the publisher's erratum. Standard play, solo play and optional Kickstarter variants are distinguished. The organized rules are not verbatim full translations and do not include Industria.
-
-Run `python scripts/build_clans_guide.py` to regenerate paired guide data and organized rule Markdown from the audited bilingual source. Run `node --test scripts/clans-guide.test.js scripts/rule-chat.test.js` for guide structure, quiz behavior, asset paths and mocked chat integration.
+Run `node --test scripts/*.test.js` for the automated regression suite. Chat tests use mocked model responses.
 
 ## Run
 
@@ -98,11 +78,3 @@ content/games/
 - `lesson.json` powers the guided teaching flow.
 - `sections.json` powers simple section retrieval for Q&A.
 - `source/rules.pdf` is a local reference copy and is gitignored.
-
-## Regenerate HUANG Extraction
-
-```powershell
-& "C:\Users\fzhan\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" scripts\extract_pdf.py "C:\Users\fzhan\workspace\board-game-rule-instructor\GameRulesPDF\Huang-Rules.pdf" content\games\huang
-```
-
-The current PDF text extraction is a draft. The rulebook uses a multi-column layout, so review and polish `content/games/huang/clean.md` before considering it canonical.
