@@ -306,5 +306,135 @@
         "method": "reviewed-web"
       }
     ]
+  },
+  {
+    "slug": "brian-boru",
+    "title": "Brian Boru: High King of Ireland",
+    "titles": {
+      "en": "Brian Boru: High King of Ireland",
+      "zh": "布莱恩·博鲁：爱尔兰至高王"
+    },
+    "subtitle": "Lead a noble house in medieval Ireland. Win towns through card play, forge marriages, repel Vikings and support the church to gain influence across eight regions.",
+    "thumbnail": "guide-assets/brian-boru/coverart.webp",
+    "yearPublished": 2021,
+    "players": "3–5",
+    "minPlayers": 3,
+    "maxPlayers": 5,
+    "playTime": "60–90 min",
+    "minPlayTime": 60,
+    "maxPlayTime": 90,
+    "age": "14+",
+    "minAge": 14,
+    "designers": [
+      "Peer Sylvester"
+    ],
+    "artists": [
+      "Deirdre de Barra"
+    ],
+    "publishers": [
+      "Osprey Games"
+    ],
+    "bgg": {
+      "id": 337765,
+      "name": "Brian Boru: High King of Ireland",
+      "url": "https://boardgamegeek.com/boardgame/337765"
+    },
+    "metadataSources": [
+      {
+        "provider": "Supplied English rulebook",
+        "path": "content/games/brian-boru/source/Brian_Boru_Rulebook.pdf",
+        "method": "reviewed-local",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ],
+        "checkedAt": "2026-09-16"
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://www.ospreypublishing.com/us/brian-boru-9781472844842/",
+        "method": "reviewed-web",
+        "fields": [
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "minPlayTime",
+          "maxPlayTime",
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "slug": "recall",
+    "title": "Recall",
+    "titles": {
+      "en": "Recall",
+      "zh": "忆迹寻踪"
+    },
+    "subtitle": "Guide a tribe through the remains of earlier civilizations. Explore a shared map, build workshops and monuments, and recover ancient knowledge to add new abilities to your tribe.",
+    "thumbnail": "guide-assets/recall/coverart.webp",
+    "yearPublished": 2025,
+    "players": "1–4",
+    "minPlayers": 1,
+    "maxPlayers": 4,
+    "playTime": "90 min",
+    "minPlayTime": 90,
+    "maxPlayTime": 90,
+    "age": "14+",
+    "minAge": 14,
+    "designers": [
+      "Kristian Amundsen Østby",
+      "Helge Meissner",
+      "Anna Wermlund",
+      "Kjetil Svendsen"
+    ],
+    "artists": [
+      "Gjermund Mørkved Bohne",
+      "Reese Keefe"
+    ],
+    "publishers": [
+      "Alion Games"
+    ],
+    "bgg": {
+      "id": 446493,
+      "name": "Recall",
+      "url": "https://boardgamegeek.com/boardgame/446493"
+    },
+    "metadataSources": [
+      {
+        "provider": "Supplied English rulebook",
+        "path": "content/games/recall/source/Recall_Englishrules_compressed.pdf",
+        "method": "reviewed-local",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ],
+        "checkedAt": "2026-09-16"
+      },
+      {
+        "provider": "BoardGameGeek",
+        "url": "https://boardgamegeek.com/boardgame/446493/recall",
+        "method": "reviewed-web",
+        "fields": [
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "minPlayTime",
+          "maxPlayTime",
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16"
+      }
+    ]
   }
 ]

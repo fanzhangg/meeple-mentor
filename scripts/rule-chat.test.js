@@ -21,7 +21,7 @@ test('all game/language chat routes send their own rules to the model', async ()
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const endpoint=`http://127.0.0.1:${server.address().port}/api/chat`;
   try {
-    for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship','clans-of-caledonia']) {
+    for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship','clans-of-caledonia','recall','brian-boru']) {
       const game=await loadGame(slug);
       for (const language of ['en','zh']) {
         const response=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,language,question:'How do I take actions?'})});
@@ -50,6 +50,14 @@ test('all game/language chat routes send their own rules to the model', async ()
         if (slug==='clans-of-caledonia') { assert.ok(!prompt.includes('Frodo')); assert.ok(!prompt.includes('Terraforming')); }
       }
     }
+    for (const slug of ['recall','brian-boru']) {
+      const history=[{role:'user',content:'Explain the rule.'},{role:'assistant',content:'A previous answer.'}];
+      const reply=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,language:'zh',question:'那之后呢？',history})});
+      assert.equal(reply.status,200);
+      assert.deepEqual(captured.at(-1).input,[...history,{role:'user',content:'那之后呢？'}]);
+      const other=await loadGame(slug==='recall'?'brian-boru':'recall');
+      assert.ok(!captured.at(-1).instructions.includes(other.rulebooks.zh.trim()));
+    }
     const history=[{role:'user',content:'How many actions does each character get?'},{role:'assistant',content:'Four with one character and one with the other.'}];
     const followup=await originalFetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug:'fate-of-the-fellowship',language:'en',question:'Can I split those 3 and 2?',history})});
     assert.equal(followup.status,200);
@@ -74,7 +82,7 @@ test('all game/language chat routes send their own rules to the model', async ()
 });
 
 test('shared browser transport sends slug and language and rejects API errors', async () => {
-  for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship','clans-of-caledonia']) {
+  for (const slug of ['huang','age-of-innovation','fate-of-the-fellowship','clans-of-caledonia','recall','brian-boru']) {
     const payload={slug,language:'zh',question:'可以重复行动吗？',history:[{role:'user',content:'有哪些行动？'},{role:'assistant',content:'这是行动列表。'}]};
     const answer=await requestRuleAnswer(payload,async (url,options)=>{
       assert.ok(url.pathname.endsWith('/api/chat'));

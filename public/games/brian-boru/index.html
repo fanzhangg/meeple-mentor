@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="布莱恩·博鲁：爱尔兰至高王中文玩家手册：规则摘要、随堂回顾与游戏中速查。" />
+    <title>布莱恩·博鲁：爱尔兰至高王 | Meeple Mentor</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../guide.css" />
+    <link rel="stylesheet" href="../../buttons.css" />
+    <link rel="stylesheet" href="./guide.css" />
+  </head>
+  <body class="game-page brian-boru-page">
+    <main class="game-shell">
+      <div class="game-top-bar">
+        <a class="home-link ui-button ui-button--glass" href="../../"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="home-link-label">所有游戏</span></a>
+        <div id="language-menu"></div>
+      </div>
+      <header class="game-hero-compact">
+        <img class="game-cover-compact" src="../../guide-assets/brian-boru/coverart.webp" alt="布莱恩·博鲁：爱尔兰至高王游戏封面" fetchpriority="high" />
+        <div class="game-hero-body">
+          <div class="game-title-row">
+            <h1>布莱恩·博鲁：爱尔兰至高王</h1>
+          </div>
+        </div>
+      </header>
+      <div class="mobile-tabs" aria-label="玩家手册视图">
+        <button class="active ui-button ui-button--secondary" id="rules-tab" type="button" data-tab="summary" aria-controls="summary-panel" aria-pressed="true">规则</button>
+        <button class="ui-button ui-button--secondary" id="ask-tab" type="button" data-tab="chat" aria-controls="chat-panel" aria-pressed="false">提问</button>
+      </div>
+      <section class="game-workspace">
+        <article class="rule-panel active" id="summary-panel" data-panel="summary">
+          <details class="rule-menu" aria-label="规则摘要目录" open>
+            <summary class="eyebrow">规则摘要</summary>
+            <nav id="lesson-nav"></nav>
+          </details>
+          <div class="rule-article">
+            <div id="game-overview"></div>
+            <div id="lesson-sections"></div>
+          </div>
+        </article>
+        <aside class="chat-panel game-chat" id="chat-panel" data-panel="chat">
+          <div id="chat-log" class="chat-log" aria-live="polite"></div>
+          <form id="chat-form" class="chat-form">
+            <textarea id="question" rows="1" name="question" aria-label="规则问题" placeholder="Ask me about game rules" autocomplete="off" ></textarea>
+            <button class="ui-button ui-button--primary ui-button--icon" id="ask-button" type="submit">提问</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+    <noscript><p>请启用 JavaScript 以使用规则摘要与回顾题。</p></noscript>
+    <script type="module" src="./guide.js"></script>
+    <script type="module" src="../../guide-layout.js"></script>
+  </body>
+</html>

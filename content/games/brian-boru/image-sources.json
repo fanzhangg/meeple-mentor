@@ -1,0 +1,253 @@
+{
+  "source": "source/Brian_Boru_Rulebook.pdf",
+  "sourceSha256": "42938d1ec99eae8ade43dbbfed578222d32b8683c2e06193a3dee44fadfb2074",
+  "edition": "Osprey Games English first edition 2021",
+  "coordinateSystem": "Top-left origin; full MediaBox, unrotated",
+  "generator": "scripts/build_recall_boru_illustrations.py",
+  "images": [
+    {
+      "file": "trick-cards.webp",
+      "pdfPage": 7,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        113,
+        532,
+        536,
+        702
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        846,
+        340
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "expansion.webp",
+      "pdfPage": 7,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        189,
+        982,
+        458,
+        1180
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        538,
+        396
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "courtship.webp",
+      "pdfPage": 7,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        669,
+        848,
+        1022,
+        1020
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        706,
+        344
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-coin.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        181,
+        237,
+        255,
+        297
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        148,
+        120
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-renown.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        181,
+        369,
+        256,
+        431
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        150,
+        124
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-church.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        189,
+        435,
+        254,
+        501
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        130,
+        132
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-battle.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        189,
+        505,
+        259,
+        569
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        140,
+        128
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-courtship.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        181,
+        593,
+        254,
+        650
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        146,
+        114
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-expand.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        181,
+        692,
+        266,
+        753
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        170,
+        122
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "icon-liberate.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        1200,
+        1200
+      ],
+      "crop": [
+        181,
+        782,
+        253,
+        846
+      ],
+      "renderSize": [
+        2400,
+        2400
+      ],
+      "outputSize": [
+        144,
+        128
+      ],
+      "assembly": "none",
+      "masking": "none"
+    }
+  ],
+  "cover": {
+    "source": "pic6149105.webp",
+    "provenance": "User-supplied image; copied unchanged to public coverart.webp"
+  }
+}

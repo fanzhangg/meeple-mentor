@@ -1,0 +1,277 @@
+{
+  "source": "source/Recall_Englishrules_compressed.pdf",
+  "sourceSha256": "392c1223e6ef69c5887ea7d0bf161ffecf45960f722307b8b2cd952ea6a5dba3",
+  "edition": "Alion 2025, supplied clarified PDF modified 2026-01-06",
+  "coordinateSystem": "Top-left origin; full MediaBox, unrotated",
+  "generator": "scripts/build_recall_boru_illustrations.py",
+  "images": [
+    {
+      "file": "keycard.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        466,
+        77,
+        565,
+        313
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        198,
+        472
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "recall.webp",
+      "pdfPage": 7,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        460,
+        94,
+        863,
+        335
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        806,
+        482
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "crystals.webp",
+      "pdfPage": 7,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        150,
+        839,
+        399,
+        1155
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        498,
+        632
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "water-movement.webp",
+      "pdfPage": 10,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        531,
+        225,
+        859,
+        346
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        656,
+        242
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "relicube.webp",
+      "pdfPage": 10,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        479,
+        516,
+        772,
+        694
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        586,
+        356
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "reveal.webp",
+      "pdfPage": 6,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        432,
+        777,
+        878,
+        1009
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        891,
+        464
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "shared-building.webp",
+      "pdfPage": 8,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        183,
+        942,
+        313,
+        1066
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        260,
+        248
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "camps.webp",
+      "pdfPage": 8,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        509,
+        918,
+        825,
+        1069
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        632,
+        302
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "vault.webp",
+      "pdfPage": 9,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        88,
+        213,
+        351,
+        326
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        526,
+        226
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "monuments.webp",
+      "pdfPage": 12,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        461,
+        788,
+        823,
+        1023
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        724,
+        470
+      ],
+      "assembly": "none",
+      "masking": "none"
+    },
+    {
+      "file": "excavation.webp",
+      "pdfPage": 9,
+      "referenceSize": [
+        901,
+        1200
+      ],
+      "crop": [
+        399,
+        1004,
+        513,
+        1134
+      ],
+      "renderSize": [
+        1801,
+        2400
+      ],
+      "outputSize": [
+        227,
+        260
+      ],
+      "assembly": "none",
+      "masking": "none"
+    }
+  ],
+  "cover": {
+    "source": "cover-art.webp",
+    "provenance": "User-supplied image; copied unchanged to public coverart.webp"
+  }
+}
