@@ -42,6 +42,10 @@ Restart the server with `npm start`. The assistant uses the selected game's rule
 
 The included [render.yaml](render.yaml) configures installation, startup, and the free plan. The rules assistant requires the Node.js server; it is unavailable on static-only hosting.
 
+### Website icon and link previews
+
+The server adds the existing Meeple Mentor logo as the browser icon, Apple touch icon, and square sharing thumbnail on every HTML page. Open Graph and Twitter metadata use each page's title and description. Set `SITE_URL` to your public origin when using a custom domain; otherwise the server uses Render's `RENDER_EXTERNAL_URL` or the incoming request origin. Metadata is included in the initial HTML for link-preview crawlers.
+
 ## Development
 
 Run the regression suite:

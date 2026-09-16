@@ -5,6 +5,7 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { readSse } from "./public/sse.js";
+import { addSiteMetadata } from "./site-metadata.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 loadEnvFile(path.join(__dirname, ".env.local"));
@@ -565,7 +566,11 @@ async function handleStatic(req, res) {
   }
   if (!existsSync(finalPath)) return send(res, 404, "Not found", "text/plain; charset=utf-8");
   const extension = path.extname(finalPath);
-  send(res, 200, await readFile(finalPath), MIME_TYPES[extension] || "application/octet-stream");
+  const body = await readFile(finalPath);
+  const responseBody = extension === ".html"
+    ? addSiteMetadata(body.toString("utf-8"), req, process.env.SITE_URL || process.env.RENDER_EXTERNAL_URL)
+    : body;
+  send(res, 200, responseBody, MIME_TYPES[extension] || "application/octet-stream");
 }
 
 export function createAppServer() {
