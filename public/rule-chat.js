@@ -58,6 +58,7 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
     button.disabled = true;
     log.setAttribute('aria-busy','true');
     const language = getLanguage();
+    const failedTitle = t('game.chatFailed');
     const unavailable = t('game.chatUnavailable');
     addMessage('user', question);
     const pending = addMessage('assistant', '');
@@ -69,7 +70,9 @@ export function createRuleChat({slug, log, form, input, button, getLabels}) {
       setMessageContent(pending, 'assistant', answer);
     } catch {
       followReply = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
-      setMessageContent(pending, 'assistant', unavailable);
+      pending.classList.add('is-error');
+      pending.setAttribute('role', 'alert');
+      setMessageContent(pending, 'assistant', `**${failedTitle}**\n\n${unavailable}`);
     } finally {
       busy = false;
       pending.classList.remove('is-typing');

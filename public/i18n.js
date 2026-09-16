@@ -227,7 +227,8 @@ const dictionaries = {
       assistantIntro: "Ask about the exact rule you need right now. I will answer from the reviewed HUANG rule text.",
       checking: "Checking the reviewed HUANG rules...",
       noAnswer: "No answer returned.",
-      chatUnavailable: "Live chat needs the backend server. The static GitHub Pages version can still teach the summary and checkpoints.",
+      chatFailed: "Request failed",
+      chatUnavailable: "We couldn't get an answer right now. Please send your question again in a moment.",
       loadError: "Could not load the HUANG sample: {message}",
       subtitle: "Unite China under your banner, quash your enemies, and claim the Emperor's throne!",
       lessonOverview:
@@ -276,7 +277,8 @@ const dictionaries = {
       assistantIntro: "随时问你现在需要的具体规则。我会根据已整理的 HUANG 规则文本回答。",
       checking: "正在检查已整理的 HUANG 规则...",
       noAnswer: "没有返回答案。",
-      chatUnavailable: "实时问答需要后端服务。静态 GitHub Pages 版本仍可使用规则摘要和检查点。",
+      chatFailed: "请求失败",
+      chatUnavailable: "暂时无法获取回答，请稍后重新发送问题。",
       loadError: "无法加载 HUANG 示例：{message}",
       subtitle: "统一中华，击败敌人，夺取皇帝宝座！",
       lessonOverview:
