@@ -1,6 +1,47 @@
-﻿node_modules/
-.env
-.env.local
-content/games/*/source/*.pdf
-local_assets/
+# Dependencies
+node_modules/
 
+# Local environment and secrets (keep shareable templates)
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.*.sample
+!.env.template
+!.env.*.template
+
+# Local reference files and working assets
+/content/games/**/*.pdf
+/GameRulesPDF/
+/local_assets/
+
+# Temporary files and generated reports
+/tmp/
+/temp/
+*.tmp
+*.log
+/coverage/
+/.nyc_output/
+/playwright-report/
+/test-results/
+
+# Python environments and caches used by content scripts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Machine-specific tool settings
+/.claude/settings.local.json
+
+# OS metadata and editor temporary files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
