@@ -1,5 +1,9 @@
 # Fate of the Fellowship — player-guide audit
 
+## Character supplement — 2026-09-15
+
+Added an eighteenth topic covering all 13 base character cards in both languages, using the supplied v1.6 player aid and online printed-card checks. The same source generates the guide entries and the full chatbot rules supplement. The original 17-topic audit below is preserved as historical scope; character coverage now extends beyond it. See [character-review.md](character-review.md) for individual sources, corrections, and the distinction between cards directly inspected and abilities summarized from the aid.
+
 ## Scope
 
 Manually checked all 17 topics, 15 recap answers and explanations, five example captions, setup tables, and nested reference entries against the supplied English rulebook. The Chinese terminology and corresponding rules were compared with the supplied Chinese edition. Source paths and hashes are recorded in `rules-review.md`.

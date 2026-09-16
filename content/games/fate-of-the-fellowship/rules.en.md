@@ -258,3 +258,111 @@ Control Frodo & Sam plus four other characters; all five share one hand and toke
 - Draw 2 player cards and resolve Shadow cards as usual, then move the solo token one character to the right. After the fourth character, cycle back to the first. Frodo never receives the solo token or a four-action turn.
 - Do not use the Fellowship action. Prepare requires both a haven and a card matching the character’s current region.
 - Use 5 random event cards and a starting hand of 4. For a first solo game, the suggested four companions are Merry & Pippin, Éowyn, Legolas, and Gandalf.
+
+<!-- fellowship-characters:start -->
+## All 13 characters: abilities and timing
+
+Source: supplied One Sheet To Rule Them All v1.6, p. 2; printed-card and online cross-checks recorded in character-review.md. This is a base-character summary, not a complete objective/event-card catalog.
+
+Character actions use that character’s action allowance. Triggered effects and abilities explicitly usable on any player’s turn do not cost an extra action.
+
+- Frodo & Sam share one character card; Merry & Pippin share another. An ability belongs to its named character, even though your two characters share cards and tokens.
+- At the same location means the exact board location, not merely the same region. Search and battle support requires the character to be present where that roll happens.
+- Once per turn is a limit, not permission to interrupt another character’s actions. Bonus actions do not use the normal 4 + 1 allowance, but still follow their other costs and restrictions.
+- Lady of Light, Sure Shot, and Distract can be used on any player’s turn without an action. They cannot interrupt a search, battle, card, or another ability unless explicitly allowed; finish an entire Shadow card before using them.
+- Token gains require tokens in the supply. Removing a Shadow troop with a special ability is not an Attack and does not itself move the Eye. White Gandalf’s promotional card and figure are cosmetic; any upgrade comes from the Balrog objective.
+
+| Character | Main strengths |
+| --- | --- |
+| Aragorn | Search reroll; stronger battle hits; direct troop removal |
+| Arwen | Elven mustering; sending aid; easier card transfers |
+| Boromir | Gondor mustering; cheaper Capture |
+| Éomer | Bonus Travel; protect armies with Rohirrim |
+| Éowyn | Rohirrim mustering; eliminate Nazgûl in battle |
+| Faramir | Ambush after Travel; cheaper special paths; recover Resistance cards |
+| Frodo & Sam | Carry the Ring; Friendship tokens; protect hope during searches |
+| Galadriel | Unused events; arrange player cards; Elven battle reroll |
+| Gandalf | Double muster; travel alone farther; choose battle results |
+| Gimli | Dwarven mustering; Valor tokens |
+| Gollum | Fewer search dice; recover Stealth cards; move Shadow troops |
+| Legolas | Stealth tokens; ranged removal; inspect the Shadow deck |
+| Merry & Pippin | Friendship tokens; lure Nazgûl; restore hope |
+
+### Aragorn — search support and battle damage
+
+- Ranger of the North — During a search at Aragorn’s location, you may reroll 1 search die without spending Resistance.
+- Captain of the West — In a battle at his location, each Rout result removes up to 2 Shadow troops instead of 1; this does not double every kind of battle result.
+- Andúril — Action, once per turn: after at least 1 objective has been completed, remove 1 Shadow troop from Aragorn’s location. Friendly troops are not required for this ability.
+
+### Arwen — Elven reinforcements and card support
+
+- Evenstar — When Arwen Musters at an Elven muster location, she does not spend Friendship. It still takes a Muster action.
+- Send Aid — When Arwen Prepares, if a character is in the region named on the discarded card, you may move 1 Elven troop from Arwen’s location to that character’s location. This moves an existing troop, not one from the supply.
+- Give Counsel — Once per turn, when Arwen uses Fellowship at a haven, the transferred card need not match the haven’s region. The usual same-location requirement still applies. In solo play, apply this region exception to Arwen’s Prepare action instead; it does not remove the haven requirement.
+
+### Boromir — Gondor mustering and Capture
+
+- Heir to the Steward — When Boromir Musters at a Gondor muster location, he pays no Friendship; the action is still required.
+- Hero of Gondor — Boromir spends 1 less Valor to Capture, normally 2 instead of 3. The friendly-troop and no-Shadow-troop requirements still apply.
+- Tempted by Power — Boromir cannot give or take Resistance cards through Fellowship. This is a transfer restriction, not a prohibition on spending Resistance from the player’s shared hand.
+
+### Éomer — mobility and protecting troops
+
+- Rider of Rohan — Once per turn, while Éomer is doing his actions, he may take 1 bonus Travel action. This is available whether he has the 4-action or the 1-action allowance. It does not consume a normal action; special-path costs and Frodo’s travel requirement still apply.
+- Marshal of the Mark — In a battle at Éomer’s location, if at least 1 Rohirrim troop is present, you may prevent 1 friendly-troop loss. This prevents one loss in that battle, not one loss per die.
+
+### Éowyn — Rohirrim mustering and defeating Nazgûl
+
+- Shield Maiden of Rohan — When Éowyn Musters at a Rohirrim muster location, she pays no Friendship; the action is still required.
+- No Living Man Am I — In a battle at Éowyn’s location, each Nazgûl result can remove 1 Nazgûl from that region instead of removing friendly troops for that result. The Nazgûl is removed from the game, not returned to Mordor. This needs a battle roll; it is not a separate action to hunt a Nazgûl.
+
+### Faramir — ambushes and efficient routes
+
+- Ambush — When Faramir Travels with friendly troops, he may take a bonus Attack action at the destination if an Attack is legal there. During that battle, spend Stealth to change the same number of battle dice to Rout results. The bonus Attack still moves the Eye.
+- Stealthy — When Faramir uses a special path, reduce its symbol cost by 1. This does not remove the separate Stealth payment or search required when bringing Frodo.
+- Wisdom of the Eldar — Action, once per turn, at a haven: take a Resistance card from the player discard pile whose region matches Faramir’s current region.
+
+### Frodo & Sam — the Ring-bearer and search protection
+
+- Travel requirement — Whenever Frodo Travels or comes along on another character’s Travel, the acting player must spend 1 Stealth or roll a search at the destination, in addition to any special-path cost.
+- Elrond’s Support — Once per turn, when Frodo Prepares at a haven in the region named on the discarded card, gain 1 additional Friendship token, as well as the normal matching token.
+- Sam’s Aid — During a search, spend Friendship to ignore the same number of Weary or Exposed results. Each symbol cancels one result, not the entire roll.
+- Put on the Ring — Before rolling a search, you may lose 1 hope and move the Eye to Frodo’s region to ignore all Shadow troops at his location for that search. Nazgûl still count, and reaching 0 hope still loses the game.
+
+### Galadriel — events, foresight and Elven protection
+
+- Lady of Light — At a haven, spend 1 Stealth to draw a random event from the unused events set aside during setup. This costs no action and may be used on any player’s turn; it does not take an event from the discard pile.
+- Mirror of Galadriel — Action: reveal up to the top 4 cards of the player deck and return them to the top in any order. This rearranges cards rather than drawing them into your hand.
+- Nenya — In a battle at Galadriel’s location, if an Elven troop is present, you may reroll 1 battle die without spending Resistance.
+
+### Gandalf — mustering, speed and battle control
+
+- Mithrandir — When Gandalf Musters, add up to 2 troops of the location’s color instead of 1 for the normal action and Friendship cost, limited by supply.
+- Shadowfax — When Gandalf Travels alone, without taking characters or friendly troops with him, he may move up to 2 connected locations in that action. He cannot use special paths for this ability.
+- Light and Flame — In a battle at Gandalf’s location, spend Valor to set the same number of battle dice to results of your choice. This chooses results rather than rerolling them.
+
+### Gimli — Dwarven mustering and Valor
+
+- Son of Glóin — When Gimli Musters at a Dwarven muster location, he pays no Friendship; the action is still required.
+- Dwarven Craft — Action, once per turn: gain 1 Valor token from the supply. This action does not require a haven.
+
+### Gollum — guide, scavenger and disruption
+
+- Guide — When Gollum is at Frodo’s location for a search, roll 3 fewer search dice. Apply the reduction before the maximum of 7 dice; a sufficiently large search can still require 7. Never roll fewer than 0.
+- Slinker — Action, once per turn: take a Stealth card of any region from the player discard pile.
+- Cunning — Gollum may Prepare outside a haven. When he Prepares, he may also move 1 Shadow troop from his location to a connected location without rolling a battle for that move. The normal card/token exchange still applies, as does the region-matching requirement in solo play.
+- Restrictions — Gollum cannot Muster, Attack, Capture, or bring friendly troops along when he Travels. When Gollum, Frodo, or friendly troops enter or are added to a location, lose 1 hope if all three are then present there. This is an arrival/addition trigger, not an automatic loss every turn just for remaining together.
+
+### Legolas — Stealth, ranged shots and reconnaissance
+
+- Walk Silently — Action, once per turn: gain 1 Stealth token from the supply.
+- Sure Shot — On any player’s turn, spend 1 Stealth either to remove 1 Shadow troop from Legolas’s location or a connected location, or to move 1 Nazgûl from his region to Mordor. It costs no action and is not an Attack; sending a Nazgûl to Mordor does not remove it from the game.
+- Keen Sight — Once per turn, when Legolas Prepares, look at the top card of the Shadow deck. This is an additional benefit of Prepare, not a separate action; do not draw, resolve, or rearrange that card.
+
+### Merry & Pippin — Friendship, distraction and hope
+
+- Loyal Friend — Action, once per turn: gain 1 Friendship token from the supply.
+- Distract — On any player’s turn, if fewer than 4 Nazgûl are in their region, spend 1 Friendship to move 2 Nazgûl to their region. This costs no action. The fewer-than-4 condition is checked before using the ability, not a cap of 4 afterward.
+- Give Us a Song! — Action, at Frodo’s exact location: spend 3 Friendship to gain 2 hope, without exceeding the hope track’s maximum. Unlike Loyal Friend, this ability is not limited to once per turn.
+
+<!-- fellowship-characters:end -->

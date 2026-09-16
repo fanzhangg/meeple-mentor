@@ -1,3 +1,4 @@
+import {characterTopic} from './guide-characters.en.js';
 export const topics = [
   {
     "id": "turn",
@@ -554,3 +555,5 @@ export const questions = [
     "explanation": "Five hope is missing from the eight-space hope track, adding five dice even without enemies."
   }
 ];
+
+topics.push(characterTopic);

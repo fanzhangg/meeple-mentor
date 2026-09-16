@@ -1,3 +1,4 @@
+import {characterTopic} from './guide-characters.js';
 export const topics = [
   {
     "id": "turn",
@@ -554,3 +555,5 @@ export const questions = [
     "explanation": "希望上限为 8，缺少 5 点；即使没有敌人仍额外加入 5 颗。"
   }
 ];
+
+topics.push(characterTopic);

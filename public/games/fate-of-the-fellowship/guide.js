@@ -28,11 +28,11 @@ function renderTable(table) {
 }
 
 function renderDetails(topic) {
-  return `<details class="topic-details"><summary>${appendixTopics.includes(topic) ? labels.appendix : labels.details}</summary>
+  return `<details class="topic-details"><summary>${escape(topic.detailsLabel ?? (appendixTopics.includes(topic) ? labels.appendix : labels.details))}</summary>
     ${renderTable(topic.table)}
     ${topic.bullets.length ? `<ul>${topic.bullets.map(text => `<li>${escape(text)}</li>`).join('')}</ul>` : ''}
     ${topic.warning ? `<p class="rule-warning">${escape(labels.note)}${escape(topic.warning)}</p>` : ''}
-    ${(topic.details ?? []).map(detail => `<details><summary>${escape(detail.title)}</summary><p>${escape(detail.text)}</p></details>`).join('')}
+    ${(topic.details ?? []).map(detail => `<details><summary>${escape(detail.title)}</summary>${detail.text.split('\n').map(line => `<p>${escape(line)}</p>`).join('')}</details>`).join('')}
   </details>`;
 }
 

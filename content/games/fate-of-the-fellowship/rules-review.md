@@ -1,5 +1,9 @@
 # Fate of the Fellowship — source and terminology review
 
+## Character supplement — 2026-09-15
+
+Both digests now include all 13 base character summaries from the user's v1.6 player aid, with online printed-card checks and timing corrections. Detailed provenance and limitations are in [character-review.md](character-review.md). The original rulebook review below predates this addition; objective and event coverage remains incomplete.
+
 ## Sources
 
 The user supplied two 24-page image-based rulebooks and cover art in the existing `../fate-of-fellowshipe/` folder. That folder and its original spelling were preserved. The public route uses `fate-of-the-fellowship`.
