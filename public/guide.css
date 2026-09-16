@@ -46,7 +46,7 @@ html:lang(zh-Hans) .game-page {
 }
 .game-page strong { font-weight: var(--guide-weight-label); }
 .game-page :is(button, input, select, textarea) { font: inherit; }
-.game-page :is(a, button, summary, input) { -webkit-tap-highlight-color: transparent; }
+.game-page :is(a, button, summary, input, textarea) { -webkit-tap-highlight-color: transparent; }
 .game-page a { color: var(--accent); text-underline-offset: .2em; }
 .game-page :is(a, button, input, select, textarea, summary):focus-visible,
 .game-page h3:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -349,6 +349,8 @@ html:lang(zh-Hans) .game-page {
   width: 100%; min-width: 0; min-height: 44px; max-height: 9rem;
   padding: .5rem; border: 0; resize: none; background: transparent; color: inherit; line-height: 1.5;
 }
+/* The composer border provides one focus indicator around the entire input. */
+.game-chat .chat-form textarea:focus-visible { outline: none; }
 .game-chat .chat-form button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; }
 .game-chat .chat-form button:hover { background: var(--accent-hover); }
 .game-chat .chat-form button:disabled { opacity: .35; cursor: default; }
