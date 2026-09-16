@@ -31,7 +31,6 @@ const elements = {
   panels: document.querySelectorAll("[data-panel]"),
   mobileTabs: document.querySelector(".mobile-tabs"),
   ruleSummaryLabel: document.querySelector("#rule-summary-label"),
-  ruleArticleTitle: document.querySelector("#rule-article-title"),
 };
 
 const chat = createRuleChat({
@@ -77,7 +76,6 @@ function renderStaticText() {
   elements.rulesTab.textContent = t("game.rulesTab");
   elements.askTab.textContent = t("game.askTab");
   elements.ruleSummaryLabel.textContent = t("game.ruleSummary");
-  elements.ruleArticleTitle.textContent = t("game.articleTitle");
   elements.askButton.textContent = t("game.askButton");
   elements.askButton.title = t("game.askButtonTitle");
 }

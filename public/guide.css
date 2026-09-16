@@ -535,7 +535,7 @@ html:lang(zh-Hans) .game-page {
     align-items: flex-end;
     min-height: clamp(20rem, 100vw, 28rem);
     margin-inline: calc(-1 * var(--guide-gutter));
-    padding: 6rem max(1.25rem, env(safe-area-inset-right)) 1.5rem max(1.25rem, env(safe-area-inset-left));
+    padding: 6rem max(1.25rem, env(safe-area-inset-right)) .75rem max(1.25rem, env(safe-area-inset-left));
     border: 0;
     border-radius: 0;
     background: #233746;
@@ -545,7 +545,7 @@ html:lang(zh-Hans) .game-page {
     position: absolute;
     z-index: -1;
     inset: 0;
-    background: linear-gradient(180deg, #00000012 0%, transparent 40%, #00000055 70%, #000000d9 100%);
+    background: linear-gradient(180deg, transparent 45%, #ffffff80 68%, #fffffff2 88%, #fff 100%);
     pointer-events: none;
   }
   .game-cover-compact {
@@ -558,11 +558,13 @@ html:lang(zh-Hans) .game-page {
     object-position: center;
   }
   .game-hero-body { display: block; min-width: 0; }
+  .chat-popup-ready .game-workspace { margin-top: 0; }
+  .game-page .rule-article { padding-top: var(--guide-space-3); }
   .game-title-row h1 {
-    color: #fff;
+    color: var(--ink);
     font-size: clamp(2rem, 8vw, 2.75rem);
     line-height: 1.15;
     text-wrap: balance;
-    text-shadow: 0 2px 12px #00000050;
+    text-shadow: 0 1px 12px #ffffff80;
   }
 }

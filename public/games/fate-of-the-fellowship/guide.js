@@ -176,7 +176,6 @@ function renderAll() {
   $('.home-link-label').textContent = labels.home.replace(/^<\s*/, '');
   $('.game-title-row h1').textContent = labels.title;
   $('.game-cover-compact').alt = labels.cover;
-  $('.rule-article h2').textContent = labels.articleTitle;
   $('#game-overview').innerHTML = labels.overview.map(paragraph => `<p class="article-lead">${escape(paragraph)}</p>`).join('');
   $('.rule-menu .eyebrow').textContent = labels.summary;
   $('.rule-menu').setAttribute('aria-label',labels.summary);
