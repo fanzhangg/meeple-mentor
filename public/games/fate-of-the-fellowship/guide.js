@@ -2,7 +2,8 @@ import {createRuleChat} from '../../rule-chat.js';
 import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
 import {copy} from './guide-copy.js';
-import {examplesFor} from './guide-examples.js';
+import {examplesFor, iconsFor} from './guide-examples.js';
+import {imageSizes} from './guide-image-sizes.js';
 import {createQuizSession} from './guide-model.js';
 import {getLanguage, setLanguage, renderLanguageMenu, t} from '../../i18n.js';
 let language = getLanguage();
@@ -49,11 +50,18 @@ function renderCheckpoint(question) {
 }
 
 function renderExamples(topic) {
-  return examplesFor(topic, language).map(example => `<figure class="rule-example">
+  const icons = iconsFor(topic, language);
+  const legend = icons.length ? `<ul class="rule-icon-grid">${icons.map(icon => `<li>
+    <img src="${asset(icon.image)}" alt="" loading="lazy" width="40" height="40" />
+    <span>${escape(icon.caption)}</span>
+  </li>`).join('')}</ul>` : '';
+  return legend + examplesFor(topic, language).map(example => `<figure class="rule-example">
     <a href="${asset(example.image)}" target="_blank" rel="noopener">
-      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" />
+      <img src="${asset(example.image)}" alt="${escape(example.caption)}" loading="lazy" width="${imageSizes[example.image][0]}" height="${imageSizes[example.image][1]}" />
     </a>
-    <figcaption>${escape(example.caption)}</figcaption>
+    <figcaption>${escape(example.caption)}
+      ${example.steps ? `<ul class="example-steps">${example.steps.map(step => `<li>${escape(step)}</li>`).join('')}</ul>` : ''}
+    </figcaption>
   </figure>`).join('');
 }
 

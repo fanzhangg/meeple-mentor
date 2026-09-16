@@ -43,5 +43,555 @@
       1085,
       645
     ]
-  ]
+  ],
+  "board-features.webp": {
+    "parts": [
+      {
+        "page": 3,
+        "box": [
+          53,
+          411,
+          1037,
+          1255
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "setup-board.webp": {
+    "parts": [
+      {
+        "page": 4,
+        "box": [
+          530,
+          116,
+          1129,
+          1129
+        ]
+      },
+      {
+        "page": 5,
+        "box": [
+          0,
+          116,
+          582,
+          1129
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "player-deck.webp": {
+    "parts": [
+      {
+        "page": 8,
+        "box": [
+          613,
+          785,
+          1102,
+          1230
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400,
+    "excludedProseBoxes": [
+      [
+        613,
+        1000,
+        640,
+        1230
+      ]
+    ]
+  },
+  "travel-characters.webp": {
+    "parts": [
+      {
+        "page": 11,
+        "box": [
+          70,
+          280,
+          533,
+          515
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "travel-troops.webp": {
+    "parts": [
+      {
+        "page": 11,
+        "box": [
+          583,
+          256,
+          1047,
+          481
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "fellowship.webp": {
+    "parts": [
+      {
+        "page": 12,
+        "box": [
+          92,
+          518,
+          570,
+          734
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "prepare.webp": {
+    "parts": [
+      {
+        "page": 12,
+        "box": [
+          612,
+          1244,
+          1083,
+          1527
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "muster.webp": {
+    "parts": [
+      {
+        "page": 13,
+        "box": [
+          45,
+          287,
+          523,
+          564
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "battle-after.webp": {
+    "parts": [
+      {
+        "page": 14,
+        "box": [
+          132,
+          627,
+          749,
+          949
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "shadow-halves.webp": {
+    "parts": [
+      {
+        "page": 16,
+        "box": [
+          595,
+          151,
+          1100,
+          342
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "shadow-flow.webp": {
+    "parts": [
+      {
+        "page": 16,
+        "box": [
+          590,
+          419,
+          1080,
+          651
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "advance-battle.webp": {
+    "parts": [
+      {
+        "page": 17,
+        "box": [
+          82,
+          1260,
+          1020,
+          1484
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "reinforce-battle.webp": {
+    "parts": [
+      {
+        "page": 18,
+        "box": [
+          778,
+          926,
+          1000,
+          1146
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "nazgul-deploy.webp": {
+    "parts": [
+      {
+        "page": 18,
+        "box": [
+          547,
+          1153,
+          1055,
+          1518
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "nazgul-approach.webp": {
+    "parts": [
+      {
+        "page": 19,
+        "box": [
+          509,
+          77,
+          1070,
+          483
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400,
+    "excludedProseBoxes": [
+      [
+        509,
+        330,
+        577,
+        483
+      ]
+    ]
+  },
+  "icon-friendship.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          113,
+          161,
+          153,
+          191
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-valor.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          611,
+          157,
+          644,
+          190
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-stealth.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          116,
+          299,
+          151,
+          336
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-resistance.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          611,
+          299,
+          643,
+          327
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-slip.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          563,
+          807,
+          620
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-weary.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          628,
+          807,
+          685
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-exposed.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          693,
+          807,
+          750
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-recall.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          758,
+          807,
+          815
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-rout.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          888,
+          807,
+          945
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-exchange.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          953,
+          807,
+          1010
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-overrun.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          1018,
+          807,
+          1075
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-nazgul.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          753,
+          1083,
+          807,
+          1140
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-haven.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          152,
+          498,
+          209,
+          555
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-stronghold.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          152,
+          563,
+          209,
+          620
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-eye.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          152,
+          628,
+          209,
+          685
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-nazgul-piece.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          152,
+          693,
+          209,
+          750
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-dwarven-location.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          452,
+          888,
+          509,
+          945
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-elven-location.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          452,
+          953,
+          509,
+          1010
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-rohirrim-location.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          452,
+          1018,
+          509,
+          1075
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  },
+  "icon-gondor-location.webp": {
+    "parts": [
+      {
+        "page": 24,
+        "box": [
+          452,
+          1083,
+          509,
+          1140
+        ]
+      }
+    ],
+    "coordinateHeight": 1600,
+    "renderHeight": 2400
+  }
 }

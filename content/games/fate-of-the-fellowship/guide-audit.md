@@ -44,3 +44,23 @@ This review covers the rules published in this guide, not a transcription of eve
 - Phone layout checked at 390 × 844: Rules/Lookup switching, navigation from a lookup result into expanded setup details, and readable tables. Temporary viewport override was reset afterward.
 
 Automated tests establish structural and interaction invariants. The source-based manual comparison establishes the rule checks above.
+
+## Illustration coverage follow-up — 2026-09-15
+
+Added 15 source figures and 20 symbol keys, bringing the guide to 20 figures plus 20 icons. Both languages expose the same assets and equivalent captions/step explanations in their related rule sections.
+
+| Addition | English rulebook pages | Evidence checked |
+| --- | --- | --- |
+| Board features and initial setup | 3–5 | Region vs location; path and battle-line types; starting troops and Nazgûl; numbered circles are location references, not quantities |
+| Player-deck construction | 8 | Deal hands first; one Skies Darken per pile; stack larger piles above smaller ones; four-pile diagram is introductory difficulty |
+| Special-path payments | 11 | One payment for the entire group; symbol payment ignores card region |
+| Fellowship, Prepare, Muster | 12–13 | Exact shared location and matching-region transfer; haven requirement and token type; muster color follows the location |
+| Attack outcome | 14 | Two dice chosen; Rout and Nazgûl losses; Legolas pays Valor; one troop of each side remains |
+| Shadow cards | 16 | New top card back determines one half; resolve area before discard |
+| Full advance sequence | 17 | Front-first movement, endpoints and off-line troops; three-die battle; Overrun ignored in a haven; last friendly troop lost; stronghold token and 3 hope lost |
+| Reinforcement and Nazgûl examples | 18–19 | Troop then battle then special order; take Nazgûl one at a time and recalculate largest group; nearest Nazgûl move one region; captured stronghold still resolves its order |
+| Resource, dice and map symbol keys | 24 | Actual artwork matched against meanings, especially framed search/battle faces and muster emblems |
+
+Chinese place names and dice terminology were cross-checked against the supplied Chinese pages 11, 13, 17–19 and the guide's established vocabulary. All added figures and icons were visually inspected; cropped prose fragments and initially mistaken troop-vs-location icon selections were corrected before delivery.
+
+Validation: `node --test scripts/fellowship-guide.test.js` passes all 6 tests; guide JavaScript syntax and `git diff --check` pass. Checks include bilingual image/step parity, source provenance, identical source/public assets and intrinsic image dimensions. Browser checks at 1366 × 900 and 390 × 844 confirmed readable figures and symbol keys without horizontal overflow, all 40 guide images loaded, Chinese/English captions switch correctly, and correct/incorrect quiz selections survive a language change. No browser warnings or errors were reported. Full-size image links point to the same successfully loaded source assets. Image dimensions reserve space for lazy loading so chapter navigation does not jump as images arrive.

@@ -1,0 +1,36 @@
+.fellowship-page .rule-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin-block: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.fellowship-page .rule-icon-grid li {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  padding: .75rem;
+  font-size: var(--guide-text-sm);
+}
+.fellowship-page .rule-icon-grid img {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  object-fit: contain;
+}
+.fellowship-page .example-steps {
+  padding-left: 1.25rem;
+  margin-block: .5rem 0;
+}
+.fellowship-page .example-steps li + li { margin-top: .5rem; }
+@media (max-width: 520px) {
+  .fellowship-page .rule-icon-grid { grid-template-columns: 1fr; }
+}
+.game-page.fellowship-page .rule-example {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.fellowship-page .rule-example img { height: auto; }

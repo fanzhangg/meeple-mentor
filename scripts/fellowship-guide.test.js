@@ -5,7 +5,8 @@ import * as en from '../public/games/fate-of-the-fellowship/guide-data.en.js';
 import * as zh from '../public/games/fate-of-the-fellowship/guide-data.js';
 import {copy} from '../public/games/fate-of-the-fellowship/guide-copy.js';
 import {createQuizSession, searchTopics} from '../public/games/fate-of-the-fellowship/guide-model.js';
-import {examplesFor} from '../public/games/fate-of-the-fellowship/guide-examples.js';
+import {examplesFor, iconsFor} from '../public/games/fate-of-the-fellowship/guide-examples.js';
+import {imageSizes} from '../public/games/fate-of-the-fellowship/guide-image-sizes.js';
 
 test('languages have matching topics, exceptions, tables and answer meanings', () => {
   assert.deepEqual(en.topics.map(t=>t.id),zh.topics.map(t=>t.id));
@@ -63,7 +64,7 @@ test('lookup returns nested setup rules and localized terminology', () => {
 
 test('all images, localized captions and both library routes resolve', () => {
   const root=new URL('../public/',import.meta.url);
-  for (const lang of [en,zh]) for (const topic of lang.topics) for (const ex of examplesFor(topic)) {
+  for (const [language, lang] of [['en', en], ['zh', zh]]) for (const topic of lang.topics) for (const ex of [...examplesFor(topic, language), ...iconsFor(topic, language)]) {
     assert.ok(ex.caption);
     assert.ok(existsSync(new URL(`guide-assets/fate-of-the-fellowship/${ex.image}`,root)));
   }
@@ -73,5 +74,33 @@ test('all images, localized captions and both library routes resolve', () => {
     assert.ok(item.titles.en && item.titles.zh);
     assert.ok(existsSync(new URL(item.thumbnail,root)));
     assert.ok(existsSync(new URL(`games/${item.slug}/index.html`,root)));
+  }
+});
+
+test('illustrations and icon keys preserve bilingual coverage, steps and source assets', () => {
+  const sources=JSON.parse(readFileSync(new URL('../content/games/fate-of-the-fellowship/image-sources.json',import.meta.url),'utf8'));
+  const used=new Set();
+  for (const topic of en.topics) {
+    const counterpart=zh.topics.find(t=>t.id===topic.id);
+    for (const render of [examplesFor, iconsFor]) {
+      const english=render(topic,'en'), chinese=render(counterpart,'zh');
+      assert.deepEqual(english.map(e=>e.image),chinese.map(e=>e.image));
+      for (const [i,example] of english.entries()) {
+        assert.ok(example.caption && chinese[i].caption);
+        assert.notEqual(example.caption,chinese[i].caption);
+        assert.equal(example.steps?.length,chinese[i].steps?.length);
+        for (const step of [...(example.steps ?? []),...(chinese[i].steps ?? [])]) assert.ok(step.length>10);
+        assert.ok(sources[example.image],`Source provenance missing for ${example.image}`);
+        assert.ok(imageSizes[example.image]?.every(size=>Number.isInteger(size)&&size>0), 'Intrinsic dimensions reserve space before lazy images load');
+        const source=new URL(`../content/games/fate-of-the-fellowship/images/${example.image}`,import.meta.url);
+        const published=new URL(`../public/guide-assets/fate-of-the-fellowship/${example.image}`,import.meta.url);
+        assert.deepEqual(readFileSync(source),readFileSync(published));
+        used.add(example.image);
+      }
+    }
+  }
+  assert.deepEqual([...used].sort(),Object.keys(sources).sort());
+  for (const id of ['battle','advance','shadow','reinforce','setup']) {
+    assert.ok(examplesFor(en.topics.find(t=>t.id===id),'en').length>=2,`${id} needs its full visual sequence`);
   }
 });
