@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>可收缩内容与 Quiz · Meeple Mentor</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../guide.css">
+  <link rel="stylesheet" href="../buttons.css">
+  <style>body{background:#fff}main{max-width:44rem;margin:2rem auto;padding:1rem}.specimen{margin-block:2rem}.specimen h1{font-size:var(--type-title)}.specimen p{line-height:var(--type-leading-body)}</style>
+</head>
+<body class="game-page">
+  <main class="specimen">
+    <h1>可收缩内容与 Quiz</h1>
+    <p>相同的标题、箭头与动效。点击整行展开，点击同一位置收起。</p>
+    <section class="rule-section">
+      <h3>规则详情</h3>
+      <details>
+        <summary>查看详细规则与例外</summary>
+        <p>长规则按需展开。内容保持正文排版，展开后不会重复显示标题。</p>
+        <details><summary>进一步查看特殊情况</summary><p>嵌套说明复用相同的箭头、留白和键盘操作。</p></details>
+      </details>
+    </section>
+    <section class="rule-section">
+      <h3>互动题</h3>
+      <div class="rule-check checkpoint" data-check-id="demo">
+        <p class="checkpoint-prompt" id="demo-prompt">无论有没有答对，都可以手动收起题目吗？</p>
+        <div class="checkpoint-options" role="radiogroup" aria-labelledby="demo-prompt" aria-describedby="demo-feedback">
+          <label class="checkpoint-option"><input type="radio" name="demo" value="yes"><span>可以，点击题目或箭头即可</span></label>
+          <label class="checkpoint-option"><input type="radio" name="demo" value="no"><span>必须答对才能收起</span></label>
+        </div>
+        <p class="checkpoint-feedback" id="demo-feedback" aria-live="polite"></p>
+      </div>
+      <p><button class="ui-button ui-button--secondary" id="reset" type="button">重置示例</button></p>
+    </section>
+  </main>
+  <script type="module" src="./disclosures.js"></script>
+</body>
+</html>

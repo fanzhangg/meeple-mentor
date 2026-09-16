@@ -1,3 +1,4 @@
+import {updateQuizFeedback, resetQuizFeedback, initializeQuizFeedback} from '../../quiz-feedback.js';
 import {createRuleChat} from '../../rule-chat.js';
 import * as zh from './guide-data.js';
 import * as en from './guide-data.en.js';
@@ -130,12 +131,14 @@ $('#lesson-sections').addEventListener('change', event => {
   const feedback = checkpoint.querySelector('.checkpoint-feedback');
   feedback.className = `checkpoint-feedback ${correct ? 'correct' : 'incorrect'}`;
   feedback.textContent = `${correct ? labels.correct : text('incorrect', {answer:question.options[question.answer]})} ${question.explanation}`;
+  updateQuizFeedback(checkpoint, correct, {immediate: !event.isTrusted});
   updateScore();
 });
 
 $('#lesson-sections').addEventListener('click', event => {
   if (!event.target.closest('#reset-checkpoints')) return;
   quiz.reset();
+  resetQuizFeedback(document);
   document.querySelectorAll('.checkpoint input').forEach(input => { input.checked = false; });
   document.querySelectorAll('.checkpoint-option').forEach(option => { option.className = 'checkpoint-option'; });
   document.querySelectorAll('.checkpoint-option-icon, .checkpoint-feedback').forEach(element => { element.textContent = ''; });
@@ -177,6 +180,7 @@ function renderAll() {
   $('#lesson-nav').innerHTML = [...coreTopics, {id: 'checkpoint-score', title: labels.score}, ...appendixTopics]
   .map(topic => `<a href="#${topic.id}">${escape(topic.title)}</a>`).join('');
   $('#lesson-sections').innerHTML = coreTopics.map(renderSection).join('') + renderScoreCard() + appendixTopics.map(renderSection).join('');
+  initializeQuizFeedback($('#lesson-sections'));
 
 
   document.querySelectorAll('.rule-section details').forEach((detail,index) => {detail.open = expanded[index] ?? false;});

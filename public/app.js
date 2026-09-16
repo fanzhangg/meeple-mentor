@@ -1,3 +1,4 @@
+import {updateQuizFeedback, initializeQuizFeedback} from './quiz-feedback.js';
 import {createRuleChat} from './rule-chat.js';
 import {
   getHuangLesson,
@@ -99,6 +100,7 @@ function renderArticle() {
     .map((step) => `<a href="#${step.id}">${escapeHtml(step.title)}</a>`)
     .join("");
   elements.sections.innerHTML = `${lesson.steps.map(renderRuleSection).join("")}${renderScoreCard()}`;
+  initializeQuizFeedback(elements.sections);
   updateCheckpointScore();
 }
 
@@ -179,6 +181,7 @@ function handleCheckpointChange(input) {
   });
   feedback.textContent = feedbackText;
   feedback.className = `checkpoint-feedback ${correct ? "correct" : "incorrect"}`;
+  updateQuizFeedback(container, correct);
   updateCheckpointScore();
 }
 

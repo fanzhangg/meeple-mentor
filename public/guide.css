@@ -1,3 +1,5 @@
+@import url("./disclosure.css");
+
 /* Guide design system. All games share these roles; game data owns no typography. */
 .game-page {
   --guide-font: var(--type-font);
@@ -206,7 +208,7 @@ html:lang(zh-Hans) .game-page {
 .lookup-link { display: inline-block; padding-block: var(--guide-space-3); font-weight: var(--guide-weight-label); }
 
 /* Checkpoints use body-sized answers. Weight, grouping and color convey hierarchy. */
-.game-page .rule-check.checkpoint {
+.game-page .rule-check.checkpoint:not(.ui-disclosure) {
   display: grid;
   gap: var(--guide-space-3);
   margin-top: var(--guide-space-6);
