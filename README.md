@@ -2,6 +2,10 @@
 
 Local-first V1 for teaching board games from reviewed rule text. HUANG is included as the first hardcoded sample.
 
+## Game metadata
+
+The four published games include reviewed publisher facts and source records for chat. Use `npm run metadata:sync` to preview an authenticated BGG XML API import, then add `-- --write` to save it. Set `BGG_API_TOKEN` in `.env.local` first. See [metadata sources, setup and export](docs/game-metadata.md).
+
 ## Age of Innovation player guide
 
 Open `/games/age-of-innovation/` from the game library for the Chinese / English reference and 14 recap questions. The shared language selector preserves quiz answers when switching languages and remembers the language preference. Rules and quizzes work with both the Node server and static hosting without an API key. Live rules Q&A uses the Node backend and its configured OpenAI key. Quiz progress lasts while the page remains open.

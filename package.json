@@ -7,6 +7,11 @@
     "extract:huang": "python scripts/extract_pdf.py \"C:\\Users\\fzhan\\workspace\\board-game-rule-instructor\\GameRulesPDF\\Huang-Rules.pdf\" content/games/huang",
     "start": "node server.js",
     "dev": "node server.js",
-    "check": "node --check server.js"
+    "check": "node --check server.js",
+    "metadata:sync": "node scripts/sync-game-metadata.mjs",
+    "test:metadata": "node --test scripts/game-metadata.test.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.11.1"
   }
 }

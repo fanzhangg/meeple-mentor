@@ -7,42 +7,253 @@
     "playTime": "90 min",
     "complexity": "Medium-heavy",
     "yearPublished": 2024,
-    "thumbnail": "game-assets/huang/cover-art.png",
+    "thumbnail": "/game-assets/huang/cover-art.png",
     "bgg": {
       "id": 371688,
-      "url": "https://boardgamegeek.com/boardgame/371688/huang",
+      "url": "https://boardgamegeek.com/boardgame/371688",
       "rank": 1851,
       "strategyRank": 890,
       "averageRating": 7.9,
       "ratingsLabel": "1.2K Ratings & 313 Comments",
       "weight": 3.02,
       "weightScale": 5,
-      "itemId": 371688
-    }
+      "itemId": 371688,
+      "name": "HUANG",
+      "snapshotNote": "Legacy saved BGG page; retrieval date unknown. Statistics are not current."
+    },
+    "minPlayers": 2,
+    "maxPlayers": 4,
+    "minPlayTime": 90,
+    "maxPlayTime": 90,
+    "age": "14+",
+    "minAge": 14,
+    "designers": [
+      "Reiner Knizia"
+    ],
+    "artists": [
+      "Bartek Jedrzejewski"
+    ],
+    "publishers": [
+      "PHALANX"
+    ],
+    "categories": [
+      "Ancient",
+      "Civilization",
+      "Territory Building"
+    ],
+    "mechanisms": [
+      "Area Majority / Influence",
+      "Hand Management",
+      "Hexagon Grid",
+      "Hidden Victory Points",
+      "Highest-Lowest Scoring"
+    ],
+    "families": [
+      "Animals: Goats",
+      "Animals: Rabbits / Hares",
+      "Animals: Rats",
+      "Animals: Tigers",
+      "Components: Map (Regional scale)",
+      "Country: China"
+    ],
+    "metadataSources": [
+      {
+        "provider": "Existing reviewed guide",
+        "path": "content/games/huang/metadata.json",
+        "method": "curated",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ]
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://phalanx.co.uk/games/huang-reiner-knizia-board-game/",
+        "fields": [
+          "designers",
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://phalanx.co.uk/wp-content/uploads/2023/04/HUANG_rules.pdf",
+        "fields": [
+          "minPlayTime",
+          "maxPlayTime"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      },
+      {
+        "provider": "Saved BoardGameGeek page",
+        "path": "GameRulesPDF/huang",
+        "method": "archive",
+        "fields": [
+          "categories",
+          "mechanisms",
+          "families",
+          "bgg"
+        ],
+        "note": "Existing local metadata; original retrieval date unknown."
+      }
+    ]
   },
   {
     "slug": "age-of-innovation",
     "title": "Age of Innovation",
+    "designers": [
+      "Helge Ostertag"
+    ],
+    "artists": [
+      "Alvaro Calvo Escudero",
+      "Lukas Siegmon"
+    ],
+    "publishers": [
+      "Feuerland Spiele"
+    ],
     "titles": {
       "en": "Age of Innovation",
       "zh": "大创造时代"
     },
     "subtitle": "游戏夜玩家手册：规则速查与讲解回顾",
-    "thumbnail": "guide-assets/age-of-innovation/coverart.webp"
+    "thumbnail": "guide-assets/age-of-innovation/coverart.webp",
+    "yearPublished": 2023,
+    "players": "1–5",
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "playTime": "40 min per player",
+    "minPlayTime": 40,
+    "maxPlayTime": 200,
+    "age": "14+",
+    "minAge": 14,
+    "bgg": {
+      "id": 383179,
+      "name": "Age of Innovation",
+      "url": "https://boardgamegeek.com/boardgame/383179"
+    },
+    "metadataSources": [
+      {
+        "provider": "Existing reviewed guide",
+        "path": "public/games/age-of-innovation/index.html",
+        "method": "curated",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ]
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://capstone-games.com/products/age-of-innovation",
+        "fields": [
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "minPlayTime",
+          "maxPlayTime"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://www.feuerland-spiele.de/en/",
+        "fields": [
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      }
+    ]
   },
   {
     "slug": "fate-of-the-fellowship",
     "title": "Fate of the Fellowship",
+    "designers": [
+      "Matt Leacock"
+    ],
+    "artists": [
+      "Cory Godbey",
+      "Jared Blando"
+    ],
+    "publishers": [
+      "Z-Man Games"
+    ],
     "titles": {
       "en": "Fate of the Fellowship",
       "zh": "魔戒：远征队的宿命"
     },
     "subtitle": "Cooperative journeys through Middle-earth",
-    "thumbnail": "guide-assets/fate-of-the-fellowship/coverart.webp"
+    "thumbnail": "guide-assets/fate-of-the-fellowship/coverart.webp",
+    "yearPublished": 2025,
+    "players": "1–5",
+    "minPlayers": 1,
+    "maxPlayers": 5,
+    "playTime": "60–150 min",
+    "minPlayTime": 60,
+    "maxPlayTime": 150,
+    "age": "14+",
+    "minAge": 14,
+    "bgg": {
+      "id": 436217,
+      "name": "The Lord of the Rings: Fate of the Fellowship",
+      "url": "https://boardgamegeek.com/boardgame/436217"
+    },
+    "metadataSources": [
+      {
+        "provider": "Existing reviewed guide",
+        "path": "public/games/fate-of-the-fellowship/index.html",
+        "method": "curated",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ]
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://www.zmangames.com/game/the-lord-of-the-rings-fate-of-the-fellowship/",
+        "fields": [
+          "designers",
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "minPlayTime",
+          "maxPlayTime",
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      }
+    ]
   },
   {
     "slug": "clans-of-caledonia",
     "title": "Clans of Caledonia",
+    "designers": [
+      "Juma Al-JouJou"
+    ],
+    "artists": [
+      "Klemens Franz"
+    ],
+    "publishers": [
+      "Karma Games"
+    ],
     "titles": {
       "en": "Clans of Caledonia",
       "zh": "加勒多尼亚"
@@ -51,6 +262,49 @@
     "players": "1–4",
     "playTime": "30 min per player",
     "yearPublished": 2017,
-    "thumbnail": "guide-assets/clans-of-caledonia/coverart.webp"
+    "thumbnail": "guide-assets/clans-of-caledonia/coverart.webp",
+    "minPlayers": 1,
+    "maxPlayers": 4,
+    "minPlayTime": 30,
+    "maxPlayTime": 120,
+    "age": "12+",
+    "minAge": 12,
+    "bgg": {
+      "id": 216132,
+      "name": "Clans of Caledonia",
+      "url": "https://boardgamegeek.com/boardgame/216132"
+    },
+    "metadataSources": [
+      {
+        "provider": "Existing reviewed guide",
+        "path": "public/games/clans-of-caledonia/index.html",
+        "method": "curated",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "yearPublished"
+        ]
+      },
+      {
+        "provider": "Publisher",
+        "url": "https://karma-games.com/wp-content/uploads/2018/05/Caledonia_Rules_FR_CC15_HD.compressed.pdf",
+        "fields": [
+          "designers",
+          "artists",
+          "publishers",
+          "players",
+          "minPlayers",
+          "maxPlayers",
+          "playTime",
+          "minPlayTime",
+          "maxPlayTime",
+          "age",
+          "minAge"
+        ],
+        "checkedAt": "2026-09-16T01:14:11.418Z",
+        "method": "reviewed-web"
+      }
+    ]
   }
 ]

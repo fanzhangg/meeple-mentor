@@ -29,6 +29,17 @@ test('all game/language chat routes send their own rules to the model', async ()
         assert.equal((await response.json()).usedModel,true);
         const prompt=captured.at(-1).instructions;
         assert.ok(prompt.includes(game.rulebooks[language].trim()),`${slug}/${language} must include all supplied rules`);
+        for (const [field, labels] of [
+          ['designers', {en:'Designer', zh:'设计师'}],
+          ['artists', {en:'Artist', zh:'美术'}],
+          ['publishers', {en:'Publisher', zh:'出版商'}],
+        ]) {
+          assert.ok(game.metadata[field]?.length, `${slug} must supply ${field} to chat`);
+          assert.ok(prompt.includes(`${labels[language]}: ${game.metadata[field].join(', ')}`), `${slug}/${language} must send ${field} in game metadata`);
+        }
+        assert.ok(prompt.includes(`${language === 'zh' ? '出版年份' : 'Year published'}: ${game.metadata.yearPublished}`));
+        assert.ok(prompt.includes(game.metadata.bgg.url));
+        assert.ok(prompt.includes(game.metadata.players));
         if (slug!=='huang') {
           assert.ok(!prompt.includes('HUANG'));
           const notes=await readFile(new URL(`../content/games/${slug}/rules-review.md`,import.meta.url),'utf8');

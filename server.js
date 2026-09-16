@@ -229,6 +229,7 @@ function gameContext(game, language = "en") {
   if (language === "zh") {
     return [
       `标题: ${metadata.title}`,
+      `出版年份: ${metadata.yearPublished || ""}`,
       `玩家人数: ${metadata.players || [metadata.minPlayers, metadata.maxPlayers].filter(Boolean).join("-")}`,
       `游戏时长: ${metadata.playTime || ""}`,
       `年龄: ${metadata.age || ""}`,
@@ -236,12 +237,18 @@ function gameContext(game, language = "en") {
       `设计师: ${metadata.designers?.join(", ") || ""}`,
       `美术: ${metadata.artists?.join(", ") || ""}`,
       `出版商: ${metadata.publishers?.join(", ") || ""}`,
+      `分类: ${metadata.categories?.join(", ") || ""}`,
+      `机制: ${metadata.mechanisms?.join(", ") || ""}`,
+      `系列: ${metadata.families?.join(", ") || ""}`,
+      `BGG 资料（统计仅代表快照，非实时）: ${metadata.bgg ? JSON.stringify(metadata.bgg) : ""}`,
+      `资料来源: ${metadata.metadataSources ? JSON.stringify(metadata.metadataSources) : ""}`,
       `简介: ${metadata.description || metadata.subtitle || ""}`,
     ].filter((line) => !line.endsWith(": ")).join("\n");
   }
 
   return [
     `Title: ${metadata.title}`,
+    `Year published: ${metadata.yearPublished || ""}`,
     `Players: ${metadata.players || [metadata.minPlayers, metadata.maxPlayers].filter(Boolean).join("-")}`,
     `Play time: ${metadata.playTime || ""}`,
     `Age: ${metadata.age || ""}`,
@@ -249,6 +256,11 @@ function gameContext(game, language = "en") {
     `Designer: ${metadata.designers?.join(", ") || ""}`,
     `Artist: ${metadata.artists?.join(", ") || ""}`,
     `Publisher: ${metadata.publishers?.join(", ") || ""}`,
+    `Categories: ${metadata.categories?.join(", ") || ""}`,
+    `Mechanisms: ${metadata.mechanisms?.join(", ") || ""}`,
+    `Families: ${metadata.families?.join(", ") || ""}`,
+    `BGG metadata (statistics are a snapshot, not live): ${metadata.bgg ? JSON.stringify(metadata.bgg) : ""}`,
+    `Metadata sources: ${metadata.metadataSources ? JSON.stringify(metadata.metadataSources) : ""}`,
     `Description: ${metadata.description || metadata.subtitle || ""}`,
   ].filter((line) => !line.endsWith(": ")).join("\n");
 }

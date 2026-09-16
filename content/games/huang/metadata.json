@@ -56,15 +56,68 @@
   "thumbnail": "/game-assets/huang/cover-art.png",
   "bgg": {
     "id": 371688,
-    "url": "https://boardgamegeek.com/boardgame/371688/huang",
+    "url": "https://boardgamegeek.com/boardgame/371688",
     "rank": 1851,
     "strategyRank": 890,
     "averageRating": 7.9,
     "ratingsLabel": "1.2K Ratings & 313 Comments",
     "weight": 3.02,
     "weightScale": 5,
-    "itemId": 371688
+    "itemId": 371688,
+    "name": "HUANG",
+    "snapshotNote": "Legacy saved BGG page; retrieval date unknown. Statistics are not current."
   },
   "sourceNote": "Rule text is generated from the provided HUANG rules PDF and should be reviewed before being treated as canonical. Board game metadata is from the saved BoardGameGeek page PDF/HTML in GameRulesPDF/huang.",
-  "canonicalRuleFile": "clean.md"
+  "canonicalRuleFile": "clean.md",
+  "minAge": 14,
+  "metadataSources": [
+    {
+      "provider": "Existing reviewed guide",
+      "path": "content/games/huang/metadata.json",
+      "method": "curated",
+      "fields": [
+        "designers",
+        "artists",
+        "publishers",
+        "yearPublished"
+      ]
+    },
+    {
+      "provider": "Publisher",
+      "url": "https://phalanx.co.uk/games/huang-reiner-knizia-board-game/",
+      "fields": [
+        "designers",
+        "players",
+        "minPlayers",
+        "maxPlayers",
+        "playTime",
+        "age",
+        "minAge"
+      ],
+      "checkedAt": "2026-09-16T01:14:11.418Z",
+      "method": "reviewed-web"
+    },
+    {
+      "provider": "Publisher",
+      "url": "https://phalanx.co.uk/wp-content/uploads/2023/04/HUANG_rules.pdf",
+      "fields": [
+        "minPlayTime",
+        "maxPlayTime"
+      ],
+      "checkedAt": "2026-09-16T01:14:11.418Z",
+      "method": "reviewed-web"
+    },
+    {
+      "provider": "Saved BoardGameGeek page",
+      "path": "GameRulesPDF/huang",
+      "method": "archive",
+      "fields": [
+        "categories",
+        "mechanisms",
+        "families",
+        "bgg"
+      ],
+      "note": "Existing local metadata; original retrieval date unknown."
+    }
+  ]
 }
