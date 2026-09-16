@@ -257,7 +257,7 @@ html:lang(zh-Hans) .game-page {
   background: var(--surface-soft);
 }
 .game-page .checkpoint p { margin: 0; font-size: var(--guide-text-body); line-height: var(--guide-leading); }
-.checkpoint .checkpoint-prompt { color: var(--ink); font-weight: var(--guide-weight-label); }
+.checkpoint .checkpoint-prompt { color: var(--accent-hover); font-weight: var(--guide-weight-normal); }
 .checkpoint-options { display: grid; gap: var(--guide-space-2); }
 .checkpoint-option {
   display: grid;
